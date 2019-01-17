@@ -278,3 +278,41 @@ tools/unicode/c/genprops/genprops.[0-9]
 tools/unicode/c/genuca/genuca
 tools/unicode/c/genuca/genuca.8
 tools/unicode/c/icudefs.txt
+tools/unicodetools/com/ibm/rbm/lib
+
+# RTC ignores
+# Premake generated files #
+###########################
+*.vcxproj*
+*.sln
+Makefile
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.project
+
+# VS generated files #
+######################
+ipch/
+*.suo
+*.opensdf
+*.sdf
+*.vcxproj
+*.filters
+*.user
+
+# Qt files
+###########################
+*.config
+*.creator
+*.files
+*.includes
+moc/
+
