@@ -87,7 +87,7 @@ project "icu"
     "icu4c/source/common/utrie2.cpp",
     "icu4c/source/common/uvector.cpp",
     "icu4c/source/common/wintz.cpp",
-    --"icu4c/source/data/in/icudt63l_dat.cpp",
+    "icu4c/source/data/icudt63_dat.c",
     "icu4c/source/extra/scrptrun/scrptrun.cpp",
   }
 
