@@ -111,7 +111,8 @@ static u_atomic_int32_t gHaveTriedToLoadCommonData = ATOMIC_INT32_T_INITIALIZER(
 static UHashtable  *gCommonDataCache = NULL;  /* Global hash table of opened ICU data files.  */
 static icu::UInitOnce gCommonDataCacheInitOnce = U_INITONCE_INITIALIZER;
 
-#if !defined(ICU_DATA_DIR_WINDOWS)
+
+#if !defined(ICU_DATA_DIR_WINDOWS) || defined(RTC_WINDOWS_UNIVERSAL)
 static UDataFileAccess  gDataFileAccess = UDATA_DEFAULT_ACCESS;  // Access not synchronized.
                                                                  // Modifying is documented as thread-unsafe.
 #else
@@ -208,8 +209,7 @@ setCommonICUData(UDataMemory *pData,     /*  The new common data.  Belongs to ca
     return didUpdate;
 }
 
-#if !defined(ICU_DATA_DIR_WINDOWS)
-
+#if !defined(ICU_DATA_DIR_WINDOWS) || defined(RTC_WINDOWS_UNIVERSAL)
 static UBool
 setCommonICUDataPointer(const void *pData, UBool /*warn*/, UErrorCode *pErrorCode) {
     UDataMemory tData;
@@ -641,7 +641,8 @@ U_NAMESPACE_END
  *      our common data.                                                *
  *                                                                      *
  *----------------------------------------------------------------------*/
-#if !defined(ICU_DATA_DIR_WINDOWS)
+
+#if !defined(ICU_DATA_DIR_WINDOWS) || defined(RTC_WINDOWS_UNIVERSAL)
 // When using the Windows system data, we expect only a single data file.
 extern "C" const DataHeader U_DATA_API U_ICUDATA_ENTRY_POINT;
 #endif
@@ -692,7 +693,7 @@ openCommonData(const char *path,          /*  Path from OpenChoice?          */
             if(gCommonICUDataArray[commonDataIndex] != NULL) {
                 return gCommonICUDataArray[commonDataIndex];
             }
-#if !defined(ICU_DATA_DIR_WINDOWS)
+#if !defined(ICU_DATA_DIR_WINDOWS) || defined(RTC_WINDOWS_UNIVERSAL)
 // When using the Windows system data, we expect only a single data file.
             int32_t i;
             for(i = 0; i < commonDataIndex; ++i) {
@@ -717,8 +718,10 @@ openCommonData(const char *path,          /*  Path from OpenChoice?          */
             setCommonICUDataPointer(uprv_getICUData_conversion(), FALSE, pErrorCode);
         }
         */
-#if !defined(ICU_DATA_DIR_WINDOWS)
+
+#if !defined(ICU_DATA_DIR_WINDOWS)|| defined(RTC_WINDOWS_UNIVERSAL)
 // When using the Windows system data, we expect only a single data file.
+
         setCommonICUDataPointer(&U_ICUDATA_ENTRY_POINT, FALSE, pErrorCode);
         {
             Mutex lock;
@@ -1283,7 +1286,8 @@ doOpenChoice(const char *path, const char *type, const char *name,
     fprintf(stderr, " tocEntryPath = %s\n", tocEntryName.data());
 #endif
 
-#if !defined(ICU_DATA_DIR_WINDOWS)
+#if !defined(ICU_DATA_DIR_WINDOWS)|| defined(RTC_WINDOWS_UNIVERSAL) 
+
     if(path == NULL) {
         path = COMMON_DATA_NAME; /* "icudt26e" */
     }
