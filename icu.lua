@@ -20,6 +20,9 @@ project "icu"
   }
 
   files {
+    "icu4c/source/common/**.h",
+    "icu4c/source/extra/scrptrun/scrptrun.h",
+
     "icu4c/source/common/appendable.cpp",
     "icu4c/source/common/bmpset.cpp",
     "icu4c/source/common/bytesinkutil.cpp",
