@@ -19,6 +19,13 @@ project "icu"
     "NoPCH",
   }
 
+  defines {
+    -- Limit the number of conversions supported to only those necessary: ASCII, Latin-1, and
+    -- UTF-8/UTF-16.  See ucnv_bld.cpp for a list of encodings available with each #define
+    "UCONFIG_NO_LEGACY_CONVERSION",
+    "UCONFIG_ONLY_HTML_CONVERSION",
+  }
+
   files {
     "icu4c/source/common/**.h",
     "icu4c/source/extra/scrptrun/scrptrun.h",
@@ -52,6 +59,17 @@ project "icu"
     "icu4c/source/common/uchar.cpp",
     "icu4c/source/common/ucln_cmn.cpp",
     "icu4c/source/common/ucmndata.cpp",
+    "icu4c/source/common/ucnv.cpp",
+    "icu4c/source/common/ucnv_bld.cpp",
+    "icu4c/source/common/ucnv_cb.cpp",
+    "icu4c/source/common/ucnv_cnv.cpp",
+    "icu4c/source/common/ucnv_ct.cpp",
+    "icu4c/source/common/ucnv_err.cpp",
+    "icu4c/source/common/ucnv_ext.cpp",
+    "icu4c/source/common/ucnv_io.cpp",
+    "icu4c/source/common/ucnv_u8.cpp",
+    "icu4c/source/common/ucnv_u16.cpp",
+    "icu4c/source/common/ucnvlat1.cpp",
     "icu4c/source/common/ucol_swp.cpp",
     "icu4c/source/common/ucptrie.cpp",
     "icu4c/source/common/udata.cpp",
@@ -78,9 +96,11 @@ project "icu"
     "icu4c/source/common/uresbund.cpp",
     "icu4c/source/common/uresdata.cpp",
     "icu4c/source/common/uscript_props.cpp",
+    "icu4c/source/common/ustr_cnv.cpp",
     "icu4c/source/common/ustrcase.cpp",
     "icu4c/source/common/ustrcase_locale.cpp",
     "icu4c/source/common/ustrenum.cpp",
+    "icu4c/source/common/ustrfmt.cpp",
     "icu4c/source/common/ustring.cpp",
     "icu4c/source/common/ustrtrns.cpp",
     "icu4c/source/common/utf_impl.cpp",
