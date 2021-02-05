@@ -45,10 +45,14 @@
  * @stable ICU 2.4
  */
 
-// RTC defines
+ //RTC defines
+#ifndef U_COMMON_IMPLEMENTATION
 #define U_COMMON_IMPLEMENTATION // build the icu common library
+#endif
+#ifndef U_STATIC_IMPLEMENTATION
 #define U_STATIC_IMPLEMENTATION // build icu as a static library
-// end RTC defines
+#endif // !U_STATIC_IMPLEMENTATION
+ //end RTC defines
 
 /**
  * If this switch is defined, ICU will attempt to load a header file named "uconfig_local.h"
