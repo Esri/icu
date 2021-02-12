@@ -75,7 +75,6 @@ configure text !eol
 *.utf16be -text
 
 # The following file types are stored in Git-LFS.
-<<<<<<< HEAD
 # Only .jars
 *.jar filter=lfs diff=lfs merge=lfs -text
 
