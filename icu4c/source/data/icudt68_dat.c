@@ -1,15 +1,15 @@
 #ifndef IN_GENERATED_CCODE
 #define IN_GENERATED_CCODE
 #define U_DISABLE_RENAMING 1
-#include <uchar.h>
+#include <stdint.h>
+typedef uint16_t char16_t;
 #include "unicode/umachine.h"
 #endif
 U_CDECL_BEGIN
-typedef uint16_t char16_t;
 const struct {
     double bogus;
     uint8_t bytes[1246400]; 
-} icudt68l_dat={ 0.0, {
+} icudt68_dat={ 0.0, {
 144,0,218,39,20,0,0,0,0,0,2,0,67,109,110,68,
 1,0,0,0,3,0,0,0,32,67,111,112,121,114,105,103,
 104,116,32,40,67,41,32,50,48,49,54,32,97,110,100,32,
