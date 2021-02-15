@@ -731,7 +731,9 @@ buildoptions {
     -- -------------------------------------------------------------
     -- configuration { "windows" }
     -- -------------------------------------------------------------
-
+buildoptions {
+  "/utf-8",
+  }
     -- common configuration settings
 
     dofile (_BUILD_DIR .. "/static_winuwp.lua")
