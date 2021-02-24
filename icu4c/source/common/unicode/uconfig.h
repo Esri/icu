@@ -47,28 +47,28 @@
 
  //RTC defines
 #ifndef U_COMMON_IMPLEMENTATION
-#define U_COMMON_IMPLEMENTATION // build the icu common library
+#define U_COMMON_IMPLEMENTATION 1// build the icu common library
 #endif
 #ifndef U_STATIC_IMPLEMENTATION
-#define U_STATIC_IMPLEMENTATION // build icu as a static library
+#define U_STATIC_IMPLEMENTATION 1// build icu as a static library
 #endif // !U_STATIC_IMPLEMENTATION
 #ifndef UCONFIG_NO_LEGACY_CONVERSION
-#define UCONFIG_NO_LEGACY_CONVERSION
+#define UCONFIG_NO_LEGACY_CONVERSION 1
 #endif
 #ifndef UCONFIG_ONLY_HTML_CONVERSION
-#define UCONFIG_ONLY_HTML_CONVERSION
+#define UCONFIG_ONLY_HTML_CONVERSION 1
 #endif
 #ifndef	UCONFIG_NO_SERVICE
-#define	UCONFIG_NO_SERVICE
+#define	UCONFIG_NO_SERVICE 1
 #endif
 #ifndef	U_I18N_IMPLEMENTATION
-#define	U_I18N_IMPLEMENTATION// build the icu i18n library
+#define	U_I18N_IMPLEMENTATION 1// build the icu i18n library
 #endif
 #ifndef	U_SHOW_CPLUSPLUS_API
-#define	U_SHOW_CPLUSPLUS_API
+#define	U_SHOW_CPLUSPLUS_API 1
 #endif
 #ifndef	UCONFIG_NO_COLLATION
-#define	UCONFIG_NO_COLLATION// remove collation as we dont require it.r
+#define	UCONFIG_NO_COLLATION 1// remove collation as we dont require it.r
 #endif
  //end RTC defines
 
