@@ -18,7 +18,7 @@
     "lang_tree": {
       "filterType": "exclude"
     },
-    "Normalization": "exclude",
+    "normalization": "exclude",
     "region_tree": {
       "filterType": "exclude"
     },
