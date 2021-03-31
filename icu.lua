@@ -14,7 +14,6 @@ defines {
 	"U_I18N_IMPLEMENTATION",
 	"U_SHOW_CPLUSPLUS_API",
 	"UCONFIG_NO_COLLATION",
-	--"U_COMBINED_IMPLEMENTATION"
 }
 includedirs {
     "icu4c/source/common",
@@ -167,7 +166,6 @@ files {
 	"icu4c/source/i18n/astro.cpp",
 	"icu4c/source/i18n/cecal.cpp",
 	"icu4c/source/i18n/rbtz.cpp",
---	"icu4c/source/i18n/double-conversion.cpp",
 	"icu4c/source/i18n/tzgnames.cpp",
 	"icu4c/source/i18n/measunit.cpp",
 	"icu4c/source/i18n/choicfmt.cpp",
@@ -195,7 +193,6 @@ files {
 	"icu4c/source/i18n/nfrs.cpp",
 	"icu4c/source/i18n/double-conversion-fast-dtoa.cpp",  
 	"icu4c/source/i18n/decContext.cpp", 
---	"icu4c/source/i18n/numparse_stringsegment.cpp", 
 	"icu4c/source/i18n/numparse_symbols.cpp",
 	"icu4c/source/i18n/number_rounding.cpp", 
 	"icu4c/source/i18n/number_currencysymbols.cpp", 
@@ -218,7 +215,6 @@ files {
 	"icu4c/source/i18n/number_longnames.cpp",
 	"icu4c/source/i18n/numparse_decimal.cpp",
 	"icu4c/source/i18n/number_compact.cpp",
---	"icu4c/source/i18n/double-conversion-diy-fp.cpp",
     "icu4c/source/common/parsepos.cpp",
 	"icu4c/source/common/sharedobject.cpp",
 	"icu4c/source/common/unifiedcache.cpp",
