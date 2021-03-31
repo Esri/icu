@@ -1,0 +1,40 @@
+{
+  "featureFilters": {
+    "brkitr_rules": "exclude",
+    "brkitr_dictionaries": "exclude",
+    "brkitr_tree": {
+      "filterType": "exclude"
+    },
+    "conversion_mappings": "exclude",
+    "coll_tree": {
+      "filterType": "exclude"
+    },
+    "coll_ucadata": "exclude",
+    "confusables": "exclude",
+    "curr_supplemental": "exclude",
+    "curr_tree": {
+      "filterType": "exclude"
+    },
+    "lang_tree": {
+      "filterType": "exclude"
+    },
+    "region_tree": {
+      "filterType": "exclude"
+    },
+    "rbnf_tree": {
+      "filterType": "exclude"
+    },
+    "stringprep": "exclude",
+    "zone_tree": {
+      "filterType": "exclude"
+    },
+    "zone_supplemental": "exclude",
+    "unit_tree": {
+      "filterType": "exclude"
+    },
+    "locales_tree": {
+      "filterType": "exclude"
+    },
+    "misc": "exclude"
+  }
+}
