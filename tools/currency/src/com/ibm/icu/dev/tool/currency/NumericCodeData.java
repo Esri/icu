@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 2012-2013, International Business Machines Corporation and    *
@@ -401,7 +401,7 @@ public class NumericCodeData {
         {"XXX", "999"},
         {"YDD", "720"},
         {"YER", "886"},
-        {"YUD", "891"},
+        {"YUD", "890"},
         {"YUM", "891"},
         {"YUN", "890"},
         {"ZAL", "991"},

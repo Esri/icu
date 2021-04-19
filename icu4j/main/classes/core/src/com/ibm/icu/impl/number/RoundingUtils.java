@@ -1,12 +1,15 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.impl.number;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
+import com.ibm.icu.impl.StandardPlural;
+import com.ibm.icu.number.Precision;
 import com.ibm.icu.number.Scale;
+import com.ibm.icu.text.PluralRules;
 
 /** @author sffc */
 public class RoundingUtils {
@@ -218,5 +221,19 @@ public class RoundingUtils {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Computes the plural form after copying the number and applying rounding rules.
+     */
+    public static StandardPlural getPluralSafe(
+            Precision rounder, PluralRules rules, DecimalQuantity dq) {
+        if (rounder == null) {
+            return dq.getStandardPlural(rules);
+        }
+        // TODO(ICU-20500): Avoid the copy?
+        DecimalQuantity copy = dq.createCopy();
+        rounder.apply(copy);
+        return copy.getStandardPlural(rules);
     }
 }

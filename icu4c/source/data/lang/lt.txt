@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 lt{
     Keys{
         calendar{"kalendorius"}
@@ -108,6 +109,7 @@ lt{
         car{"karibų"}
         cay{"kaijūgų"}
         cch{"atsamų"}
+        ccp{"Čakma"}
         ce{"čečėnų"}
         ceb{"sebuanų"}
         cgg{"čigų"}
@@ -638,10 +640,15 @@ lt{
         zxx{"nėra kalbinio turinio"}
         zza{"zaza"}
     }
+    Languages%long{
+        zh_Hans{"supaprastintoji mandarinų kinų"}
+        zh_Hant{"tradicinė mandarinų kinų"}
+    }
+    Languages%menu{
+        zh{"kinų, mandarinų"}
+    }
     Languages%short{
         az{"azeri"}
-        en_GB{"anglų (JK)"}
-        en_US{"anglų (JAV)"}
     }
     Scripts{
         Afak{"Afaka"}
@@ -1023,7 +1030,6 @@ lt{
         VALENCIA{"Valenciečiai"}
         WADEGILE{"Wade-Giles Romanization"}
     }
-    Version{"2.1.44.91"}
     characterLabelPattern{
         all{"{0} – visi"}
         category-list{"{0}: {1}"}
@@ -1040,6 +1046,8 @@ lt{
             one{"{0} brūkšnys"}
             other{"{0} brūkšnių"}
         }
+        subscript{"apatinis indeksas {0}"}
+        superscript{"viršutinis indeksas {0}"}
     }
     codePatterns{
         language{"Kalba: {0}"}

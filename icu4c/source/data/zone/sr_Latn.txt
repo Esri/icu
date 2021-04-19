@@ -1,8 +1,8 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 sr_Latn{
     %%Parent{"root"}
-    Version{"2.1.44.50"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Abidžan"}
@@ -275,7 +275,7 @@ sr_Latn{
             ec{"Kuiaba"}
         }
         "America:Curacao"{
-            ec{"Kiraso"}
+            ec{"Kurasao"}
         }
         "America:Danmarkshavn"{
             ec{"Danmarkshagen"}
@@ -811,6 +811,9 @@ sr_Latn{
         "Asia:Qatar"{
             ec{"Katar"}
         }
+        "Asia:Qostanay"{
+            ec{"Kostanaj"}
+        }
         "Asia:Qyzylorda"{
             ec{"Kizilorda"}
         }
@@ -1017,7 +1020,7 @@ sr_Latn{
             ec{"Istanbul"}
         }
         "Europe:Jersey"{
-            ec{"Džersi"}
+            ec{"Džerzi"}
         }
         "Europe:Kaliningrad"{
             ec{"Kalinjingrad"}
@@ -1524,7 +1527,7 @@ sr_Latn{
             ss{"EET"}
         }
         "meta:Europe_Further_Eastern"{
-            ls{"Dalji istok Evrope"}
+            ls{"Vreme daljeg istoka Evrope"}
         }
         "meta:Europe_Western"{
             ld{"Zapadnoevropsko letnje vreme"}
@@ -1759,7 +1762,9 @@ sr_Latn{
             ls{"Niue vreme"}
         }
         "meta:Norfolk"{
-            ls{"Norfolk Ostrvo vreme"}
+            ld{"Norfolk Ostrvo, letnje vreme"}
+            lg{"Norfolk Ostrvo vreme"}
+            ls{"Norfolk Ostrvo, standardno vreme"}
         }
         "meta:Noronha"{
             ld{"Fernando de Noronja, letnje vreme"}

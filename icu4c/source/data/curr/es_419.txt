@@ -1,26 +1,27 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 es_419{
     Currencies{
-        AMD{
-            "AMD",
-            "dram armenio",
+        ANG{
+            "ANG",
+            "florín de las Antillas Neerlandesas",
         }
-        CAD{
-            "CAD",
-            "dólar canadiense",
-        }
-        ERN{
-            "ERN",
-            "nafka",
+        BMD{
+            "BMD",
+            "dólar de Bermudas",
         }
         EUR{
             "EUR",
             "euro",
         }
-        MYR{
-            "MYR",
-            "ringgit malayo",
+        MWK{
+            "MWK",
+            "kwacha malauí",
+        }
+        NIO{
+            "NIO",
+            "córdoba nicaragüense",
         }
         THB{
             "THB",
@@ -34,29 +35,9 @@ es_419{
             "UZS",
             "som uzbeko",
         }
-        VEF{
-            "VEF",
-            "bolívar venezolano",
-        }
-        VES{
-            "VES",
-            "VES",
-        }
         VND{
             "VND",
             "dong",
-        }
-        XAF{
-            "XAF",
-            "franco CFA BEAC",
-        }
-        XOF{
-            "XOF",
-            "franco CFA BCEAO",
-        }
-        ZMW{
-            "ZMW",
-            "kuacha zambiano",
         }
     }
     Currencies%narrow{
@@ -67,16 +48,25 @@ es_419{
         VEF{"BsF"}
     }
     CurrencyPlurals{
+        ANG{
+            one{"florín de las Antillas Neerlandesas"}
+            other{"florines de las Antillas Neerlandesas"}
+        }
         BGN{
             one{"lev búlgaro"}
             other{"leva búlgaros"}
         }
-        LVL{
-            one{"lats letón"}
+        BMD{
+            one{"dólar de Bermudas"}
+            other{"dólares de Bermudas"}
         }
-        MYR{
-            one{"ringgit malayo"}
-            other{"ringgits malayos"}
+        MWK{
+            one{"kwacha malauí"}
+            other{"kwachas malauís"}
+        }
+        NIO{
+            one{"córdoba nicaragüense"}
+            other{"córdobas nicaragüenses"}
         }
         THB{
             one{"baht tailandes"}
@@ -86,30 +76,9 @@ es_419{
             one{"som uzbeko"}
             other{"soms uzbekos"}
         }
-        VEF{
-            one{"bolívar venezolano"}
-            other{"bolívares venezolanos"}
-        }
-        VES{
-            one{"VES"}
-            other{"VES"}
-        }
-        XAF{
-            one{"franco CFA BEAC"}
-            other{"francos CFA BEAC"}
-        }
-        XOF{
-            one{"franco CFA BCEAO"}
-            other{"francos CFA BCEAO"}
-        }
         XXX{
             one{"(unidad de moneda desconocida)"}
             other{"(moneda desconocida)"}
         }
-        ZMW{
-            one{"kuacha zambiano"}
-            other{"kuachas zambianos"}
-        }
     }
-    Version{"2.1.43.65"}
 }

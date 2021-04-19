@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 ro{
     Countries{
         001{"Lume"}
@@ -133,7 +134,7 @@ ro{
         GU{"Guam"}
         GW{"Guineea-Bissau"}
         GY{"Guyana"}
-        HK{"R.A.S. Hong Kong a Chinei"}
+        HK{"R.A.S. Hong Kong, China"}
         HM{"Insula Heard și Insulele McDonald"}
         HN{"Honduras"}
         HR{"Croația"}
@@ -183,11 +184,11 @@ ro{
         MF{"Sfântul Martin"}
         MG{"Madagascar"}
         MH{"Insulele Marshall"}
-        MK{"Republica Macedonia"}
+        MK{"Macedonia de Nord"}
         ML{"Mali"}
         MM{"Myanmar (Birmania)"}
         MN{"Mongolia"}
-        MO{"R.A.S. Macao a Chinei"}
+        MO{"R.A.S. Macao, China"}
         MP{"Insulele Mariane de Nord"}
         MQ{"Martinica"}
         MR{"Mauritania"}
@@ -249,11 +250,11 @@ ro{
         SO{"Somalia"}
         SR{"Suriname"}
         SS{"Sudanul de Sud"}
-        ST{"Sao Tome și Principe"}
+        ST{"São Tomé și Príncipe"}
         SV{"El Salvador"}
         SX{"Sint-Maarten"}
         SY{"Siria"}
-        SZ{"Swaziland"}
+        SZ{"Eswatini"}
         TA{"Tristan da Cunha"}
         TC{"Insulele Turks și Caicos"}
         TD{"Ciad"}
@@ -287,6 +288,8 @@ ro{
         VU{"Vanuatu"}
         WF{"Wallis și Futuna"}
         WS{"Samoa"}
+        XA{"Pseudo-accente"}
+        XB{"Pseudo-Bidi"}
         XK{"Kosovo"}
         YE{"Yemen"}
         YT{"Mayotte"}
@@ -296,7 +299,6 @@ ro{
         ZZ{"Regiune necunoscută"}
     }
     Countries%short{
-        GB{"Regatul Unit"}
         HK{"Hong Kong"}
         MO{"Macao"}
         PS{"Palestina"}
@@ -309,8 +311,7 @@ ro{
         CI{"Coasta de Fildeș"}
         CZ{"Republica Cehă"}
         FK{"Insulele Falkland (Insulele Malvine)"}
-        MK{"Republica Macedonia (FRIM)"}
+        SZ{"Swaziland"}
         TL{"Timorul de Est"}
     }
-    Version{"2.1.43.94"}
 }

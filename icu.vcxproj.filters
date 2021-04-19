@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="icu4c">
+      <UniqueIdentifier>{093DC63A-575B-6E4C-8810-1B578399C515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icu4c\source">
+      <UniqueIdentifier>{0400D2CE-AD3A-0749-9880-3E4907DBF627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icu4c\source\common">
+      <UniqueIdentifier>{5B55AC30-F8A4-614A-9572-CD27097E4843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icu4c\source\common\unicode">
+      <UniqueIdentifier>{B50FD9E2-E174-DC4F-98CE-7DC4F87CBE8A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icu4c\source\extra">
+      <UniqueIdentifier>{7B513526-AD00-C348-92A4-21B2434BDF78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icu4c\source\extra\scrptrun">
+      <UniqueIdentifier>{5E72CC11-8408-E544-988A-D42CC05D8DBD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="icu4c\source\data">
+      <UniqueIdentifier>{16159E12-BDD8-9C4B-869F-7C2C52555F59}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="icu4c\source\common\bmpset.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\brkeng.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\bytesinkutil.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\capi_helper.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\charstr.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\charstrmap.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\cmemory.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\cpputils.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\cstr.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\cstring.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\cwchar.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\dictbe.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\dictionarydata.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\hash.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\icuplugimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\localeprioritylist.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\localsvc.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\locbased.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\locdistance.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\loclikelysubtags.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\locmap.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\locutil.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\lsr.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\messageimpl.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\msvcres.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\mutex.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\norm2allmodes.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\norm2_nfc_data.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\normalizer2impl.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\patternprops.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\pluralmap.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\propname.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\propname_data.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\propsvec.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\punycode.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\putilimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\rbbidata.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\rbbinode.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\rbbirb.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\rbbirpt.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\rbbiscan.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\rbbisetb.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\rbbitblb.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\rbbi_cache.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\resource.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\restrace.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ruleiter.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\serv.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\servloc.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\servnotf.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\sharedobject.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\sprpimpl.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\static_unicode_sets.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uarrsort.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uassert.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ubidiimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ubidi_props.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ubidi_props_data.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ubrkimpl.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucase.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucasemap_imp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucase_props_data.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uchar_props_data.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucln.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucln_cmn.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucln_imp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucmndata.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucnvmbcs.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucnv_bld.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucnv_cnv.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucnv_ext.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucnv_imp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucnv_io.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucol_data.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucol_swp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucptrie_impl.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ucurrimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\udatamem.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\udataswp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uelement.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uenumimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uhash.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uinvchar.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ulayout_props.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ulayout_props_data.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ulist.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ulocimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\umapfile.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\umutex.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unifiedcache.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uniquecharstr.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unisetspan.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unistrappender.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unormimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uposixdefs.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uprops.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uresdata.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uresimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ureslocs.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\usc_impl.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uset_imp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ustrenum.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ustrfmt.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ustr_cnv.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\ustr_imp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\util.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\utracimp.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\utrie.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\utrie2.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\utrie2_impl.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\utypeinfo.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uvector.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uvectr32.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\uvectr64.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\wintz.h">
+      <Filter>icu4c\source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\appendable.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\brkiter.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\bytestream.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\bytestrie.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\bytestriebuilder.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\caniter.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\casemap.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\char16ptr.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\chariter.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\dbbi.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\docmain.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\dtintrv.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\edits.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\enumset.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\errorcode.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\filteredbrk.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\icudataver.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\icuplug.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\idna.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\localebuilder.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\localematcher.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\localpointer.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\locdspnm.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\locid.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\messagepattern.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\normalizer2.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\normlzr.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\parseerr.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\parsepos.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\platform.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ptypes.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\putil.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\rbbi.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\rep.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\resbund.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\schriter.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\simpleformatter.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\std_string.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\strenum.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\stringoptions.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\stringpiece.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\stringtriebuilder.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\symtable.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ubidi.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ubiditransform.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ubrk.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucasemap.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucat.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uchar.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucharstrie.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucharstriebuilder.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uchriter.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uclean.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucnv.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucnvsel.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucnv_cb.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucnv_err.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uconfig.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucpmap.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucptrie.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ucurr.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\udata.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\udisplaycontext.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uenum.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uidna.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uiter.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uldnames.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uloc.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\umachine.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\umisc.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\umutablecptrie.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\unifilt.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\unifunct.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\unimatch.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uniset.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\unistr.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\unorm.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\unorm2.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uobject.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\urename.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\urep.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ures.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uscript.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uset.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\usetiter.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ushape.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\usprep.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ustring.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\ustringtrie.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\utext.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\utf.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\utf16.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\utf32.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\utf8.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\utf_old.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\utrace.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\utypes.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uvernum.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\common\unicode\uversion.h">
+      <Filter>icu4c\source\common\unicode</Filter>
+    </ClInclude>
+    <ClInclude Include="icu4c\source\extra\scrptrun\scrptrun.h">
+      <Filter>icu4c\source\extra\scrptrun</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="icu4c\source\common\appendable.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\bmpset.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\bytesinkutil.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\bytestream.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\bytestrie.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\charstr.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\cmemory.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\cstring.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\edits.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\loadednormalizer2impl.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\localebuilder.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\locid.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\loclikely.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\locmap.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\normalizer2.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\normalizer2impl.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\patternprops.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\propname.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\putil.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\resource.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\stringpiece.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uarrsort.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ubidi.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ubidi_props.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ubidiln.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ubidiwrt.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucase.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uchar.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucln_cmn.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucmndata.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_bld.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_cb.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_cnv.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_ct.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_err.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_ext.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_io.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_u8.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_u16.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnvlat1.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucol_swp.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucptrie.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\udata.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\udatamem.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\udataswp.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uenum.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uhash.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uinvchar.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uloc.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uloc_keytype.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uloc_tag.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\umapfile.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\umath.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\umutablecptrie.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\umutex.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unifilt.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unifunct.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uniset.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unisetspan.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unistr.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unistr_case.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unistr_case_locale.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uobject.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uresbund.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uresdata.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uscript_props.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustr_cnv.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrcase.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrcase_locale.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrenum.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrfmt.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustring.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrtrns.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\utf_impl.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\util.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\utrace.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\utrie_swap.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\utrie2.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uvector.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\wintz.cpp">
+      <Filter>icu4c\source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\data\icudt68_dat.c">
+      <Filter>icu4c\source\data</Filter>
+    </ClCompile>
+    <ClCompile Include="icu4c\source\extra\scrptrun\scrptrun.cpp">
+      <Filter>icu4c\source\extra\scrptrun</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

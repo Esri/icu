@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 2007-2011, International Business Machines Corporation and         *
@@ -28,7 +28,7 @@ class CharsetUTF7 extends CharsetICU {
 
     public CharsetUTF7(String icuCanonicalName, String javaCanonicalName, String[] aliases) {
         super(icuCanonicalName, javaCanonicalName, aliases);
-        maxBytesPerChar=4; /* max 3 bytes per code unit from UTF-7 (base64) */
+        maxBytesPerChar=5; /* max 3 bytes per code unit from UTF-7 (base64) plus SIN SOUT */
         minBytesPerChar=1;
         maxCharsPerByte=1;
 

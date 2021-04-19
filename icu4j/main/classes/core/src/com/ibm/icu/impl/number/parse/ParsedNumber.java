@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.impl.number.parse;
 
 import java.util.Comparator;
@@ -153,7 +153,7 @@ public class ParsedNumber {
             }
         }
         assert quantity != null;
-        if (quantity.isZero() && quantity.isNegative() && !integerOnly) {
+        if (quantity.isZeroish() && quantity.isNegative() && !integerOnly) {
             return -0.0;
         }
 

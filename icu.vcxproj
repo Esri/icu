@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6AD43549-999F-4CC9-9B46-072DA27244AC}</ProjectGuid>
+    <UseNativeEnvironment>true</UseNativeEnvironment>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <RootNamespace>icu</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\output\windows_x64_debug\staticlib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\output\intermediate\3rdparty\icu\windows_x64_debug\x64\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">icu</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\output\windows_x86_debug\staticlib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\output\intermediate\3rdparty\icu\windows_x86_debug\x32\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">icu</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\output\windows_x64_release\staticlib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\output\intermediate\3rdparty\icu\windows_x64_release\x64\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">icu</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\output\windows_x86_release\staticlib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\output\intermediate\3rdparty\icu\windows_x86_release\x32\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">icu</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/std:c++17 /MP /Zc:rvalueCast /Zc:strictStrings /bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>icu4c\source\common;icu4c\source\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>RTC;RTC_WINDOWS_FAMILY;RTC_WINDOWS_DESKTOP;_LIB;WIN32;_WINDOWS;WINDOWS;_UNICODE;UNICODE;NOMINMAX;_USE_MATH_DEFINES;WIN32_LEAN_AND_MEAN;WINVER=_WIN32_WINNT_WINBLUE;_WIN32_WINNT=_WIN32_WINNT_WINBLUE;NTDDI_VERSION=NTDDI_WINBLUE;CPPREST_FORCE_PPLX;_PPLTASK_ASYNC_LOGGING=0;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;RTC_X64;_DEBUG;DEBUG;UCONFIG_NO_LEGACY_CONVERSION;UCONFIG_ONLY_HTML_CONVERSION;UCONFIG_NO_SERVICE;U_I18N_IMPLEMENTATION;U_SHOW_CPLUSPLUS_API;UCONFIG_NO_COLLATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader></PrecompiledHeader>
+      <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)icu.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>RTC;RTC_WINDOWS_FAMILY;RTC_WINDOWS_DESKTOP;_LIB;WIN32;_WINDOWS;WINDOWS;_UNICODE;UNICODE;NOMINMAX;_USE_MATH_DEFINES;WIN32_LEAN_AND_MEAN;WINVER=_WIN32_WINNT_WINBLUE;_WIN32_WINNT=_WIN32_WINNT_WINBLUE;NTDDI_VERSION=NTDDI_WINBLUE;CPPREST_FORCE_PPLX;_PPLTASK_ASYNC_LOGGING=0;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;RTC_X64;_DEBUG;DEBUG;UCONFIG_NO_LEGACY_CONVERSION;UCONFIG_ONLY_HTML_CONVERSION;UCONFIG_NO_SERVICE;U_I18N_IMPLEMENTATION;U_SHOW_CPLUSPLUS_API;UCONFIG_NO_COLLATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>icu4c\source\common;icu4c\source\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)icu.lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation Condition="'$(GenerateDebugInformation)'!=''">$(GenerateDebugInformation)</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)icu_link.pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/std:c++17 /MP /Zc:rvalueCast /Zc:strictStrings /bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>icu4c\source\common;icu4c\source\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>RTC;RTC_WINDOWS_FAMILY;RTC_WINDOWS_DESKTOP;_LIB;WIN32;_WINDOWS;WINDOWS;_UNICODE;UNICODE;NOMINMAX;_USE_MATH_DEFINES;WIN32_LEAN_AND_MEAN;WINVER=_WIN32_WINNT_WINBLUE;_WIN32_WINNT=_WIN32_WINNT_WINBLUE;NTDDI_VERSION=NTDDI_WINBLUE;CPPREST_FORCE_PPLX;_PPLTASK_ASYNC_LOGGING=0;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;RTC_X86;_DEBUG;DEBUG;UCONFIG_NO_LEGACY_CONVERSION;UCONFIG_ONLY_HTML_CONVERSION;UCONFIG_NO_SERVICE;U_I18N_IMPLEMENTATION;U_SHOW_CPLUSPLUS_API;UCONFIG_NO_COLLATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader></PrecompiledHeader>
+      <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)icu.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>RTC;RTC_WINDOWS_FAMILY;RTC_WINDOWS_DESKTOP;_LIB;WIN32;_WINDOWS;WINDOWS;_UNICODE;UNICODE;NOMINMAX;_USE_MATH_DEFINES;WIN32_LEAN_AND_MEAN;WINVER=_WIN32_WINNT_WINBLUE;_WIN32_WINNT=_WIN32_WINNT_WINBLUE;NTDDI_VERSION=NTDDI_WINBLUE;CPPREST_FORCE_PPLX;_PPLTASK_ASYNC_LOGGING=0;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;RTC_X86;_DEBUG;DEBUG;UCONFIG_NO_LEGACY_CONVERSION;UCONFIG_ONLY_HTML_CONVERSION;UCONFIG_NO_SERVICE;U_I18N_IMPLEMENTATION;U_SHOW_CPLUSPLUS_API;UCONFIG_NO_COLLATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>icu4c\source\common;icu4c\source\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)icu.lib</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation Condition="'$(GenerateDebugInformation)'!=''">$(GenerateDebugInformation)</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)icu_link.pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/std:c++17 /MP /Zc:rvalueCast /Zc:strictStrings /bigobj /GL /Gw /Ob3 /wd4701 /wd4702 /wd4706 /wd4740 /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>icu4c\source\common;icu4c\source\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>RTC;RTC_WINDOWS_FAMILY;RTC_WINDOWS_DESKTOP;_LIB;WIN32;_WINDOWS;WINDOWS;_UNICODE;UNICODE;NOMINMAX;_USE_MATH_DEFINES;WIN32_LEAN_AND_MEAN;WINVER=_WIN32_WINNT_WINBLUE;_WIN32_WINNT=_WIN32_WINNT_WINBLUE;NTDDI_VERSION=NTDDI_WINBLUE;CPPREST_FORCE_PPLX;_PPLTASK_ASYNC_LOGGING=0;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;RTC_X64;NDEBUG;UCONFIG_NO_LEGACY_CONVERSION;UCONFIG_ONLY_HTML_CONVERSION;UCONFIG_NO_SERVICE;U_I18N_IMPLEMENTATION;U_SHOW_CPLUSPLUS_API;UCONFIG_NO_COLLATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader></PrecompiledHeader>
+      <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)icu.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>RTC;RTC_WINDOWS_FAMILY;RTC_WINDOWS_DESKTOP;_LIB;WIN32;_WINDOWS;WINDOWS;_UNICODE;UNICODE;NOMINMAX;_USE_MATH_DEFINES;WIN32_LEAN_AND_MEAN;WINVER=_WIN32_WINNT_WINBLUE;_WIN32_WINNT=_WIN32_WINNT_WINBLUE;NTDDI_VERSION=NTDDI_WINBLUE;CPPREST_FORCE_PPLX;_PPLTASK_ASYNC_LOGGING=0;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;RTC_X64;NDEBUG;UCONFIG_NO_LEGACY_CONVERSION;UCONFIG_ONLY_HTML_CONVERSION;UCONFIG_NO_SERVICE;U_I18N_IMPLEMENTATION;U_SHOW_CPLUSPLUS_API;UCONFIG_NO_COLLATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>icu4c\source\common;icu4c\source\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)icu.lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation Condition="'$(GenerateDebugInformation)'!=''">$(GenerateDebugInformation)</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)icu_link.pdb</ProgramDatabaseFile>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/std:c++17 /MP /Zc:rvalueCast /Zc:strictStrings /bigobj /GL /Gw /Ob3 /wd4701 /wd4702 /wd4706 /wd4740 /utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>icu4c\source\common;icu4c\source\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>RTC;RTC_WINDOWS_FAMILY;RTC_WINDOWS_DESKTOP;_LIB;WIN32;_WINDOWS;WINDOWS;_UNICODE;UNICODE;NOMINMAX;_USE_MATH_DEFINES;WIN32_LEAN_AND_MEAN;WINVER=_WIN32_WINNT_WINBLUE;_WIN32_WINNT=_WIN32_WINNT_WINBLUE;NTDDI_VERSION=NTDDI_WINBLUE;CPPREST_FORCE_PPLX;_PPLTASK_ASYNC_LOGGING=0;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;RTC_X86;NDEBUG;UCONFIG_NO_LEGACY_CONVERSION;UCONFIG_ONLY_HTML_CONVERSION;UCONFIG_NO_SERVICE;U_I18N_IMPLEMENTATION;U_SHOW_CPLUSPLUS_API;UCONFIG_NO_COLLATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader></PrecompiledHeader>
+      <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)icu.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>RTC;RTC_WINDOWS_FAMILY;RTC_WINDOWS_DESKTOP;_LIB;WIN32;_WINDOWS;WINDOWS;_UNICODE;UNICODE;NOMINMAX;_USE_MATH_DEFINES;WIN32_LEAN_AND_MEAN;WINVER=_WIN32_WINNT_WINBLUE;_WIN32_WINNT=_WIN32_WINNT_WINBLUE;NTDDI_VERSION=NTDDI_WINBLUE;CPPREST_FORCE_PPLX;_PPLTASK_ASYNC_LOGGING=0;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;RTC_X86;NDEBUG;UCONFIG_NO_LEGACY_CONVERSION;UCONFIG_ONLY_HTML_CONVERSION;UCONFIG_NO_SERVICE;U_I18N_IMPLEMENTATION;U_SHOW_CPLUSPLUS_API;UCONFIG_NO_COLLATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>icu4c\source\common;icu4c\source\i18n;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)icu.lib</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation Condition="'$(GenerateDebugInformation)'!=''">$(GenerateDebugInformation)</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)icu_link.pdb</ProgramDatabaseFile>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="icu4c\source\common\bmpset.h" />
+    <ClInclude Include="icu4c\source\common\brkeng.h" />
+    <ClInclude Include="icu4c\source\common\bytesinkutil.h" />
+    <ClInclude Include="icu4c\source\common\capi_helper.h" />
+    <ClInclude Include="icu4c\source\common\charstr.h" />
+    <ClInclude Include="icu4c\source\common\charstrmap.h" />
+    <ClInclude Include="icu4c\source\common\cmemory.h" />
+    <ClInclude Include="icu4c\source\common\cpputils.h" />
+    <ClInclude Include="icu4c\source\common\cstr.h" />
+    <ClInclude Include="icu4c\source\common\cstring.h" />
+    <ClInclude Include="icu4c\source\common\cwchar.h" />
+    <ClInclude Include="icu4c\source\common\dictbe.h" />
+    <ClInclude Include="icu4c\source\common\dictionarydata.h" />
+    <ClInclude Include="icu4c\source\common\hash.h" />
+    <ClInclude Include="icu4c\source\common\icuplugimp.h" />
+    <ClInclude Include="icu4c\source\common\localeprioritylist.h" />
+    <ClInclude Include="icu4c\source\common\localsvc.h" />
+    <ClInclude Include="icu4c\source\common\locbased.h" />
+    <ClInclude Include="icu4c\source\common\locdistance.h" />
+    <ClInclude Include="icu4c\source\common\loclikelysubtags.h" />
+    <ClInclude Include="icu4c\source\common\locmap.h" />
+    <ClInclude Include="icu4c\source\common\locutil.h" />
+    <ClInclude Include="icu4c\source\common\lsr.h" />
+    <ClInclude Include="icu4c\source\common\messageimpl.h" />
+    <ClInclude Include="icu4c\source\common\msvcres.h" />
+    <ClInclude Include="icu4c\source\common\mutex.h" />
+    <ClInclude Include="icu4c\source\common\norm2allmodes.h" />
+    <ClInclude Include="icu4c\source\common\norm2_nfc_data.h" />
+    <ClInclude Include="icu4c\source\common\normalizer2impl.h" />
+    <ClInclude Include="icu4c\source\common\patternprops.h" />
+    <ClInclude Include="icu4c\source\common\pluralmap.h" />
+    <ClInclude Include="icu4c\source\common\propname.h" />
+    <ClInclude Include="icu4c\source\common\propname_data.h" />
+    <ClInclude Include="icu4c\source\common\propsvec.h" />
+    <ClInclude Include="icu4c\source\common\punycode.h" />
+    <ClInclude Include="icu4c\source\common\putilimp.h" />
+    <ClInclude Include="icu4c\source\common\rbbidata.h" />
+    <ClInclude Include="icu4c\source\common\rbbinode.h" />
+    <ClInclude Include="icu4c\source\common\rbbirb.h" />
+    <ClInclude Include="icu4c\source\common\rbbirpt.h" />
+    <ClInclude Include="icu4c\source\common\rbbiscan.h" />
+    <ClInclude Include="icu4c\source\common\rbbisetb.h" />
+    <ClInclude Include="icu4c\source\common\rbbitblb.h" />
+    <ClInclude Include="icu4c\source\common\rbbi_cache.h" />
+    <ClInclude Include="icu4c\source\common\resource.h" />
+    <ClInclude Include="icu4c\source\common\restrace.h" />
+    <ClInclude Include="icu4c\source\common\ruleiter.h" />
+    <ClInclude Include="icu4c\source\common\serv.h" />
+    <ClInclude Include="icu4c\source\common\servloc.h" />
+    <ClInclude Include="icu4c\source\common\servnotf.h" />
+    <ClInclude Include="icu4c\source\common\sharedobject.h" />
+    <ClInclude Include="icu4c\source\common\sprpimpl.h" />
+    <ClInclude Include="icu4c\source\common\static_unicode_sets.h" />
+    <ClInclude Include="icu4c\source\common\uarrsort.h" />
+    <ClInclude Include="icu4c\source\common\uassert.h" />
+    <ClInclude Include="icu4c\source\common\ubidiimp.h" />
+    <ClInclude Include="icu4c\source\common\ubidi_props.h" />
+    <ClInclude Include="icu4c\source\common\ubidi_props_data.h" />
+    <ClInclude Include="icu4c\source\common\ubrkimpl.h" />
+    <ClInclude Include="icu4c\source\common\ucase.h" />
+    <ClInclude Include="icu4c\source\common\ucasemap_imp.h" />
+    <ClInclude Include="icu4c\source\common\ucase_props_data.h" />
+    <ClInclude Include="icu4c\source\common\uchar_props_data.h" />
+    <ClInclude Include="icu4c\source\common\ucln.h" />
+    <ClInclude Include="icu4c\source\common\ucln_cmn.h" />
+    <ClInclude Include="icu4c\source\common\ucln_imp.h" />
+    <ClInclude Include="icu4c\source\common\ucmndata.h" />
+    <ClInclude Include="icu4c\source\common\ucnvmbcs.h" />
+    <ClInclude Include="icu4c\source\common\ucnv_bld.h" />
+    <ClInclude Include="icu4c\source\common\ucnv_cnv.h" />
+    <ClInclude Include="icu4c\source\common\ucnv_ext.h" />
+    <ClInclude Include="icu4c\source\common\ucnv_imp.h" />
+    <ClInclude Include="icu4c\source\common\ucnv_io.h" />
+    <ClInclude Include="icu4c\source\common\ucol_data.h" />
+    <ClInclude Include="icu4c\source\common\ucol_swp.h" />
+    <ClInclude Include="icu4c\source\common\ucptrie_impl.h" />
+    <ClInclude Include="icu4c\source\common\ucurrimp.h" />
+    <ClInclude Include="icu4c\source\common\udatamem.h" />
+    <ClInclude Include="icu4c\source\common\udataswp.h" />
+    <ClInclude Include="icu4c\source\common\uelement.h" />
+    <ClInclude Include="icu4c\source\common\uenumimp.h" />
+    <ClInclude Include="icu4c\source\common\uhash.h" />
+    <ClInclude Include="icu4c\source\common\uinvchar.h" />
+    <ClInclude Include="icu4c\source\common\ulayout_props.h" />
+    <ClInclude Include="icu4c\source\common\ulayout_props_data.h" />
+    <ClInclude Include="icu4c\source\common\ulist.h" />
+    <ClInclude Include="icu4c\source\common\ulocimp.h" />
+    <ClInclude Include="icu4c\source\common\umapfile.h" />
+    <ClInclude Include="icu4c\source\common\umutex.h" />
+    <ClInclude Include="icu4c\source\common\unifiedcache.h" />
+    <ClInclude Include="icu4c\source\common\uniquecharstr.h" />
+    <ClInclude Include="icu4c\source\common\unisetspan.h" />
+    <ClInclude Include="icu4c\source\common\unistrappender.h" />
+    <ClInclude Include="icu4c\source\common\unormimp.h" />
+    <ClInclude Include="icu4c\source\common\uposixdefs.h" />
+    <ClInclude Include="icu4c\source\common\uprops.h" />
+    <ClInclude Include="icu4c\source\common\uresdata.h" />
+    <ClInclude Include="icu4c\source\common\uresimp.h" />
+    <ClInclude Include="icu4c\source\common\ureslocs.h" />
+    <ClInclude Include="icu4c\source\common\usc_impl.h" />
+    <ClInclude Include="icu4c\source\common\uset_imp.h" />
+    <ClInclude Include="icu4c\source\common\ustrenum.h" />
+    <ClInclude Include="icu4c\source\common\ustrfmt.h" />
+    <ClInclude Include="icu4c\source\common\ustr_cnv.h" />
+    <ClInclude Include="icu4c\source\common\ustr_imp.h" />
+    <ClInclude Include="icu4c\source\common\util.h" />
+    <ClInclude Include="icu4c\source\common\utracimp.h" />
+    <ClInclude Include="icu4c\source\common\utrie.h" />
+    <ClInclude Include="icu4c\source\common\utrie2.h" />
+    <ClInclude Include="icu4c\source\common\utrie2_impl.h" />
+    <ClInclude Include="icu4c\source\common\utypeinfo.h" />
+    <ClInclude Include="icu4c\source\common\uvector.h" />
+    <ClInclude Include="icu4c\source\common\uvectr32.h" />
+    <ClInclude Include="icu4c\source\common\uvectr64.h" />
+    <ClInclude Include="icu4c\source\common\wintz.h" />
+    <ClInclude Include="icu4c\source\common\unicode\appendable.h" />
+    <ClInclude Include="icu4c\source\common\unicode\brkiter.h" />
+    <ClInclude Include="icu4c\source\common\unicode\bytestream.h" />
+    <ClInclude Include="icu4c\source\common\unicode\bytestrie.h" />
+    <ClInclude Include="icu4c\source\common\unicode\bytestriebuilder.h" />
+    <ClInclude Include="icu4c\source\common\unicode\caniter.h" />
+    <ClInclude Include="icu4c\source\common\unicode\casemap.h" />
+    <ClInclude Include="icu4c\source\common\unicode\char16ptr.h" />
+    <ClInclude Include="icu4c\source\common\unicode\chariter.h" />
+    <ClInclude Include="icu4c\source\common\unicode\dbbi.h" />
+    <ClInclude Include="icu4c\source\common\unicode\docmain.h" />
+    <ClInclude Include="icu4c\source\common\unicode\dtintrv.h" />
+    <ClInclude Include="icu4c\source\common\unicode\edits.h" />
+    <ClInclude Include="icu4c\source\common\unicode\enumset.h" />
+    <ClInclude Include="icu4c\source\common\unicode\errorcode.h" />
+    <ClInclude Include="icu4c\source\common\unicode\filteredbrk.h" />
+    <ClInclude Include="icu4c\source\common\unicode\icudataver.h" />
+    <ClInclude Include="icu4c\source\common\unicode\icuplug.h" />
+    <ClInclude Include="icu4c\source\common\unicode\idna.h" />
+    <ClInclude Include="icu4c\source\common\unicode\localebuilder.h" />
+    <ClInclude Include="icu4c\source\common\unicode\localematcher.h" />
+    <ClInclude Include="icu4c\source\common\unicode\localpointer.h" />
+    <ClInclude Include="icu4c\source\common\unicode\locdspnm.h" />
+    <ClInclude Include="icu4c\source\common\unicode\locid.h" />
+    <ClInclude Include="icu4c\source\common\unicode\messagepattern.h" />
+    <ClInclude Include="icu4c\source\common\unicode\normalizer2.h" />
+    <ClInclude Include="icu4c\source\common\unicode\normlzr.h" />
+    <ClInclude Include="icu4c\source\common\unicode\parseerr.h" />
+    <ClInclude Include="icu4c\source\common\unicode\parsepos.h" />
+    <ClInclude Include="icu4c\source\common\unicode\platform.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ptypes.h" />
+    <ClInclude Include="icu4c\source\common\unicode\putil.h" />
+    <ClInclude Include="icu4c\source\common\unicode\rbbi.h" />
+    <ClInclude Include="icu4c\source\common\unicode\rep.h" />
+    <ClInclude Include="icu4c\source\common\unicode\resbund.h" />
+    <ClInclude Include="icu4c\source\common\unicode\schriter.h" />
+    <ClInclude Include="icu4c\source\common\unicode\simpleformatter.h" />
+    <ClInclude Include="icu4c\source\common\unicode\std_string.h" />
+    <ClInclude Include="icu4c\source\common\unicode\strenum.h" />
+    <ClInclude Include="icu4c\source\common\unicode\stringoptions.h" />
+    <ClInclude Include="icu4c\source\common\unicode\stringpiece.h" />
+    <ClInclude Include="icu4c\source\common\unicode\stringtriebuilder.h" />
+    <ClInclude Include="icu4c\source\common\unicode\symtable.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ubidi.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ubiditransform.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ubrk.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucasemap.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucat.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uchar.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucharstrie.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucharstriebuilder.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uchriter.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uclean.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucnv.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucnvsel.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucnv_cb.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucnv_err.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uconfig.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucpmap.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucptrie.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ucurr.h" />
+    <ClInclude Include="icu4c\source\common\unicode\udata.h" />
+    <ClInclude Include="icu4c\source\common\unicode\udisplaycontext.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uenum.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uidna.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uiter.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uldnames.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uloc.h" />
+    <ClInclude Include="icu4c\source\common\unicode\umachine.h" />
+    <ClInclude Include="icu4c\source\common\unicode\umisc.h" />
+    <ClInclude Include="icu4c\source\common\unicode\umutablecptrie.h" />
+    <ClInclude Include="icu4c\source\common\unicode\unifilt.h" />
+    <ClInclude Include="icu4c\source\common\unicode\unifunct.h" />
+    <ClInclude Include="icu4c\source\common\unicode\unimatch.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uniset.h" />
+    <ClInclude Include="icu4c\source\common\unicode\unistr.h" />
+    <ClInclude Include="icu4c\source\common\unicode\unorm.h" />
+    <ClInclude Include="icu4c\source\common\unicode\unorm2.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uobject.h" />
+    <ClInclude Include="icu4c\source\common\unicode\urename.h" />
+    <ClInclude Include="icu4c\source\common\unicode\urep.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ures.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uscript.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uset.h" />
+    <ClInclude Include="icu4c\source\common\unicode\usetiter.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ushape.h" />
+    <ClInclude Include="icu4c\source\common\unicode\usprep.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ustring.h" />
+    <ClInclude Include="icu4c\source\common\unicode\ustringtrie.h" />
+    <ClInclude Include="icu4c\source\common\unicode\utext.h" />
+    <ClInclude Include="icu4c\source\common\unicode\utf.h" />
+    <ClInclude Include="icu4c\source\common\unicode\utf16.h" />
+    <ClInclude Include="icu4c\source\common\unicode\utf32.h" />
+    <ClInclude Include="icu4c\source\common\unicode\utf8.h" />
+    <ClInclude Include="icu4c\source\common\unicode\utf_old.h" />
+    <ClInclude Include="icu4c\source\common\unicode\utrace.h" />
+    <ClInclude Include="icu4c\source\common\unicode\utypes.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uvernum.h" />
+    <ClInclude Include="icu4c\source\common\unicode\uversion.h" />
+    <ClInclude Include="icu4c\source\extra\scrptrun\scrptrun.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="icu4c\source\common\appendable.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\bmpset.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\bytesinkutil.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\bytestream.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\bytestrie.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\charstr.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\cmemory.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\cstring.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\edits.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\loadednormalizer2impl.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\localebuilder.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\locid.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\loclikely.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\locmap.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\normalizer2.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\normalizer2impl.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\patternprops.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\propname.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\putil.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\resource.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\stringpiece.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uarrsort.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ubidi.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ubidi_props.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ubidiln.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ubidiwrt.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucase.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uchar.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucln_cmn.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucmndata.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_bld.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_cb.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_cnv.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_ct.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_err.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_ext.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_io.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_u8.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnv_u16.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucnvlat1.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucol_swp.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ucptrie.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\udata.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\udatamem.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\udataswp.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uenum.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uhash.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uinvchar.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uloc.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uloc_keytype.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uloc_tag.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\umapfile.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\umath.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\umutablecptrie.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\umutex.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unifilt.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unifunct.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uniset.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unisetspan.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unistr.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unistr_case.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\unistr_case_locale.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uobject.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uresbund.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uresdata.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uscript_props.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustr_cnv.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrcase.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrcase_locale.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrenum.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrfmt.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustring.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\ustrtrns.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\utf_impl.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\util.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\utrace.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\utrie_swap.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\utrie2.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\uvector.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\common\wintz.cpp">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\data\icudt68_dat.c">
+    </ClCompile>
+    <ClCompile Include="icu4c\source\extra\scrptrun\scrptrun.cpp">
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 nl{
     Currencies{
         ADP{
@@ -220,7 +221,7 @@ nl{
         }
         BYN{
             "BYN",
-            "Wit-Russische roebel",
+            "Belarussische roebel",
         }
         BYR{
             "BYR",
@@ -264,7 +265,7 @@ nl{
         }
         CNH{
             "CNH",
-            "Chinese renminbi (offshore)",
+            "Chinese yuan (offshore)",
         }
         CNX{
             "CNX",
@@ -1034,6 +1035,10 @@ nl{
             "UYU",
             "Uruguayaanse peso",
         }
+        UYW{
+            "UYW",
+            "Uruguayaanse nominale salarisindexeenheid",
+        }
         UZS{
             "UZS",
             "Oezbeekse sum",
@@ -1533,8 +1538,8 @@ nl{
             other{"Wit-Russische nieuwe roebel (1994–1999)"}
         }
         BYN{
-            one{"Wit-Russische roebel"}
-            other{"Wit-Russische roebel"}
+            one{"Belarussische roebel"}
+            other{"Belarussische roebel"}
         }
         BYR{
             one{"Wit-Russische roebel (2000–2016)"}
@@ -2348,6 +2353,10 @@ nl{
             one{"Uruguayaanse peso"}
             other{"Uruguayaanse peso"}
         }
+        UYW{
+            one{"Uruguayaanse nominale salarisindexeenheid"}
+            other{"Uruguayaanse nominale salarisindexeenheid"}
+        }
         UZS{
             one{"Oezbeekse sum"}
             other{"Oezbeekse sum"}
@@ -2529,5 +2538,4 @@ nl{
         one{"{0} {1}"}
         other{"{0} {1}"}
     }
-    Version{"2.1.45.14"}
 }

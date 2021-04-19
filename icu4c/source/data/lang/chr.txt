@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 chr{
     Keys{
         calendar{"ᏅᏙ ᏗᏎᏍᏗ"}
@@ -58,6 +59,7 @@ chr{
         byn{"ᏟᏂ"}
         ca{"ᎨᏔᎳᏂ"}
         cay{"ᎧᏳᎦ"}
+        ccp{"ᏣᎧᎹ"}
         ce{"ᏤᏤᏂ"}
         ceb{"ᏎᏆᏃ"}
         cgg{"ᏥᎦ"}
@@ -108,6 +110,7 @@ chr{
         eu{"ᏆᏍᎨ"}
         ewo{"ᎡᏬᏂᏙ"}
         fa{"ᏇᏏᎠᏂ"}
+        fa_AF{"ᏓᎵ"}
         ff{"ᏊᎳᏂ"}
         fi{"ᏈᏂᏍ"}
         fil{"ᎠᏈᎵᎩ"}
@@ -256,6 +259,7 @@ chr{
         naq{"ᎾᎹ"}
         nb{"ᏃᎵᏪᏥᏂ ᏉᎧᎹᎵ"}
         nd{"ᏧᏴᏢ ᏂᏕᏇᎴ"}
+        nds{"ᎡᎳᏗ ᎠᏂᏓᏥ"}
         nds_NL{"ᎡᎳᏗ ᏁᏛᎳᏂ"}
         ne{"ᏁᏆᎵ"}
         new{"ᏁᏩᎵ"}
@@ -290,7 +294,7 @@ chr{
         ps{"ᏆᏍᏙ"}
         pt{"ᏉᏧᎩᏍ"}
         pt_BR{"ᏆᏏᎵᎢ ᏉᏧᎩᏍ"}
-        pt_PT{"ᏉᏥᎦᎳ ᏉᏧᎩᏍ"}
+        pt_PT{"ᏳᎳᏈ ᏉᏧᎩᏍ"}
         qu{"ᎨᏧᏩ"}
         quc{"ᎩᏤ"}
         rap{"ᎳᏆᏄᏫ"}
@@ -404,6 +408,14 @@ chr{
         zun{"ᏑᏂ"}
         zxx{"Ꮭ ᎦᏬᏂᎯᏍᏗ ᎦᎸᏛᎢ ᏱᎩ"}
         zza{"ᏌᏌ"}
+    }
+    Languages%long{
+        zh_Hans{"ᎠᎯᏗᎨ ᎹᏓᏈᏂ ᏓᎶᏂᎨ"}
+        zh_Hant{"ᎤᏦᏍᏗ ᎹᏓᏈᏂ ᏓᎶᏂᎨ"}
+    }
+    Languages%menu{
+        yue{"ᏓᎶᏂᎨ, ᎨᎾᏙᏂᏏ"}
+        zh{"ᏓᎶᏂᎨ, ᎹᏓᏈᏂ"}
     }
     Languages%short{
         az{"ᎠᏎᎵ"}
@@ -538,14 +550,12 @@ chr{
             tibt{"ᏘᏇᏔᏂ ᏗᏎᏍᏗ"}
         }
     }
-    Version{"2.1.43.2"}
     characterLabelPattern{
         all{"{0} — ᏂᎦᏓ"}
         category-list{"{0}: {1}"}
         compatibility{"{0} — ᎤᏠᏯᏉᏗᏙᎵᎩ"}
         enclosed{"{0} — ᎠᏠᏯᏍᏔᏅ"}
         extended{"{0} — ᎦᏅᎯᏓ"}
-        historic{"{0} — ᎤᎵᏍᎨᏗ ᏂᏧᎵᏍᏔᏅᏍᏔᏅ"}
         miscellaneous{"{0} — ᏧᏓᎴᏅᏛ"}
         other{"{0} — ᏐᎢ"}
         scripts{"ᏗᎧᏁᎢᏍᏗ — {0}"}
@@ -553,6 +563,8 @@ chr{
             one{"{0} ᏗᎬᏂᎸᎯ"}
             other{"{0} ᏗᎬᏂᎸᎯ"}
         }
+        subscript{"ᎡᎳᏗ ᎤᏍᏗ ᎪᏪᎳ {0}"}
+        superscript{"ᎦᎸᎳᏗ ᎤᏍᏗ ᎪᏪᎳ {0}"}
     }
     codePatterns{
         language{"ᎦᏬᏂᎯᏍᏗ: {0}"}

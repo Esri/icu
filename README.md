@@ -5,16 +5,21 @@ The ICU project is under the stewardship of [The Unicode Consortium](https://www
 
 - Source: https://github.com/unicode-org/icu
 - Bugs: https://unicode-org.atlassian.net/projects/ICU
+- API Docs: https://unicode-org.github.io/icu-docs/
+- User Guide: https://unicode-org.github.io/icu/
 
 ![ICU Logo](./tools/images/iculogo_64.png)
 
-### Build Status
+### Build Status (`master` branch)
 
 Build | Status
 ------|-------
 TravisCI | [![Build Status](https://travis-ci.org/unicode-org/icu.svg?branch=master)](https://travis-ci.org/unicode-org/icu)
-Win x64 Release | [![Build status](https://unicode-icu.visualstudio.com/ICU/_apis/build/status/ICU4C%20Build%20and%20Test%20%5Bx64%20Release%5D%20(CI))](https://unicode-icu.visualstudio.com/ICU/_build/latest?definitionId=8)
-Win x86 Release | [![Build status](https://unicode-icu.visualstudio.com/ICU/_apis/build/status/ICU4C%20Build%20and%20Test%20%5Bx86%20Release%5D%20(CI))](https://unicode-icu.visualstudio.com/ICU/_build/latest?definitionId=7)
+Azure Pipelines | [![Build Status](https://dev.azure.com/ms/icu/_apis/build/status/unicode-org/CI?branchName=master)](https://dev.azure.com/ms/icu/_build/latest?definitionId=360&branchName=master)
+Azure Pipelines (Exhaustive Tests) | [![Build Status](https://dev.azure.com/ms/icu/_apis/build/status/unicode-org/CI-Exhaustive-Main?branchName=master)](https://dev.azure.com/ms/icu/_build/latest?definitionId=361&branchName=master)
+Azure Pipelines (Valgrind ICU4C) | [![Build Status](https://dev.azure.com/ms/icu/_apis/build/status/unicode-org/CI-Valgrind-Main?branchName=master)](https://dev.azure.com/ms/icu/_build/latest?definitionId=362&branchName=master)
+AppVeyor | [![Build status](https://ci.appveyor.com/api/projects/status/6ev1ssb6efahsvs2/branch/master?svg=true)](https://ci.appveyor.com/project/unicode-org/icu/branch/master)
+Fuzzing | [![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/icu.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:icu)
 
 
 ### Subdirectories and Information

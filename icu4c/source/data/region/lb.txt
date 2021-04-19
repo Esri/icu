@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 lb{
     Countries{
         001{"Welt"}
@@ -181,7 +182,7 @@ lb{
         MF{"St. Martin"}
         MG{"Madagaskar"}
         MH{"Marshallinselen"}
-        MK{"Mazedonien"}
+        MK{"Nordmazedonien"}
         ML{"Mali"}
         MM{"Myanmar"}
         MN{"Mongolei"}
@@ -303,7 +304,5 @@ lb{
         CD{"Kongo (Demokratesch Republik)"}
         CG{"Kongo (Republik)"}
         CI{"Elfebeeküst"}
-        MK{"Mazedonien (EJR)"}
     }
-    Version{"2.1.44.91"}
 }

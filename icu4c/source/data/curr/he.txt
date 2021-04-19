@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 he{
     Currencies{
         ADP{
@@ -708,7 +709,7 @@ he{
         }
         STN{
             "STN",
-            "דוברה של סן טומה ופרינסיפה",
+            "דוברה של סאו טומה ופרינסיפה",
         }
         SUR{
             "SUR",
@@ -924,7 +925,7 @@ he{
         BRL{"R$"}
         BSD{"$"}
         BWP{"P"}
-        BYN{"р."}
+        BYN{"р"}
         BZD{"$"}
         CAD{"$"}
         CLP{"$"}
@@ -1806,10 +1807,10 @@ he{
             two{"דוברה של סן טומה ופרינסיפה (1977–2017)"}
         }
         STN{
-            many{"דוברה של סן טומה ופרינסיפה"}
-            one{"דוברה של סן טומה ופרינסיפה"}
-            other{"דוברה של סן טומה ופרינסיפה"}
-            two{"דוברה של סן טומה ופרינסיפה"}
+            many{"דוברה של סאו טומה ופרינסיפה"}
+            one{"דוברה של סאו טומה ופרינסיפה"}
+            other{"דוברה של סאו טומה ופרינסיפה"}
+            two{"דוברה של סאו טומה ופרינסיפה"}
         }
         SVC{
             many{"קולון סלבדורי"}
@@ -1998,5 +1999,4 @@ he{
         other{"{0} {1}"}
         two{"{0} {1}"}
     }
-    Version{"2.1.43.94"}
 }

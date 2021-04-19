@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (c) 2004-2014, International Business Machines
@@ -30,10 +30,12 @@ import com.ibm.icu.text.DateIntervalInfo;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.DecimalFormatSymbols;
 import com.ibm.icu.text.DurationFormat;
+import com.ibm.icu.text.ListFormatter;
 import com.ibm.icu.text.MessageFormat;
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.PluralFormat;
 import com.ibm.icu.text.PluralRules;
+import com.ibm.icu.text.RelativeDateTimeFormatter;
 import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.ibm.icu.text.SelectFormat;
 import com.ibm.icu.text.SimpleDateFormat;
@@ -1791,6 +1793,66 @@ public class FormatHandler
         public Object[] getTestObjects()
         {
             return new Object[] {MessageFormat.Field.ARGUMENT};
+        }
+
+        @Override
+        public boolean hasSameBehavior(Object a, Object b)
+        {
+            return (a == b);
+        }
+    }
+
+    public static class RelativeDateTimeFormatterFieldHandler implements SerializableTestUtility.Handler
+    {
+        @Override
+        public Object[] getTestObjects()
+        {
+            return new Object[] {RelativeDateTimeFormatter.Field.LITERAL};
+        }
+
+        @Override
+        public boolean hasSameBehavior(Object a, Object b)
+        {
+            return (a == b);
+        }
+    }
+
+    public static class DateIntervalSpanFieldHandler implements SerializableTestUtility.Handler
+    {
+        @Override
+        public Object[] getTestObjects()
+        {
+            return new Object[] {DateIntervalFormat.SpanField.DATE_INTERVAL_SPAN};
+        }
+
+        @Override
+        public boolean hasSameBehavior(Object a, Object b)
+        {
+            return (a == b);
+        }
+    }
+
+    public static class ListFormatterFieldHandler implements SerializableTestUtility.Handler
+    {
+        @Override
+        public Object[] getTestObjects()
+        {
+            return new Object[] {ListFormatter.Field.ELEMENT, ListFormatter.Field.LITERAL};
+        }
+
+        @Override
+        public boolean hasSameBehavior(Object a, Object b)
+        {
+            return (a == b);
+        }
+    }
+
+    public static class ListFormatterSpanFieldHandler implements SerializableTestUtility.Handler
+    {
+        @Override
+        public Object[] getTestObjects()
+        {
+            return new Object[] {ListFormatter.SpanField.LIST_SPAN};
         }
 
         @Override

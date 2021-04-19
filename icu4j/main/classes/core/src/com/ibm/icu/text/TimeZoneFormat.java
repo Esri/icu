@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 2011-2016, International Business Machines Corporation and
@@ -723,7 +723,7 @@ public class TimeZoneFormat extends UFormat implements Freezable<TimeZoneFormat>
      * Sets the default parse options.
      * <p>
      * <b>Note:</b> By default, an instance of <code>TimeZoneFormat</code>
-     * created by {#link {@link #getInstance(ULocale)} has no parse options set.
+     * created by {@link #getInstance(ULocale)} has no parse options set.
      *
      * @param options the default parse options.
      * @return this object.

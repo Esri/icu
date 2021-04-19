@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 it{
     Countries{
         001{"Mondo"}
@@ -106,7 +107,7 @@ it{
         ER{"Eritrea"}
         ES{"Spagna"}
         ET{"Etiopia"}
-        EU{"Unione Europea"}
+        EU{"Unione europea"}
         EZ{"Eurozona"}
         FI{"Finlandia"}
         FJ{"Figi"}
@@ -183,7 +184,7 @@ it{
         MF{"Saint Martin"}
         MG{"Madagascar"}
         MH{"Isole Marshall"}
-        MK{"Repubblica di Macedonia"}
+        MK{"Macedonia del Nord"}
         ML{"Mali"}
         MM{"Myanmar (Birmania)"}
         MN{"Mongolia"}
@@ -287,6 +288,8 @@ it{
         VU{"Vanuatu"}
         WF{"Wallis e Futuna"}
         WS{"Samoa"}
+        XA{"Pseudo-accenti"}
+        XB{"Pseudo-bidi"}
         XK{"Kosovo"}
         YE{"Yemen"}
         YT{"Mayotte"}
@@ -309,7 +312,7 @@ it{
         CI{"Côte d’Ivoire"}
         CZ{"Repubblica Ceca"}
         FK{"Isole Falkland (Isole Malvine)"}
-        MK{"Ex Repubblica Jugoslava di Macedonia"}
+        SZ{"Regno di eSwatini"}
+        TL{"Timor Leste"}
     }
-    Version{"2.1.44.86"}
 }

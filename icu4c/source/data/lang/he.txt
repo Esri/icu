@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 he{
     Keys{
         calendar{"לוח שנה"}
@@ -93,6 +94,7 @@ he{
         car{"קאריב"}
         cay{"קאיוגה"}
         cch{"אטסם"}
+        ccp{"צ׳אקמה"}
         ce{"צ׳צ׳נית"}
         ceb{"סבואנו"}
         cgg{"צ׳יגה"}
@@ -152,6 +154,7 @@ he{
         eu{"בסקית"}
         ewo{"אוונדו"}
         fa{"פרסית"}
+        fa_AF{"דארי"}
         fan{"פנג"}
         fat{"פאנטי"}
         ff{"פולה"}
@@ -203,7 +206,7 @@ he{
         hmn{"המונג"}
         ho{"הירי מוטו"}
         hr{"קרואטית"}
-        hsb{"סורבית גבוהה"}
+        hsb{"סורבית עילית"}
         hsn{"סינית שיאנג"}
         ht{"קריאולית (האיטי)"}
         hu{"הונגרית"}
@@ -481,7 +484,7 @@ he{
         tk{"טורקמנית"}
         tkl{"טוקלאו"}
         tl{"טאגאלוג"}
-        tlh{"קלינגון"}
+        tlh{"קלינגונית"}
         tli{"טלינגיט"}
         tmh{"טמאשק"}
         tn{"סוואנה"}
@@ -510,7 +513,7 @@ he{
         uz{"אוזבקית"}
         vai{"וואי"}
         ve{"וונדה"}
-        vi{"ויאטנמית"}
+        vi{"וייטנאמית"}
         vo{"‏וולאפיק"}
         vot{"ווטיק"}
         vun{"וונג׳ו"}
@@ -545,15 +548,21 @@ he{
         zxx{"ללא תוכן לשוני"}
         zza{"זאזא"}
     }
-    Languages%short{
-        az{"אזרית"}
-        en_US{"אנגלית (ארה״ב)"}
+    Languages%long{
+        zh_Hans{"סינית מנדרינית פשוטה"}
+        zh_Hant{"סינית מנדרינית מסורתית"}
+    }
+    Languages%menu{
+        yue{"סינית, קנטונזית"}
+        zh{"סינית, מנדרינית"}
     }
     Languages%variant{
         ps{"פושטו"}
     }
     Scripts{
         Arab{"ערבי"}
+        Aran{"נסתעליק"}
+        Armi{"ארמית רשמית"}
         Armn{"ארמני"}
         Bali{"באלינזי"}
         Beng{"בנגלי"}
@@ -573,7 +582,7 @@ he{
         Grek{"יווני"}
         Gujr{"גוג׳רטי"}
         Guru{"גורמוקי"}
-        Hanb{"האנב"}
+        Hanb{"האן עם בופומופו"}
         Hang{"האנגול"}
         Hani{"האן"}
         Hans{"פשוט"}
@@ -591,15 +600,19 @@ he{
         Khmr{"חמרי"}
         Knda{"קאנאדה"}
         Kore{"קוריאני"}
-        Laoo{"לאית"}
+        Laoo{"לאי"}
         Latg{"לטיני גאלי"}
         Latn{"לטיני"}
         Maya{"מאיה"}
         Mlym{"מליאלאם"}
         Mong{"מונגולי"}
+        Mtei{"מאיטי מאייק"}
         Mymr{"מיאנמר"}
-        Orya{"אורייה"}
+        Nkoo{"נ׳קו"}
+        Olck{"אול צ׳יקי"}
+        Orya{"אודייה"}
         Phnx{"פיניקי"}
+        Qaag{"זאוגיי"}
         Runr{"רוני"}
         Sinh{"סינהלה"}
         Syrc{"סורי"}
@@ -647,7 +660,7 @@ he{
             iso8601{"לוח שנה ISO-8601"}
             japanese{"לוח השנה היפני"}
             persian{"לוח השנה הפרסי"}
-            roc{"לוח השנה הטאיווני"}
+            roc{"לוח השנה הטייוואני"}
         }
         cf{
             account{"תבנית מטבע למטרות חשבונאות"}
@@ -781,7 +794,6 @@ he{
         SCOTLAND{"אנגלית סקוטית סטנדרטית"}
         WADEGILE{"ווייד-גיילס, שיטה לתעתוק סינית לאותיות לטיניות"}
     }
-    Version{"2.1.43.94"}
     characterLabelPattern{
         all{"{0} - הכל"}
         category-list{"{0}: {1}"}
@@ -798,6 +810,8 @@ he{
             other{"{0} משיכות מכחול"}
             two{"{0} משיכות מכחול"}
         }
+        subscript{"כתב תחתי {0}"}
+        superscript{"כתב עילי {0}"}
     }
     codePatterns{
         language{"שפה:‏ {0}"}

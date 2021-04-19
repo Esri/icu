@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 eu{
     Countries{
         001{"Mundua"}
@@ -183,7 +184,7 @@ eu{
         MF{"San Martin"}
         MG{"Madagaskar"}
         MH{"Marshall Uharteak"}
-        MK{"Mazedonia"}
+        MK{"Ipar Mazedonia"}
         ML{"Mali"}
         MM{"Myanmar (Birmania)"}
         MN{"Mongolia"}
@@ -287,6 +288,8 @@ eu{
         VU{"Vanuatu"}
         WF{"Wallis eta Futuna"}
         WS{"Samoa"}
+        XA{"Sasiazentuak"}
+        XB{"Pseudobidia"}
         XK{"Kosovo"}
         YE{"Yemen"}
         YT{"Mayotte"}
@@ -305,9 +308,8 @@ eu{
     Countries%variant{
         CD{"Kongo (DR)"}
         CG{"Kongoko Errepublika"}
+        CI{"C¨ôte d’Ivore"}
         CZ{"Txekiar Errepublika"}
         FK{"Falklandak (Malvinak)"}
-        MK{"Mazedoniako Jugoslaviar Errepublika Ohia"}
     }
-    Version{"2.1.43.65"}
 }

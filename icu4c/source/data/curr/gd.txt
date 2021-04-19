@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 gd{
     Currencies{
         ADP{
@@ -1033,6 +1034,10 @@ gd{
         UYU{
             "UYU",
             "Peso Uruguaidheach",
+        }
+        UYW{
+            "UYW",
+            "Aonad inneacs tuarastail ainmeach Uruguaidh",
         }
         UZS{
             "UZS",
@@ -2863,6 +2868,12 @@ gd{
             other{"peso Uruguaidheach"}
             two{"pheso Uruguaidheach"}
         }
+        UYW{
+            few{"aonadan inneacs tuarastail ainmeach Uruguaidh"}
+            one{"aonad inneacs tuarastail ainmeach Uruguaidh"}
+            other{"aonad inneacs tuarastail ainmeach Uruguaidh"}
+            two{"aonad inneacs tuarastail ainmeach Uruguaidh"}
+        }
         UZS{
             few{"som Usbagach"}
             one{"som Usbagach"}
@@ -3134,5 +3145,4 @@ gd{
         other{"{0} {1}"}
         two{"{0} {1}"}
     }
-    Version{"2.1.44.91"}
 }

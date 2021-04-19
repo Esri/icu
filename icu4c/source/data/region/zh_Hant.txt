@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 zh_Hant{
     %%Parent{"root"}
     Countries{
@@ -184,7 +185,7 @@ zh_Hant{
         MF{"法屬聖馬丁"}
         MG{"馬達加斯加"}
         MH{"馬紹爾群島"}
-        MK{"馬其頓"}
+        MK{"北馬其頓"}
         ML{"馬利"}
         MM{"緬甸"}
         MN{"蒙古"}
@@ -254,7 +255,7 @@ zh_Hant{
         SV{"薩爾瓦多"}
         SX{"荷屬聖馬丁"}
         SY{"敘利亞"}
-        SZ{"史瓦濟蘭"}
+        SZ{"史瓦帝尼"}
         TA{"特里斯坦達庫尼亞群島"}
         TC{"土克斯及開科斯群島"}
         TD{"查德"}
@@ -288,6 +289,8 @@ zh_Hant{
         VU{"萬那杜"}
         WF{"瓦利斯群島和富圖那群島"}
         WS{"薩摩亞"}
+        XA{"偽區域"}
+        XB{"偽比迪"}
         XK{"科索沃"}
         YE{"葉門"}
         YT{"馬約特島"}
@@ -297,19 +300,15 @@ zh_Hant{
         ZZ{"未知區域"}
     }
     Countries%short{
-        GB{"英國"}
         HK{"香港"}
         MO{"澳門"}
         PS{"巴勒斯坦"}
-        UN{"聯合國"}
-        US{"美國"}
     }
     Countries%variant{
         CD{"剛果民主共和國"}
         CG{"剛果共和國"}
         CZ{"捷克共和國"}
         FK{"福克蘭群島（馬爾維納斯群島）"}
-        MK{"前南斯拉夫馬其頓共和國"}
+        SZ{"史瓦濟蘭"}
     }
-    Version{"2.1.44.91"}
 }

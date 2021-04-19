@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 kk{
     Keys{
         calendar{"Күнтізбе"}
@@ -58,6 +59,7 @@ kk{
         bug{"бугис тілі"}
         byn{"блин тілі"}
         ca{"каталан тілі"}
+        ccp{"чакма тілі"}
         ce{"шешен тілі"}
         ceb{"себуано тілі"}
         cgg{"кига тілі"}
@@ -108,6 +110,7 @@ kk{
         eu{"баск тілі"}
         ewo{"эвондо тілі"}
         fa{"парсы тілі"}
+        fa_AF{"дари тілі"}
         ff{"фула тілі"}
         fi{"фин тілі"}
         fil{"филиппин тілі"}
@@ -312,7 +315,7 @@ kk{
         rwk{"руа тілі"}
         sa{"санскрит тілі"}
         sad{"сандаве тілі"}
-        sah{"якут тілі"}
+        sah{"саха тілі"}
         saq{"самбуру тілі"}
         sat{"сантали тілі"}
         sba{"нгамбай тілі"}
@@ -413,8 +416,15 @@ kk{
         zxx{"тілдік мазмұны жоқ"}
         zza{"заза тілі"}
     }
+    Languages%long{
+        zh_Hans{"жеңілдетілген қытай тілі (мандарин)"}
+        zh_Hant{"дәстүрлі қытай тілі (мандарин)"}
+    }
+    Languages%menu{
+        yue{"қытай тілі (кантон)"}
+        zh{"қытай тілі (мандарин)"}
+    }
     Languages%short{
-        az{"әзірбайжан тілі"}
         en_GB{"британиялық ағылшын тілі"}
         en_US{"америкалық ағылшын тілі"}
     }
@@ -463,10 +473,6 @@ kk{
         Zxxx{"жазусыз"}
         Zyyy{"жалпы"}
         Zzzz{"белгісіз жазу"}
-    }
-    Scripts%stand-alone{
-        Hans{"жеңілдетілген қытай иероглифы"}
-        Hant{"дәстүрлі қытай иероглифы"}
     }
     Types{
         calendar{
@@ -545,7 +551,6 @@ kk{
             tibt{"Тибет сандары"}
         }
     }
-    Version{"2.1.44.88"}
     characterLabelPattern{
         all{"{0} — барлығы"}
         category-list{"{0}: {1}"}
@@ -560,6 +565,8 @@ kk{
             one{"{0} сызық"}
             other{"{0} сызық"}
         }
+        subscript{"жол асты таңба {0}"}
+        superscript{"жол үсті таңба {0}"}
     }
     codePatterns{
         language{"Тіл: {0}"}

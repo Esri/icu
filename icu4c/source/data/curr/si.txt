@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 si{
     Currencies{
         AED{
@@ -656,9 +657,12 @@ si{
         }
     }
     Currencies%narrow{
+        AFN{"؋"}
+        AMD{"֏"}
         AOA{"Kz"}
         ARS{"$"}
         AUD{"$"}
+        AZN{"₼"}
         BAM{"KM"}
         BBD{"$"}
         BDT{"৳"}
@@ -686,6 +690,7 @@ si{
         FKP{"£"}
         GBP{"£"}
         GEL{"₾"}
+        GHS{"GH₵"}
         GIP{"£"}
         GNF{"FG"}
         GTQ{"Q"}
@@ -726,6 +731,7 @@ si{
         PKR{"Rs"}
         PLN{"zł"}
         PYG{"₲"}
+        RON{"lei"}
         RUB{"₽"}
         RWF{"RF"}
         SBD{"$"}
@@ -1385,8 +1391,8 @@ si{
             other{"ප්‍රංශ පොලිනීසියානු ෆ්‍රෑන්ක්"}
         }
         XXX{
-            one{"නොදත් මුදල්"}
-            other{"නොදත් මුදල්"}
+            one{"(නොදත් මුදල් ඒකකය)"}
+            other{"(නොදත් මුදල්)"}
         }
         YER{
             one{"යේමන රියාල්"}
@@ -1405,5 +1411,4 @@ si{
         one{"{1}{0}"}
         other{"{1}{0}"}
     }
-    Version{"2.1.43.50"}
 }

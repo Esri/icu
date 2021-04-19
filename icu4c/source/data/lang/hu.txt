@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 hu{
     Keys{
         calendar{"Naptár"}
@@ -42,7 +43,7 @@ hu{
         ang{"óangol"}
         anp{"angika"}
         ar{"arab"}
-        ar_001{"modern szabányos arab"}
+        ar_001{"modern szabványos arab"}
         arc{"arámi"}
         arn{"mapucse"}
         arp{"arapaho"}
@@ -92,6 +93,7 @@ hu{
         car{"karib"}
         cay{"kajuga"}
         cch{"atszam"}
+        ccp{"csakma"}
         ce{"csecsen"}
         ceb{"szebuano"}
         cgg{"kiga"}
@@ -159,6 +161,7 @@ hu{
         eu{"baszk"}
         ewo{"evondo"}
         fa{"perzsa"}
+        fa_AF{"dari"}
         fan{"fang"}
         fat{"fanti"}
         ff{"fulani"}
@@ -520,7 +523,7 @@ hu{
         uz{"üzbég"}
         vai{"vai"}
         ve{"venda"}
-        vi{"vietnami"}
+        vi{"vietnámi"}
         vo{"volapük"}
         vot{"votják"}
         vun{"vunjo"}
@@ -555,13 +558,24 @@ hu{
         zxx{"nincs nyelvészeti tartalom"}
         zza{"zaza"}
     }
+    Languages%long{
+        zh_Hans{"kínai (egyszerűsített)"}
+        zh_Hant{"kínai (hagyományos)"}
+    }
+    Languages%menu{
+        ars{"arab, nedzsdi"}
+        yue{"kantoni kínai"}
+        zh{"mandarin"}
+    }
     Languages%short{
         az{"azeri"}
-        en_GB{"angol (UK)"}
-        en_US{"angol (USA)"}
+    }
+    Languages%variant{
+        ckb{"kurd, szoráni"}
     }
     Scripts{
         Arab{"Arab"}
+        Aran{"Nasztalik"}
         Armi{"Birodalmi arámi"}
         Armn{"Örmény"}
         Avst{"Avesztán"}
@@ -596,7 +610,7 @@ hu{
         Grek{"Görög"}
         Gujr{"Gudzsaráti"}
         Guru{"Gurmuki"}
-        Hanb{"Hanb"}
+        Hanb{"Han bopomofóval"}
         Hang{"Hangul"}
         Hani{"Han"}
         Hano{"Hanunoo"}
@@ -653,6 +667,7 @@ hu{
         Phnx{"Főniciai"}
         Plrd{"Pollard fonetikus"}
         Prti{"Feliratos parthian"}
+        Qaag{"Zawgyi"}
         Rjng{"Redzsang"}
         Roro{"Rongorongo"}
         Runr{"Runikus"}
@@ -661,7 +676,10 @@ hu{
         Saur{"Szaurastra"}
         Sgnw{"Jelírás"}
         Shaw{"Shaw ábécé"}
+        Sidd{"Sziddham"}
         Sinh{"Szingaléz"}
+        Sogd{"Szogd"}
+        Sogo{"Ószogd"}
         Sund{"Szundanéz"}
         Sylo{"Sylheti nagári"}
         Syrc{"Szíriai"}
@@ -761,6 +779,7 @@ hu{
             compat{"Előző rendezési sorrend a kompatibilitás érdekében"}
             dictionary{"Szótári rendezési sorrend"}
             ducet{"Alapértelmezett Unicode rendezési sorrend"}
+            emoji{"Emodzsi rendezési sorrend"}
             eor{"Európai rendezési szabályok"}
             gb2312han{"Egyszerűsített kínai sorrend - GB2312"}
             phonebook{"Telefonkönyv sorrend"}
@@ -900,7 +919,6 @@ hu{
         VALLADER{"Vallader"}
         WADEGILE{"Wade-Giles átírás"}
     }
-    Version{"2.1.43.65"}
     characterLabelPattern{
         all{"{0} – összes"}
         category-list{"{0}: {1}"}
@@ -915,6 +933,8 @@ hu{
             one{"{0} vonás"}
             other{"{0} vonás"}
         }
+        subscript{"alsó index {0}"}
+        superscript{"felső index {0}"}
     }
     codePatterns{
         language{"Nyelv: {0}"}

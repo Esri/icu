@@ -5,19 +5,22 @@ dofile(_BUILD_DIR .. "/static_library.lua")
 configuration { "*" }
 
 uuid "6AD43549-999F-4CC9-9B46-072DA27244AC"
-
 defines {
-  -- Limit the number of conversions supported to only those necessary: ASCII, Latin-1, and
-  -- UTF-8/UTF-16.  See ucnv_bld.cpp for a list of encodings available with each #define
-  "UCONFIG_NO_LEGACY_CONVERSION",
-  "UCONFIG_ONLY_HTML_CONVERSION",
+    -- Limit the number of conversions supported to only those necessary: ASCII, Latin-1, and
+    -- UTF-8/UTF-16.  See ucnv_bld.cpp for a list of encodings available with each #define
+    "UCONFIG_NO_LEGACY_CONVERSION",
+    "UCONFIG_ONLY_HTML_CONVERSION",
+	"UCONFIG_NO_SERVICE",
+	"U_I18N_IMPLEMENTATION",
+	"U_SHOW_CPLUSPLUS_API",
+	"UCONFIG_NO_COLLATION",
 }
 includedirs {
-  "icu4c/source/common",
+    "icu4c/source/common",
+    "icu4c/source/i18n",
 }
-
 files {
-  "icu4c/source/common/**.h",
+     "icu4c/source/common/**.h",
   "icu4c/source/extra/scrptrun/scrptrun.h",
 
   "icu4c/source/common/appendable.cpp",
@@ -30,6 +33,7 @@ files {
   "icu4c/source/common/cstring.cpp",
   "icu4c/source/common/edits.cpp",
   "icu4c/source/common/loadednormalizer2impl.cpp",
+  "icu4c/source/common/localebuilder.cpp",
   "icu4c/source/common/locid.cpp",
   "icu4c/source/common/loclikely.cpp",
   "icu4c/source/common/locmap.cpp",
@@ -100,7 +104,7 @@ files {
   "icu4c/source/common/utrie2.cpp",
   "icu4c/source/common/uvector.cpp",
   "icu4c/source/common/wintz.cpp",
-  "icu4c/source/data/icudt63_dat.c",
+  "icu4c/source/data/icudt68_dat.c",
   "icu4c/source/extra/scrptrun/scrptrun.cpp",
 }
 
@@ -120,11 +124,17 @@ if (_PLATFORM_MACOS) then
 end
 
 if (_PLATFORM_WINDOWS) then
+  buildoptions {
+  "/utf-8",
+  }
 end
 
 if (_PLATFORM_WINUWP) then
   defines {
     "U_PLATFORM_HAS_WINUWP_API=1", -- build ICU for winuwp
     "_CRT_SECURE_NO_WARNINGS",
+  }
+  buildoptions {
+  "/utf-8",
   }
 end

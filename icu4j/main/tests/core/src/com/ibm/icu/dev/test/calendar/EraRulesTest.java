@@ -1,5 +1,5 @@
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.dev.test.calendar;
 
 import org.junit.Test;
@@ -11,6 +11,7 @@ import com.ibm.icu.impl.CalType;
 import com.ibm.icu.impl.EraRules;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.JapaneseCalendar;
+import com.ibm.icu.util.TimeZone;
 import com.ibm.icu.util.ULocale;
 
 /**
@@ -44,7 +45,7 @@ public class EraRulesTest extends TestFmwk {
                         + calId);
             }
 
-            Calendar cal = Calendar.getInstance(new ULocale("en"));
+            Calendar cal = Calendar.getInstance(TimeZone.GMT_ZONE, new ULocale("en"));
             int currentIdx = rules1.getCurrentEraIndex();
             int currentYear = cal.get(Calendar.YEAR);
             int idx = rules1.getEraIndex(currentYear, cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE));

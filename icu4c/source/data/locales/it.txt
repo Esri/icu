@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 it{
     AuxExemplarCharacters{"[ª á â å ä ã æ ç ê ë í î ï ñ º ô ö õ ø œ ß ú û ü ÿ]"}
     Ellipsis{
@@ -12,8 +13,8 @@ it{
     }
     ExemplarCharacters{"[a à b c d e é è f g h i ì j k l m n o ó ò p q r s t u ù v w x y z]"}
     ExemplarCharactersIndex{"[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"}
-    ExemplarCharactersNumbers{"[\\- , . % ‰ + 0 1 2 3 4 5 6 7 8 9]"}
-    ExemplarCharactersPunctuation{"[\\- — , ; \\: ! ? . … ' ’ \u0022 “ ” « » ( ) \\[ \\] \\{ \\} @ /]"}
+    ExemplarCharactersNumbers{"[\\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]"}
+    ExemplarCharactersPunctuation{"[\\- ‑ — , ; \\: ! ? . … ' ’ \u0022 “ ” « » ( ) \\[ \\] \\{ \\} @ /]"}
     MoreInformation{"?"}
     NumberElements{
         default{"latn"}
@@ -34,7 +35,7 @@ it{
             patternsLong{
                 decimalFormat{
                     1000{
-                        one{"0 mille"}
+                        one{"mille"}
                         other{"0 mila"}
                     }
                     10000{
@@ -190,7 +191,6 @@ it{
                 exponential{"E"}
                 group{"."}
                 infinity{"∞"}
-                list{";"}
                 minusSign{"-"}
                 nan{"NaN"}
                 perMille{"‰"}
@@ -213,7 +213,6 @@ it{
         minimumGroupingDigits{"1"}
         native{"latn"}
     }
-    Version{"2.1.44.86"}
     calendar{
         buddhist{
             eras{
@@ -299,6 +298,53 @@ it{
                 yyyyQQQQ{"QQQQ y G"}
             }
             intervalFormats{
+                Bh{
+                    B{"h B – h B"}
+                    h{"h – h B"}
+                }
+                Bhm{
+                    B{"h:mm B – h:mm B"}
+                    h{"h:mm – h:mm B"}
+                    m{"h:mm – h:mm B"}
+                }
+                Gy{
+                    G{"G y – G y"}
+                    y{"G y–y"}
+                }
+                GyM{
+                    G{"GGGGG y-MM – GGGGG y-MM"}
+                    M{"M/y – M/y GGGGG"}
+                    y{"M/y – M/y GGGGG"}
+                }
+                GyMEd{
+                    G{"E, d/M/y – E, d/M/y GGGGG"}
+                    M{"E, d/M/y – E, d/M/y GGGGG"}
+                    d{"E, d/M/y – E, d/M/y GGGGG"}
+                    y{"E d/M/y – E d/M/y GGGGG"}
+                }
+                GyMMM{
+                    G{"MMM y G – MMM y G"}
+                    M{"MMM – MMM y G"}
+                    y{"MMM y – MMM y G"}
+                }
+                GyMMMEd{
+                    G{"E d MMM y G – E d MMM y G"}
+                    M{"E d MMM – E d MMM y G"}
+                    d{"E d MMM – E d MMM y G"}
+                    y{"E d MMM y – E d MMM y G"}
+                }
+                GyMMMd{
+                    G{"d MMM y G – d MMM y G"}
+                    M{"d MMM – d MMM y G"}
+                    d{"d – d MMM y G"}
+                    y{"d MMM y – d MMM y G"}
+                }
+                GyMd{
+                    G{"d/M/y GGGGG – d/M/y GGGGG"}
+                    M{"d/M/y – d/M/y GGGGG"}
+                    d{"d/M/y – d/M/y GGGGG"}
+                    y{"d/M/y – d/M/y GGGGG"}
+                }
                 H{
                     H{"HH–HH"}
                 }
@@ -451,8 +497,8 @@ it{
                 MMM{"LLL"}
                 MMMEd{"E d MMM"}
                 MMMMW{
-                    one{"'settimana' W 'di' MMM"}
-                    other{"'settimana' W 'di' MMM"}
+                    one{"'settimana' W 'di' MMMM"}
+                    other{"'settimana' W 'di' MMMM"}
                 }
                 MMMMd{"d MMMM"}
                 MMMd{"d MMM"}
@@ -560,7 +606,7 @@ it{
             dayPeriod{
                 format{
                     abbreviated{
-                        afternoon1{"del pomeriggio"}
+                        afternoon1{"di pomeriggio"}
                         evening1{"di sera"}
                         midnight{"mezzanotte"}
                         morning1{"di mattina"}
@@ -568,7 +614,7 @@ it{
                         noon{"mezzogiorno"}
                     }
                     narrow{
-                        afternoon1{"del pomeriggio"}
+                        afternoon1{"di pomeriggio"}
                         evening1{"di sera"}
                         midnight{"mezzanotte"}
                         morning1{"di mattina"}
@@ -630,10 +676,6 @@ it{
                     "aC",
                     "dC",
                 }
-                narrow%variant{
-                    "BCE",
-                    "CE",
-                }
                 wide{
                     "avanti Cristo",
                     "dopo Cristo",
@@ -644,6 +686,53 @@ it{
                 }
             }
             intervalFormats{
+                Bh{
+                    B{"h B – h B"}
+                    h{"h – h B"}
+                }
+                Bhm{
+                    B{"h:mm B – h:mm B"}
+                    h{"h:mm – h:mm B"}
+                    m{"h:mm – h:mm B"}
+                }
+                Gy{
+                    G{"y G – y G"}
+                    y{"y – y G"}
+                }
+                GyM{
+                    G{"M/y GGGGG – M/y GGGGG"}
+                    M{"M/y – M/y GGGGG"}
+                    y{"M/y – M/y GGGGG"}
+                }
+                GyMEd{
+                    G{"E d/M/y – E d/M/y GGGGG"}
+                    M{"E d/M/y – E d/M/y GGGGG"}
+                    d{"E d/M/y – E d/M/y GGGGG"}
+                    y{"E d/M/y – E d/M/y GGGGG"}
+                }
+                GyMMM{
+                    G{"MMM y G – MMM y G"}
+                    M{"MMM – MMM y G"}
+                    y{"MMM y – MMM y G"}
+                }
+                GyMMMEd{
+                    G{"E d MMM y G – E d MMM y G"}
+                    M{"E d MMM – E d MMM y G"}
+                    d{"E d MMM – E d MMM y G"}
+                    y{"E d MMM y – E d MMM y G"}
+                }
+                GyMMMd{
+                    G{"d MMM y G – d MMM y G"}
+                    M{"d MMM – d MMM y G"}
+                    d{"d – d MMM y G"}
+                    y{"d MMM y – d MMM y G"}
+                }
+                GyMd{
+                    G{"d/M/y GGGGG – d/M/y GGGGG"}
+                    M{"d/M/y – d/M/y GGGGG"}
+                    d{"d/M/y – d/M/y GGGGG"}
+                    y{"d/M/y – d/M/y GGGGG"}
+                }
                 H{
                     H{"HH–HH"}
                 }
@@ -1049,7 +1138,7 @@ it{
             }
         }
         day-narrow{
-            dn{"g"}
+            dn{"g."}
             relative{
                 "-1"{"ieri"}
                 "-2"{"l’altro ieri"}
@@ -1069,7 +1158,7 @@ it{
             }
         }
         day-short{
-            dn{"g"}
+            dn{"g."}
             relative{
                 "-1"{"ieri"}
                 "-2"{"l’altro ieri"}
@@ -1196,7 +1285,7 @@ it{
             }
         }
         hour-short{
-            dn{"h."}
+            dn{"h"}
             relativeTime{
                 future{
                     one{"tra {0} h"}
@@ -1493,11 +1582,11 @@ it{
             dn{"s"}
             relativeTime{
                 future{
-                    one{"tra {0} s"}
+                    one{"tra {0} sec."}
                     other{"tra {0} sec."}
                 }
                 past{
-                    one{"{0} s fa"}
+                    one{"{0} sec. fa"}
                     other{"{0} sec. fa"}
                 }
             }
@@ -1728,11 +1817,11 @@ it{
         week-narrow{
             dn{"sett."}
             relative{
-                "-1"{"settimana scorsa"}
-                "0"{"questa settimana"}
-                "1"{"settimana prossima"}
+                "-1"{"sett. scorsa"}
+                "0"{"questa sett."}
+                "1"{"sett. prossima"}
             }
-            relativePeriod{"la settimana del {0}"}
+            relativePeriod{"la sett. del {0}"}
             relativeTime{
                 future{
                     one{"tra {0} sett."}
@@ -1747,11 +1836,11 @@ it{
         week-short{
             dn{"sett."}
             relative{
-                "-1"{"settimana scorsa"}
-                "0"{"questa settimana"}
-                "1"{"settimana prossima"}
+                "-1"{"sett. scorsa"}
+                "0"{"questa sett."}
+                "1"{"sett. prossima"}
             }
-            relativePeriod{"la settimana del {0}"}
+            relativePeriod{"la sett. del {0}"}
             relativeTime{
                 future{
                     one{"tra {0} sett."}

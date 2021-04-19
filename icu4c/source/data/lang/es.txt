@@ -1,25 +1,26 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 es{
     Keys{
         calendar{"calendario"}
         cf{"formato de moneda"}
-        colAlternate{"Orden ignorando símbolos"}
-        colBackwards{"Orden de acentos con inversión"}
-        colCaseFirst{"Orden de mayúsculas/minúsculas"}
-        colCaseLevel{"Orden con distinción entre mayúsculas y minúsculas"}
-        colNormalization{"Orden con normalización"}
-        colNumeric{"Orden numérico"}
-        colStrength{"Intensidad de orden"}
+        colAlternate{"orden ignorando símbolos"}
+        colBackwards{"orden de acentos con inversión"}
+        colCaseFirst{"orden de mayúsculas/minúsculas"}
+        colCaseLevel{"orden con distinción entre mayúsculas y minúsculas"}
+        colNormalization{"orden con normalización"}
+        colNumeric{"orden numérico"}
+        colStrength{"intensidad de orden"}
         collation{"orden"}
         currency{"moneda"}
         hc{"ciclo horario (12 o 24 horas)"}
         lb{"estilo de salto de línea"}
         ms{"sistema de medición"}
         numbers{"números"}
-        timezone{"Zona horaria"}
-        va{"Variante local"}
-        x{"Uso privado"}
+        timezone{"zona horaria"}
+        va{"variante local"}
+        x{"uso privado"}
     }
     Languages{
         aa{"afar"}
@@ -92,6 +93,7 @@ es{
         car{"caribe"}
         cay{"cayuga"}
         cch{"atsam"}
+        ccp{"chakma"}
         ce{"checheno"}
         ceb{"cebuano"}
         cgg{"chiga"}
@@ -159,6 +161,7 @@ es{
         eu{"euskera"}
         ewo{"ewondo"}
         fa{"persa"}
+        fa_AF{"darí"}
         fan{"fang"}
         fat{"fanti"}
         ff{"fula"}
@@ -388,7 +391,7 @@ es{
         os{"osético"}
         osa{"osage"}
         ota{"turco otomano"}
-        pa{"panyabí"}
+        pa{"punyabí"}
         pag{"pangasinán"}
         pal{"pahlavi"}
         pam{"pampanga"}
@@ -555,17 +558,25 @@ es{
         zxx{"sin contenido lingüístico"}
         zza{"zazaki"}
     }
+    Languages%long{
+        zh_Hans{"chino mandarín simplificado"}
+        zh_Hant{"chino mandarín tradicional"}
+    }
+    Languages%menu{
+        yue{"chino cantonés"}
+        zh{"chino mandarín"}
+    }
     Languages%short{
         az{"azerí"}
-        en_GB{"inglés (RU)"}
-        en_US{"inglés (EE. UU.)"}
     }
     Languages%variant{
+        ckb{"kurdo central"}
         ps{"pastú"}
         ug{"uygur"}
     }
     Scripts{
         Arab{"árabe"}
+        Aran{"nastaliq"}
         Armn{"armenio"}
         Avst{"avéstico"}
         Bali{"balinés"}
@@ -650,6 +661,7 @@ es{
         Phag{"phags-pa"}
         Phnx{"fenicio"}
         Plrd{"Pollard Miao"}
+        Qaag{"zawgyi"}
         Rjng{"rejang"}
         Roro{"rongo-rongo"}
         Runr{"rúnico"}
@@ -851,7 +863,6 @@ es{
         VALENCIA{"Valenciano"}
         WADEGILE{"Romanización Wade-Giles"}
     }
-    Version{"2.1.44.88"}
     characterLabelPattern{
         all{"{0} — Todo"}
         category-list{"{0}: {1}"}
@@ -866,6 +877,8 @@ es{
             one{"{0} trazo"}
             other{"{0} trazos"}
         }
+        subscript{"Subíndice {0}"}
+        superscript{"Superíndice {0}"}
     }
     codePatterns{
         language{"Idioma: {0}"}

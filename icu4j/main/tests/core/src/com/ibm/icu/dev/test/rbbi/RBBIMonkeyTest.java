@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 
 package com.ibm.icu.dev.test.rbbi;
 
@@ -1005,7 +1005,7 @@ public class RBBIMonkeyTest extends TestFmwk {
     //
     @Test
     public void TestMonkey() {
-        String tests[] = {"grapheme.txt", "word.txt", "line.txt", "sentence.txt", "line_normal.txt",
+        String tests[] = {"grapheme.txt", "word.txt", "line.txt", "line_cj.txt", "sentence.txt", "line_normal.txt",
                 "line_normal_cj.txt", "line_loose.txt", "line_loose_cj.txt", "word_POSIX.txt"
         };
 

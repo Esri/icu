@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 bn{
     Keys{
         calendar{"ক্যালেন্ডার"}
@@ -83,6 +84,7 @@ bn{
         cad{"ক্যাডো"}
         car{"ক্যারিব"}
         cch{"আত্সাম"}
+        ccp{"চাকমা"}
         ce{"চেচেন"}
         ceb{"চেবুয়ানো"}
         cgg{"চিগা"}
@@ -150,6 +152,7 @@ bn{
         eu{"বাস্ক"}
         ewo{"ইওন্ডো"}
         fa{"ফার্সি"}
+        fa_AF{"দারি"}
         fan{"ফ্যাঙ্গ"}
         fat{"ফান্তি"}
         ff{"ফুলাহ্"}
@@ -193,7 +196,6 @@ bn{
         gwi{"গওইচ্’ইন"}
         ha{"হাউসা"}
         hai{"হাইডা"}
-        hak{"hak"}
         haw{"হাওয়াইয়ান"}
         he{"হিব্রু"}
         hi{"হিন্দি"}
@@ -337,7 +339,6 @@ bn{
         myv{"এরজিয়া"}
         mzn{"মাজানদেরানি"}
         na{"নাউরু"}
-        nan{"nan"}
         nap{"নেয়াপোলিটান"}
         naq{"নামা"}
         nb{"নরওয়েজিয়ান বোকমাল"}
@@ -352,7 +353,7 @@ bn{
         nl{"ওলন্দাজ"}
         nl_BE{"ফ্লেমিশ"}
         nmg{"কোয়াসিও"}
-        nn{"নরওয়েজীয়ান নিনর্স্ক"}
+        nn{"নরওয়েজিয়ান নিনর্স্ক"}
         nnh{"নিঙ্গেম্বুন"}
         no{"নরওয়েজীয়"}
         nog{"নোগাই"}
@@ -526,7 +527,7 @@ bn{
         ybb{"ইয়েম্বা"}
         yi{"ইয়েদ্দিশ"}
         yo{"ইওরুবা"}
-        yue{"ক্যানটোনীজ"}
+        yue{"ক্যান্টোনিজ"}
         za{"ঝু্য়াঙ"}
         zap{"জাপোটেক"}
         zbl{"চিত্র ভাষা"}
@@ -540,12 +541,21 @@ bn{
         zxx{"ভাষাভিত্তিক বিষয়বস্তু নেই"}
         zza{"জাজা"}
     }
+    Languages%long{
+        zh_Hans{"চীনা ম্যান্ডারিন সরলীকৃত"}
+        zh_Hant{"ঐতিহ্যবাহী ম্যান্ডারিন চীনা"}
+    }
+    Languages%menu{
+        yue{"চীনা, ক্যানটোনীজ"}
+        zh{"চীনা, ম্যান্ডারিন"}
+    }
     Languages%short{
         az{"আজেরি"}
         en_GB{"যুক্তরাজ্যের ইংরেজি"}
         en_US{"যুক্তরাষ্ট্রের ইংরেজি"}
     }
     Languages%variant{
+        ckb{"কুর্দিশ, সোরানি"}
         ps{"পুশতো"}
     }
     Scripts{
@@ -872,7 +882,6 @@ bn{
             wara{"ওয়ারেং সিটি সংখ্যা"}
         }
     }
-    Version{"2.1.44.91"}
     characterLabelPattern{
         all{"{0} — সমস্ত"}
         category-list{"{0}: {1}"}
@@ -887,6 +896,8 @@ bn{
             one{"{0} স্ট্রোক"}
             other{"{0} স্ট্রোক"}
         }
+        subscript{"সাবস্ক্রিপ্ট {0}"}
+        superscript{"সুপারস্ক্রিপ্ট {0}"}
     }
     codePatterns{
         language{"ভাষা: {0}"}

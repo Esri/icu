@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.number;
 
 import com.ibm.icu.number.NumberFormatter.SignDisplay;
@@ -8,8 +8,7 @@ import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
 /**
  * A class that defines the notation style to be used when formatting numbers in NumberFormatter.
  *
- * @draft ICU 60
- * @provisional This API might change or be removed in a future release.
+ * @stable ICU 60
  * @see NumberFormatter
  */
 public class Notation {
@@ -53,8 +52,7 @@ public class Notation {
      * </pre>
      *
      * @return A ScientificNotation for chaining or passing to the NumberFormatter notation() setter.
-     * @draft ICU 60
-     * @provisional This API might change or be removed in a future release.
+     * @stable ICU 60
      * @see NumberFormatter
      */
     public static ScientificNotation scientific() {
@@ -81,8 +79,7 @@ public class Notation {
      * </pre>
      *
      * @return A ScientificNotation for chaining or passing to the NumberFormatter notation() setter.
-     * @draft ICU 60
-     * @provisional This API might change or be removed in a future release.
+     * @stable ICU 60
      * @see NumberFormatter
      */
     public static ScientificNotation engineering() {
@@ -128,8 +125,7 @@ public class Notation {
      * </pre>
      *
      * @return A CompactNotation for passing to the NumberFormatter notation() setter.
-     * @draft ICU 60
-     * @provisional This API might change or be removed in a future release.
+     * @stable ICU 60
      * @see NumberFormatter
      */
     public static CompactNotation compactShort() {
@@ -156,8 +152,7 @@ public class Notation {
      * </pre>
      *
      * @return A CompactNotation for passing to the NumberFormatter notation() setter.
-     * @draft ICU 60
-     * @provisional This API might change or be removed in a future release.
+     * @stable ICU 60
      * @see NumberFormatter
      */
     public static CompactNotation compactLong() {
@@ -187,8 +182,7 @@ public class Notation {
      * </pre>
      *
      * @return A SimpleNotation for passing to the NumberFormatter notation() setter.
-     * @draft ICU 60
-     * @provisional This API might change or be removed in a future release.
+     * @stable ICU 60
      * @see NumberFormatter
      */
     public static SimpleNotation simple() {

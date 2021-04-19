@@ -1,10 +1,10 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 zh_Hant_HK{
-    Version{"2.1.43.65"}
     units{
         acceleration{
-            meter-per-second-squared{
+            meter-per-square-second{
                 dnam{"米/平方秒"}
                 other{"{0} 米/平方秒"}
             }
@@ -49,17 +49,22 @@ zh_Hant_HK{
             per{"{0}每{1}"}
         }
         concentr{
-            part-per-million{
-                other{"{0} ppm"}
+            millimole-per-liter{
+                dnam{"每公升毫摩爾"}
+                other{"每公升 {0} 毫摩爾"}
             }
         }
         consumption{
+            liter-per-100-kilometer{
+                dnam{"公升/100公里"}
+            }
             liter-per-kilometer{
                 dnam{"公升/公里"}
                 other{"{0} 公升/公里"}
             }
             mile-per-gallon{
-                dnam{"英里每加侖"}
+                dnam{"英里/加侖"}
+                other{"{0} 英里/加侖"}
             }
         }
         coordinate{
@@ -114,6 +119,10 @@ zh_Hant_HK{
             }
         }
         energy{
+            british-thermal-unit{
+                dnam{"英制熱量單位"}
+                other{"{0} 英制熱量單位"}
+            }
             foodcalorie{
                 other{"{0} 卡路里"}
             }
@@ -162,7 +171,21 @@ zh_Hant_HK{
                 other{"{0} pt"}
             }
         }
+        light{
+            candela{
+                dnam{"坎德拉"}
+                other{"{0} 坎德拉"}
+            }
+        }
         mass{
+            dalton{
+                dnam{"道爾頓"}
+                other{"{0} 道爾頓"}
+            }
+            grain{
+                dnam{"格令"}
+                other{"{0}格令"}
+            }
             gram{
                 per{"{0} 每克"}
             }
@@ -205,11 +228,15 @@ zh_Hant_HK{
                 dnam{"百帕斯卡"}
                 other{"{0} 百帕斯卡"}
             }
-            inch-hg{
+            inch-ofhg{
                 dnam{"英吋汞柱"}
                 other{"{0} 英吋汞柱"}
             }
-            pound-per-square-inch{
+            megapascal{
+                dnam{"兆帕斯卡"}
+                other{"{0} 兆帕斯卡"}
+            }
+            pound-force-per-square-inch{
                 dnam{"磅/平方吋"}
                 other{"{0} 磅/平方吋"}
             }
@@ -236,6 +263,12 @@ zh_Hant_HK{
             kelvin{
                 dnam{"開爾文"}
                 other{"{0} 開爾文"}
+            }
+        }
+        torque{
+            pound-force-foot{
+                dnam{"磅尺"}
+                other{"{0} 磅尺"}
             }
         }
         volume{
@@ -275,6 +308,10 @@ zh_Hant_HK{
                 dnam{"液安士"}
                 other{"{0} 液安士"}
             }
+            fluid-ounce-imperial{
+                dnam{"英制液安士"}
+                other{"{0} 英制液安士"}
+            }
             gallon{
                 per{"{0} 每加侖"}
             }
@@ -285,7 +322,7 @@ zh_Hant_HK{
     }
     unitsNarrow{
         acceleration{
-            meter-per-second-squared{
+            meter-per-square-second{
                 dnam{"米每平方秒"}
             }
         }
@@ -324,12 +361,15 @@ zh_Hant_HK{
             }
         }
         concentr{
-            part-per-million{
+            millimole-per-liter{
+                dnam{"毫摩爾/公升"}
+            }
+            permillion{
                 other{"{0} ppm"}
             }
         }
         consumption{
-            liter-per-100kilometers{
+            liter-per-100-kilometer{
                 other{"{0}L/100km"}
             }
         }
@@ -372,6 +412,7 @@ zh_Hant_HK{
             }
             week{
                 other{"{0}週"}
+                per{"{0} 每星期"}
             }
             year{
                 other{"{0}年"}
@@ -454,11 +495,11 @@ zh_Hant_HK{
             }
         }
         pressure{
-            inch-hg{
+            inch-ofhg{
                 dnam{"英吋汞柱"}
                 other{"{0}″ Hg"}
             }
-            pound-per-square-inch{
+            pound-force-per-square-inch{
                 dnam{"磅每平方吋"}
             }
         }
@@ -520,7 +561,7 @@ zh_Hant_HK{
             g-force{
                 other{"{0} G"}
             }
-            meter-per-second-squared{
+            meter-per-square-second{
                 dnam{"米每平方秒"}
                 other{"{0} 米每平方秒"}
             }
@@ -568,8 +609,15 @@ zh_Hant_HK{
                 per{"{0} 每平方英里"}
             }
         }
+        compound{
+            times{"{0}⋅{1}"}
+        }
         concentr{
-            part-per-million{
+            millimole-per-liter{
+                dnam{"毫摩爾/公升"}
+                other{"{0} 毫摩爾/公升"}
+            }
+            permillion{
                 other{"{0} ppm"}
             }
         }
@@ -631,6 +679,36 @@ zh_Hant_HK{
                 dnam{"千焦"}
             }
         }
+        graphics{
+            dot-per-centimeter{
+                dnam{"dpcm"}
+                other{"{0} dpcm"}
+            }
+            dot-per-inch{
+                dnam{"dpi"}
+                other{"{0} dpi"}
+            }
+            em{
+                dnam{"em"}
+                other{"{0} em"}
+            }
+            megapixel{
+                dnam{"MP"}
+                other{"{0} MP"}
+            }
+            pixel{
+                dnam{"px"}
+                other{"{0} px"}
+            }
+            pixel-per-centimeter{
+                dnam{"ppcm"}
+                other{"{0} ppcm"}
+            }
+            pixel-per-inch{
+                dnam{"ppi"}
+                other{"{0} ppi"}
+            }
+        }
         length{
             centimeter{
                 dnam{"厘米"}
@@ -677,7 +755,17 @@ zh_Hant_HK{
                 other{"{0} pt"}
             }
         }
+        light{
+            candela{
+                dnam{"坎德拉"}
+                other{"{0} 坎德拉"}
+            }
+        }
         mass{
+            grain{
+                dnam{"格令"}
+                other{"{0} 格令"}
+            }
             gram{
                 per{"{0} 每克"}
             }
@@ -707,11 +795,11 @@ zh_Hant_HK{
             }
         }
         pressure{
-            inch-hg{
+            inch-ofhg{
                 dnam{"英吋汞柱"}
                 other{"{0} 英吋汞柱"}
             }
-            pound-per-square-inch{
+            pound-force-per-square-inch{
                 dnam{"磅每平方吋"}
                 other{"{0} 磅每平方吋"}
             }
@@ -774,6 +862,10 @@ zh_Hant_HK{
             fluid-ounce{
                 dnam{"液安士"}
                 other{"{0} 液安士"}
+            }
+            fluid-ounce-imperial{
+                dnam{"英制液安士"}
+                other{"{0} 英制液安士"}
             }
             gallon{
                 per{"{0} 每加侖"}

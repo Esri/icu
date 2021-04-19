@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 1996-2008, International Business Machines Corporation and    *
@@ -126,7 +126,7 @@ public class DisplayNameTest extends TestFmwk {
             @Override
             public String get(ULocale loc, String code, Object context) {
                 Currency s = Currency.getInstance(code);
-                return s.getName(loc, ((Integer)context).intValue(), new boolean[1]);
+                return s.getName(loc, ((Integer)context).intValue(), null /* isChoiceFormat */);
             }
         });
         // comment this out, because the zone string information is lost

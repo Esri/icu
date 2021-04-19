@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.impl;
 
 import java.io.IOException;
@@ -486,6 +486,11 @@ public final class CaseMapImpl {
             } else {
                 c = lead;
             }
+            // We need to append unchanged text before calling the UCaseProps.toFullXyz() methods
+            // because they will sometimes append their mapping to dest,
+            // and that must be after copying the previous text.
+            appendUnchanged(src, prev, cpStart - prev, dest, options, edits);
+            prev = cpStart;
             if (caseLocale >= 0) {
                 if (iter == null) {
                     iter = new StringContextIterator(src, cpStart, srcIndex);
@@ -497,7 +502,6 @@ public final class CaseMapImpl {
                 c = UCaseProps.INSTANCE.toFullFolding(c, dest, options);
             }
             if (c >= 0) {
-                appendUnchanged(src, prev, cpStart - prev, dest, options, edits);
                 appendResult(c, dest, srcIndex - cpStart, options, edits);
                 prev = srcIndex;
             }
@@ -568,9 +572,13 @@ public final class CaseMapImpl {
             } else {
                 iter.setCPStartAndLimit(cpStart, srcIndex);
             }
+            // We need to append unchanged text before calling UCaseProps.toFullUpper()
+            // because it will sometimes append its mapping to dest,
+            // and that must be after copying the previous text.
+            appendUnchanged(src, prev, cpStart - prev, dest, options, edits);
+            prev = cpStart;
             c = UCaseProps.INSTANCE.toFullUpper(c, iter, dest, caseLocale);
             if (c >= 0) {
-                appendUnchanged(src, prev, cpStart - prev, dest, options, edits);
                 appendResult(c, dest, srcIndex - cpStart, options, edits);
                 prev = srcIndex;
             }

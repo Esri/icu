@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  **********************************************************************
  * Copyright (c) 2004-2016, International Business Machines
@@ -12,19 +12,22 @@
  */
 package com.ibm.icu.dev.test.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -32,7 +35,6 @@ import org.junit.runners.JUnit4;
 import com.ibm.icu.dev.test.TestFmwk;
 import com.ibm.icu.dev.test.TestUtil;
 import com.ibm.icu.dev.test.TestUtil.JavaVendor;
-import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.DateFormat;
 import com.ibm.icu.text.DecimalFormat;
 import com.ibm.icu.text.DisplayContext;
@@ -44,6 +46,7 @@ import com.ibm.icu.text.SimpleDateFormat;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.IllformedLocaleException;
 import com.ibm.icu.util.LocaleData;
+import com.ibm.icu.util.LocalePriorityList;
 import com.ibm.icu.util.ULocale;
 import com.ibm.icu.util.ULocale.Builder;
 import com.ibm.icu.util.ULocale.Category;
@@ -671,15 +674,12 @@ public class ULocaleTest extends TestFmwk {
                 {"x-piglatin", "", "ML", "", "x-piglatin_ML.MBE", "x-piglatin_ML.MBE", "x-piglatin_ML"},  /* Multibyte English */
                 {"i-cherokee", "","US", "", "i-Cherokee_US.utf7", "i-cherokee_US.utf7", "i-cherokee_US"},
                 {"x-filfli", "", "MT", "FILFLA", "x-filfli_MT_FILFLA.gb-18030", "x-filfli_MT_FILFLA.gb-18030", "x-filfli_MT_FILFLA"},
-                {"no", "", "NO", "NY_B", "no-no-ny.utf32@B", "no_NO_NY.utf32@B", "no_NO_NY_B"},
-                {"no", "", "NO", "B",  "no-no.utf32@B", "no_NO.utf32@B", "no_NO_B"},
-                {"no", "", "",   "NY", "no__ny", "no__NY", null},
-                {"no", "", "",   "NY", "no@ny", "no@ny", "no__NY"},
+                {"no", "", "NO", "NY_B", "no-no-ny.utf32@B", "no_NO_NY.utf32@B", "nb_NO_NY_B"},
+                {"no", "", "NO", "B",  "no-no.utf32@B", "no_NO.utf32@B", "nb_NO_B"},
+                {"no", "", "",   "NY", "no__ny", "no__NY", "nb__NY"},
+                {"no", "", "",   "NY", "no@ny", "no@ny", "nb__NY"},
                 {"el", "Latn", "", "", "el-latn", "el_Latn", null},
                 {"en", "Cyrl", "RU", "", "en-cyrl-ru", "en_Cyrl_RU", null},
-                {"zh", "Hant", "TW", "STROKE", "zh-hant_TW_STROKE", "zh_Hant_TW_STROKE", "zh_Hant_TW@collation=stroke"},
-                {"zh", "Hant", "CN", "STROKE", "zh-hant_CN_STROKE", "zh_Hant_CN_STROKE", "zh_Hant_CN@collation=stroke"},
-                {"zh", "Hant", "TW", "PINYIN", "zh-hant_TW_PINYIN", "zh_Hant_TW_PINYIN", "zh_Hant_TW@collation=pinyin"},
                 {"qq", "Qqqq", "QQ", "QQ", "qq_Qqqq_QQ_QQ", "qq_Qqqq_QQ_QQ", null},
                 {"qq", "Qqqq", "", "QQ", "qq_Qqqq__QQ", "qq_Qqqq__QQ", null},
                 {"ab", "Cdef", "GH", "IJ", "ab_cdef_gh_ij", "ab_Cdef_GH_IJ", null}, /* total garbage */
@@ -689,6 +689,13 @@ public class ULocaleTest extends TestFmwk {
                 {"", "", "", "", "_@FOO=bar", "@foo=bar", null},
                 {"", "", "", "", "__@FOO=bar", "@foo=bar", null},
                 {"", "", "", "FOO", "__foo@FOO=bar", "__FOO@foo=bar", null}, // we have some of these prefixes
+
+                // Before ICU 64, ICU locale canonicalization had some additional mappings.
+                // They were removed for ICU-20187 "drop support for long-obsolete locale ID variants".
+                // The following now use standard canonicalization.
+                {"zh", "Hant", "TW", "STROKE", "zh-hant_TW_STROKE", "zh_Hant_TW_STROKE", "zh_Hant_TW_STROKE"},
+                {"zh", "Hant", "CN", "STROKE", "zh-hant_CN_STROKE", "zh_Hant_CN_STROKE", "zh_Hant_CN_STROKE"},
+                {"zh", "Hant", "TW", "PINYIN", "zh-hant_TW_PINYIN", "zh_Hant_TW_PINYIN", "zh_Hant_TW_PINYIN"},
         };
 
         String loc, buf,buf1;
@@ -886,54 +893,17 @@ public class ULocaleTest extends TestFmwk {
     @Test
     public void TestCanonicalization(){
         final String[][]testCases = new String[][]{
-                { "ca_ES_PREEURO", "ca_ES_PREEURO", "ca_ES@currency=ESP" },
-                { "de_AT_PREEURO", "de_AT_PREEURO", "de_AT@currency=ATS" },
-                { "de_DE_PREEURO", "de_DE_PREEURO", "de_DE@currency=DEM" },
-                { "de_LU_PREEURO", "de_LU_PREEURO", "de_LU@currency=EUR" },
-                { "el_GR_PREEURO", "el_GR_PREEURO", "el_GR@currency=GRD" },
-                { "en_BE_PREEURO", "en_BE_PREEURO", "en_BE@currency=BEF" },
-                { "en_IE_PREEURO", "en_IE_PREEURO", "en_IE@currency=IEP" },
-                { "es_ES_PREEURO", "es_ES_PREEURO", "es_ES@currency=ESP" },
-                { "eu_ES_PREEURO", "eu_ES_PREEURO", "eu_ES@currency=ESP" },
-                { "fi_FI_PREEURO", "fi_FI_PREEURO", "fi_FI@currency=FIM" },
-                { "fr_BE_PREEURO", "fr_BE_PREEURO", "fr_BE@currency=BEF" },
-                { "fr_FR_PREEURO", "fr_FR_PREEURO", "fr_FR@currency=FRF" },
-                { "fr_LU_PREEURO", "fr_LU_PREEURO", "fr_LU@currency=LUF" },
-                { "ga_IE_PREEURO", "ga_IE_PREEURO", "ga_IE@currency=IEP" },
-                { "gl_ES_PREEURO", "gl_ES_PREEURO", "gl_ES@currency=ESP" },
-                { "it_IT_PREEURO", "it_IT_PREEURO", "it_IT@currency=ITL" },
-                { "nl_BE_PREEURO", "nl_BE_PREEURO", "nl_BE@currency=BEF" },
-                { "nl_NL_PREEURO", "nl_NL_PREEURO", "nl_NL@currency=NLG" },
-                { "pt_PT_PREEURO", "pt_PT_PREEURO", "pt_PT@currency=PTE" },
-                { "de__PHONEBOOK", "de__PHONEBOOK", "de@collation=phonebook" },
-                { "de_PHONEBOOK", "de__PHONEBOOK", "de@collation=phonebook" },
-                { "en_GB_EURO", "en_GB_EURO", "en_GB@currency=EUR" },
-                { "en_GB@EURO", null, "en_GB@currency=EUR" }, /* POSIX ID */
-                { "es__TRADITIONAL", "es__TRADITIONAL", "es@collation=traditional" },
-                { "hi__DIRECT", "hi__DIRECT", "hi@collation=direct" },
-                { "ja_JP_TRADITIONAL", "ja_JP_TRADITIONAL", "ja_JP@calendar=japanese" },
-                { "th_TH_TRADITIONAL", "th_TH_TRADITIONAL", "th_TH@calendar=buddhist" },
-                { "zh_TW_STROKE", "zh_TW_STROKE", "zh_TW@collation=stroke" },
-                { "zh__PINYIN", "zh__PINYIN", "zh@collation=pinyin" },
                 { "zh@collation=pinyin", "zh@collation=pinyin", "zh@collation=pinyin" },
                 { "zh_CN@collation=pinyin", "zh_CN@collation=pinyin", "zh_CN@collation=pinyin" },
                 { "zh_CN_CA@collation=pinyin", "zh_CN_CA@collation=pinyin", "zh_CN_CA@collation=pinyin" },
                 { "en_US_POSIX", "en_US_POSIX", "en_US_POSIX" },
                 { "hy_AM_REVISED", "hy_AM_REVISED", "hy_AM_REVISED" },
-                { "no_NO_NY", "no_NO_NY", "no_NO_NY" /* not: "nn_NO" [alan ICU3.0] */ },
-                { "no@ny", null, "no__NY" /* not: "nn" [alan ICU3.0] */ }, /* POSIX ID */
-                { "no-no.utf32@B", null, "no_NO_B" /* not: "nb_NO_B" [alan ICU3.0] */ }, /* POSIX ID */
-                { "qz-qz@Euro", null, "qz_QZ@currency=EUR" }, /* qz-qz uses private use iso codes */
+                { "no_NO_NY", "no_NO_NY", "nb_NO_NY" /* not: "nn_NO" [alan ICU3.0] */ },
+                { "no@ny", null, "nb__NY" /* not: "nn" [alan ICU3.0] */ }, /* POSIX ID */
+                { "no-no.utf32@B", null, "nb_NO_B" /* not: "nb_NO_B" [alan ICU3.0] */ }, /* POSIX ID */
                 { "en-BOONT", "en__BOONT", "en__BOONT" }, /* registered name */
                 { "de-1901", "de__1901", "de__1901" }, /* registered name */
                 { "de-1906", "de__1906", "de__1906" }, /* registered name */
-                { "sr-SP-Cyrl", "sr_SP_CYRL", "sr_Cyrl_RS" }, /* .NET name */
-                { "sr-SP-Latn", "sr_SP_LATN", "sr_Latn_RS" }, /* .NET name */
-                { "sr_YU_CYRILLIC", "sr_YU_CYRILLIC", "sr_Cyrl_RS" }, /* Linux name */
-                { "uz-UZ-Cyrl", "uz_UZ_CYRL", "uz_Cyrl_UZ" }, /* .NET name */
-                { "uz-UZ-Latn", "uz_UZ_LATN", "uz_Latn_UZ" }, /* .NET name */
-                { "zh-CHS", "zh_CHS", "zh_Hans" }, /* .NET name */
-                { "zh-CHT", "zh_CHT", "zh_Hant" }, /* .NET name This may change back to zh_Hant */
 
                 /* posix behavior that used to be performed by getName */
                 { "mr.utf8", null, "mr" },
@@ -941,13 +911,63 @@ public class ULocaleTest extends TestFmwk {
                 { "x-piglatin_ML.MBE", null, "x-piglatin_ML" },
                 { "i-cherokee_US.utf7", null, "i-cherokee_US" },
                 { "x-filfli_MT_FILFLA.gb-18030", null, "x-filfli_MT_FILFLA" },
-                { "no-no-ny.utf8@B", null, "no_NO_NY_B" /* not: "nn_NO" [alan ICU3.0] */ }, /* @ ignored unless variant is empty */
+                { "no-no-ny.utf8@B", null, "nb_NO_NY_B" /* not: "nn_NO" [alan ICU3.0] */ }, /* @ ignored unless variant is empty */
 
                 /* fleshing out canonicalization */
                 /* sort keywords, ';' is separator so not present at end in canonical form */
                 { "en_Hant_IL_VALLEY_GIRL@currency=EUR;calendar=Japanese;", "en_Hant_IL_VALLEY_GIRL@calendar=Japanese;currency=EUR", "en_Hant_IL_VALLEY_GIRL@calendar=Japanese;currency=EUR" },
                 /* already-canonical ids are not changed */
                 { "en_Hant_IL_VALLEY_GIRL@calendar=Japanese;currency=EUR", "en_Hant_IL_VALLEY_GIRL@calendar=Japanese;currency=EUR", "en_Hant_IL_VALLEY_GIRL@calendar=Japanese;currency=EUR" },
+                /* norwegian is just too weird, if we handle things in their full generality */
+                /* this is a negative test to show that we DO NOT handle 'lang=no,var=NY' specially. */
+                { "no-Hant-GB_NY@currency=$$$", "no_Hant_GB_NY@currency=$$$", "nb_Hant_GB_NY@currency=$$$" /* not: "nn_Hant_GB@currency=$$$" [alan ICU3.0] */ },
+
+                /* test cases reflecting internal resource bundle usage */
+                /* root is just a language */
+                { "root@kw=foo", "root@kw=foo", "root@kw=foo" },
+                /* level 2 canonicalization should not touch basename when there are keywords and it is null */
+                { "@calendar=gregorian", "@calendar=gregorian", "@calendar=gregorian" },
+
+                // Before ICU 64, ICU locale canonicalization had some additional mappings.
+                // They were removed for ICU-20187 "drop support for long-obsolete locale ID variants".
+                // The following now use standard canonicalization.
+                { "ca_ES_PREEURO", "ca_ES_PREEURO", "ca_ES_PREEURO" },
+                { "de_AT_PREEURO", "de_AT_PREEURO", "de_AT_PREEURO" },
+                { "de_DE_PREEURO", "de_DE_PREEURO", "de_DE_PREEURO" },
+                { "de_LU_PREEURO", "de_LU_PREEURO", "de_LU_PREEURO" },
+                { "el_GR_PREEURO", "el_GR_PREEURO", "el_GR_PREEURO" },
+                { "en_BE_PREEURO", "en_BE_PREEURO", "en_BE_PREEURO" },
+                { "en_IE_PREEURO", "en_IE_PREEURO", "en_IE_PREEURO" },
+                { "es_ES_PREEURO", "es_ES_PREEURO", "es_ES_PREEURO" },
+                { "eu_ES_PREEURO", "eu_ES_PREEURO", "eu_ES_PREEURO" },
+                { "fi_FI_PREEURO", "fi_FI_PREEURO", "fi_FI_PREEURO" },
+                { "fr_BE_PREEURO", "fr_BE_PREEURO", "fr_BE_PREEURO" },
+                { "fr_FR_PREEURO", "fr_FR_PREEURO", "fr_FR_PREEURO" },
+                { "fr_LU_PREEURO", "fr_LU_PREEURO", "fr_LU_PREEURO" },
+                { "ga_IE_PREEURO", "ga_IE_PREEURO", "ga_IE_PREEURO" },
+                { "gl_ES_PREEURO", "gl_ES_PREEURO", "gl_ES_PREEURO" },
+                { "it_IT_PREEURO", "it_IT_PREEURO", "it_IT_PREEURO" },
+                { "nl_BE_PREEURO", "nl_BE_PREEURO", "nl_BE_PREEURO" },
+                { "nl_NL_PREEURO", "nl_NL_PREEURO", "nl_NL_PREEURO" },
+                { "pt_PT_PREEURO", "pt_PT_PREEURO", "pt_PT_PREEURO" },
+                { "de__PHONEBOOK", "de__PHONEBOOK", "de__PHONEBOOK" },
+                { "de_PHONEBOOK", "de__PHONEBOOK", "de__PHONEBOOK" },
+                { "en_GB_EURO", "en_GB_EURO", "en_GB_EURO" },
+                { "en_GB@EURO", null, "en_GB_EURO" }, /* POSIX ID */
+                { "es__TRADITIONAL", "es__TRADITIONAL", "es__TRADITIONAL" },
+                { "hi__DIRECT", "hi__DIRECT", "hi__DIRECT" },
+                { "ja_JP_TRADITIONAL", "ja_JP_TRADITIONAL", "ja_JP_TRADITIONAL" },
+                { "th_TH_TRADITIONAL", "th_TH_TRADITIONAL", "th_TH_TRADITIONAL" },
+                { "zh_TW_STROKE", "zh_TW_STROKE", "zh_TW_STROKE" },
+                { "zh__PINYIN", "zh__PINYIN", "zh__PINYIN" },
+                { "qz-qz@Euro", null, "qz_QZ_EURO" }, /* qz-qz uses private use iso codes */
+                { "sr-SP-Cyrl", "sr_SP_CYRL", "sr_SP_CYRL" }, /* .NET name */
+                { "sr-SP-Latn", "sr_SP_LATN", "sr_SP_LATN" }, /* .NET name */
+                { "sr_YU_CYRILLIC", "sr_YU_CYRILLIC", "sr_RS_CYRILLIC" }, /* Linux name */
+                { "uz-UZ-Cyrl", "uz_UZ_CYRL", "uz_UZ_CYRL" }, /* .NET name */
+                { "uz-UZ-Latn", "uz_UZ_LATN", "uz_UZ_LATN" }, /* .NET name */
+                { "zh-CHS", "zh_CHS", "zh_CHS" }, /* .NET name */
+                { "zh-CHT", "zh_CHT", "zh_CHT" }, /* .NET name This may change back to zh_Hant */
                 /* PRE_EURO and EURO conversions don't affect other keywords */
                 /* not in spec
                { "es_ES_PREEURO@CALendar=Japanese", "es_ES_PREEURO@calendar=Japanese", "es_ES@calendar=Japanese;currency=ESP" },
@@ -958,15 +978,6 @@ public class ULocaleTest extends TestFmwk {
                { "es_ES_PREEURO@currency=EUR", "es_ES_PREEURO@currency=EUR", "es_ES@currency=EUR" },
                { "es_ES_EURO@currency=ESP", "es_ES_EURO@currency=ESP", "es_ES@currency=ESP" },
                  */
-                /* norwegian is just too weird, if we handle things in their full generality */
-                /* this is a negative test to show that we DO NOT handle 'lang=no,var=NY' specially. */
-                { "no-Hant-GB_NY@currency=$$$", "no_Hant_GB_NY@currency=$$$", "no_Hant_GB_NY@currency=$$$" /* not: "nn_Hant_GB@currency=$$$" [alan ICU3.0] */ },
-
-                /* test cases reflecting internal resource bundle usage */
-                /* root is just a language */
-                { "root@kw=foo", "root@kw=foo", "root@kw=foo" },
-                /* level 2 canonicalization should not touch basename when there are keywords and it is null */
-                { "@calendar=gregorian", "@calendar=gregorian", "@calendar=gregorian" },
         };
 
         for(int i = 0; i< testCases.length;i++){
@@ -988,6 +999,11 @@ public class ULocaleTest extends TestFmwk {
             }
 
             if (level2Expected != null) {
+                if (logKnownIssue("21236", "skip some canonicalization tests until code fixed")) {
+                    if (source.startsWith("zh_CN") || source.startsWith("zh_TW") || source.startsWith("uz-UZ")) {
+                        continue;
+                    }
+                }
                 String level2 = ULocale.canonicalize(source);
                 if(!level2.equals(level2Expected)){
                     errln("ULocale.getName error for: '" + source +
@@ -1013,6 +1029,49 @@ public class ULocaleTest extends TestFmwk {
                 errln("Got impossible locale from getAvailableLocales: " + locale.getName());
             }
         }
+    }
+
+    @Test
+    public void TestGetAvailableByType() {
+        assertEquals("countAvailable() should be same in old and new methods",
+            ULocale.getAvailableLocales().length,
+            ULocale.getAvailableLocalesByType(ULocale.AvailableType.DEFAULT).size());
+
+        assertEquals("getAvailable() should return same in old and new methods",
+            Arrays.asList(ULocale.getAvailableLocales()),
+            ULocale.getAvailableLocalesByType(ULocale.AvailableType.DEFAULT));
+
+        Collection<ULocale> legacyLocales = ULocale
+                .getAvailableLocalesByType(ULocale.AvailableType.ONLY_LEGACY_ALIASES);
+        assertTrue("getAvailable() legacy/alias should return nonempty", legacyLocales.size() > 0);
+
+        boolean found_he = false;
+        boolean found_iw = false;
+        for (ULocale loc : legacyLocales) {
+            if (loc.getName().equals("he")) {
+                found_he = true;
+            }
+            if (loc.getName().equals("iw")) {
+                found_iw = true;
+            }
+        }
+        assertFalse("Should NOT have found he amongst the legacy/alias locales", found_he);
+        assertTrue("Should have found iw amongst the legacy/alias locales", found_iw);
+
+        Collection<ULocale> allLocales = ULocale
+                .getAvailableLocalesByType(ULocale.AvailableType.WITH_LEGACY_ALIASES);
+        found_he = false;
+        found_iw = false;
+        for (ULocale loc : allLocales) {
+            if (loc.getName().equals("he")) {
+                found_he = true;
+            }
+            if (loc.getName().equals("iw")) {
+                found_iw = true;
+            }
+        }
+        assertTrue("Should have found he amongst the legacy/alias locales", found_he);
+        assertTrue("Should have found iw amongst the legacy/alias locales", found_iw);
     }
 
     @Test
@@ -1122,10 +1181,10 @@ public class ULocaleTest extends TestFmwk {
                 new Item("da", NM_STD, CAP_BEG, LEN_FU, SUB_SU, "en_GB", "Engelsk (Storbritannien)"),
                 new Item("da", NM_STD, CAP_UIL, LEN_FU, SUB_SU, "en_GB", "Engelsk (Storbritannien)"),
                 new Item("da", NM_STD, CAP_STA, LEN_FU, SUB_SU, "en_GB", "engelsk (Storbritannien)"),
-                new Item("da", NM_STD, CAP_MID, LEN_SH, SUB_SU, "en_GB", "engelsk (UK)"),
-                new Item("da", NM_STD, CAP_BEG, LEN_SH, SUB_SU, "en_GB", "Engelsk (UK)"),
-                new Item("da", NM_STD, CAP_UIL, LEN_SH, SUB_SU, "en_GB", "Engelsk (UK)"),
-                new Item("da", NM_STD, CAP_STA, LEN_SH, SUB_SU, "en_GB", "engelsk (UK)"),
+                new Item("da", NM_STD, CAP_MID, LEN_SH, SUB_SU, "en_GB", "engelsk (Storbritannien)"),
+                new Item("da", NM_STD, CAP_BEG, LEN_SH, SUB_SU, "en_GB", "Engelsk (Storbritannien)"),
+                new Item("da", NM_STD, CAP_UIL, LEN_SH, SUB_SU, "en_GB", "Engelsk (Storbritannien)"),
+                new Item("da", NM_STD, CAP_STA, LEN_SH, SUB_SU, "en_GB", "engelsk (Storbritannien)"),
                 new Item("da", NM_DIA, CAP_MID, LEN_FU, SUB_SU, "en_GB", "britisk engelsk"),
                 new Item("da", NM_DIA, CAP_BEG, LEN_FU, SUB_SU, "en_GB", "Britisk engelsk"),
                 new Item("da", NM_DIA, CAP_UIL, LEN_FU, SUB_SU, "en_GB", "Britisk engelsk"),
@@ -1481,6 +1540,14 @@ public class ULocaleTest extends TestFmwk {
         assertEquals("foobar", target, name);
     }
 
+    @Test
+    public void TestBug20407iVariantPreferredValue() {
+        ULocale uloc = ULocale.createCanonical("hy-arevela");
+        assertEquals("getName()", "hy", uloc.getName());
+        uloc = ULocale.createCanonical("hy-arevmda");
+        assertEquals("getName()", "hyw", uloc.getName());
+    }
+
     private void initHashtable() {
         h[0] = new HashMap<String, String>();
         h[1] = new HashMap<String, String>();
@@ -1529,15 +1596,15 @@ public class ULocaleTest extends TestFmwk {
         /*3*/ { null, "true" },
         /*4*/ { "es", "false" },
         /*5*/ { "de", "false" },
-        /*6*/ { "zh_TW", "false" },
-        /*7*/ { "zh", "true" },
+        /*6*/ { "zh_Hant_TW", "true" },
+        /*7*/ { "zh_Hant", "true" },
     };
 
     private static final String ACCEPT_LANGUAGE_HTTP[] = {
         /*0*/ "mt-mt, ja;q=0.76, en-us;q=0.95, en;q=0.92, en-gb;q=0.89, fr;q=0.87, iu-ca;q=0.84, iu;q=0.82, ja-jp;q=0.79, mt;q=0.97, de-de;q=0.74, de;q=0.71, es;q=0.68, it-it;q=0.66, it;q=0.63, vi-vn;q=0.61, vi;q=0.58, nl-nl;q=0.55, nl;q=0.53, th-th-traditional;q=.01",
         /*1*/ "ja;q=0.5, en;q=0.8, tlh",
         /*2*/ "en-zzz, de-lx;q=0.8",
-        /*3*/ "mga-ie;q=0.9, tlh",
+        /*3*/ "mga-ie;q=0.9, sux",
         /*4*/ "xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, "+
                 "xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, "+
                 "xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, "+
@@ -1549,16 +1616,16 @@ public class ULocaleTest extends TestFmwk {
                 "xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, "+
                 "xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, xxx-yyy;q=.01, "+
                 "es",
-                /*5*/ "de;q=.9, fr;q=.9, xxx-yyy, sr;q=.8",
-                /*6*/ "zh-tw",
-                /*7*/ "zh-hant-cn",
+        /*5*/ "de;q=.9, fr;q=.9, xxx-yyy, sr;q=.8",
+        /*6*/ "zh-tw",
+        /*7*/ "zh-hant-cn",
     };
 
 
     @Test
     public void TestAcceptLanguage() {
         for(int i = 0 ; i < (ACCEPT_LANGUAGE_HTTP.length); i++) {
-            Boolean expectBoolean = new Boolean(ACCEPT_LANGUAGE_TESTS[i][1]);
+            Boolean expectBoolean = Boolean.valueOf(ACCEPT_LANGUAGE_TESTS[i][1]);
             String expectLocale=ACCEPT_LANGUAGE_TESTS[i][0];
 
             logln("#" + i + ": expecting: " + expectLocale + " (" + expectBoolean + ")");
@@ -1566,128 +1633,50 @@ public class ULocaleTest extends TestFmwk {
             boolean r[] = { false };
             ULocale n = ULocale.acceptLanguage(ACCEPT_LANGUAGE_HTTP[i], r);
             if((n==null)&&(expectLocale!=null)) {
-                errln("result was null! line #" + i);
+                errln("#" + i + ": result was null!");
                 continue;
             }
             if(((n==null)&&(expectLocale==null)) || (n.toString().equals(expectLocale))) {
-                logln(" locale: OK." );
+                logln("#" + i + ": locale: OK." );
             } else {
-                errln("expected " + expectLocale + " but got " + n.toString());
+                errln("#" + i + ": locale: expected " + expectLocale + " but got " + n);
             }
-            if(expectBoolean.equals(new Boolean(r[0]))) {
-                logln(" bool: OK.");
+            Boolean actualBoolean = Boolean.valueOf(r[0]);
+            if(expectBoolean.equals(actualBoolean)) {
+                logln("#" + i + ": fallback: OK.");
             } else {
-                errln("bool: not OK, was " + new Boolean(r[0]).toString() + " expected " + expectBoolean.toString());
+                errln("#" + i + ": fallback: was " + actualBoolean + " expected " + expectBoolean);
             }
         }
-    }
-
-    private ULocale[] StringToULocaleArray(String acceptLanguageList){
-        //following code is copied from
-        //ULocale.acceptLanguage(String acceptLanguageList, ULocale[] availableLocales, boolean[] fallback)
-        class ULocaleAcceptLanguageQ implements Comparable {
-            private double q;
-            private double serial;
-            public ULocaleAcceptLanguageQ(double theq, int theserial) {
-                q = theq;
-                serial = theserial;
-            }
-            @Override
-            public int compareTo(Object o) {
-                ULocaleAcceptLanguageQ other = (ULocaleAcceptLanguageQ) o;
-                if(q > other.q) { // reverse - to sort in descending order
-                    return -1;
-                } else if(q < other.q) {
-                    return 1;
-                }
-                if(serial < other.serial) {
-                    return -1;
-                } else if(serial > other.serial) {
-                    return 1;
-                } else {
-                    return 0; // same object
-                }
-            }
-        }
-
-        // 1st: parse out the acceptLanguageList into an array
-
-        TreeMap map = new TreeMap();
-
-        final int l = acceptLanguageList.length();
-        int n;
-        for(n=0;n<l;n++) {
-            int itemEnd = acceptLanguageList.indexOf(',',n);
-            if(itemEnd == -1) {
-                itemEnd = l;
-            }
-            int paramEnd = acceptLanguageList.indexOf(';',n);
-            double q = 1.0;
-
-            if((paramEnd != -1) && (paramEnd < itemEnd)) {
-                /* semicolon (;) is closer than end (,) */
-                int t = paramEnd + 1;
-                while(UCharacter.isWhitespace(acceptLanguageList.charAt(t))) {
-                    t++;
-                }
-                if(acceptLanguageList.charAt(t)=='q') {
-                    t++;
-                }
-                while(UCharacter.isWhitespace(acceptLanguageList.charAt(t))) {
-                    t++;
-                }
-                if(acceptLanguageList.charAt(t)=='=') {
-                    t++;
-                }
-                while(UCharacter.isWhitespace(acceptLanguageList.charAt(t))) {
-                    t++;
-                }
-                try {
-                    String val = acceptLanguageList.substring(t,itemEnd).trim();
-                    q = Double.parseDouble(val);
-                } catch (NumberFormatException nfe) {
-                    q = 1.0;
-                }
-            } else {
-                q = 1.0; //default
-                paramEnd = itemEnd;
-            }
-
-            String loc = acceptLanguageList.substring(n,paramEnd).trim();
-            int serial = map.size();
-            ULocaleAcceptLanguageQ entry = new ULocaleAcceptLanguageQ(q,serial);
-            map.put(entry, new ULocale(ULocale.canonicalize(loc))); // sort in reverse order..   1.0, 0.9, 0.8 .. etc
-            n = itemEnd; // get next item. (n++ will skip over delimiter)
-        }
-
-        // 2. pull out the map
-        ULocale acceptList[] = (ULocale[])map.values().toArray(new ULocale[map.size()]);
-        return acceptList;
     }
 
     @Test
     public void TestAcceptLanguage2() {
         for(int i = 0 ; i < (ACCEPT_LANGUAGE_HTTP.length); i++) {
-            Boolean expectBoolean = new Boolean(ACCEPT_LANGUAGE_TESTS[i][1]);
+            Boolean expectBoolean = Boolean.valueOf(ACCEPT_LANGUAGE_TESTS[i][1]);
             String expectLocale=ACCEPT_LANGUAGE_TESTS[i][0];
 
             logln("#" + i + ": expecting: " + expectLocale + " (" + expectBoolean + ")");
 
             boolean r[] = { false };
-            ULocale n = ULocale.acceptLanguage(StringToULocaleArray(ACCEPT_LANGUAGE_HTTP[i]), r);
+            Set<ULocale> desiredSet =
+                    LocalePriorityList.add(ACCEPT_LANGUAGE_HTTP[i]).build().getULocales();
+            ULocale[] desiredArray = desiredSet.toArray(new ULocale[desiredSet.size()]);
+            ULocale n = ULocale.acceptLanguage(desiredArray, r);
             if((n==null)&&(expectLocale!=null)) {
-                errln("result was null! line #" + i);
+                errln("#" + i + ": result was null!");
                 continue;
             }
             if(((n==null)&&(expectLocale==null)) || (n.toString().equals(expectLocale))) {
-                logln(" locale: OK." );
+                logln("#" + i + ": locale: OK.");
             } else {
-                errln("expected " + expectLocale + " but got " + n.toString());
+                errln("#" + i + ": expected " + expectLocale + " but got " + n.toString());
             }
-            if(expectBoolean.equals(new Boolean(r[0]))) {
-                logln(" bool: OK.");
+            Boolean actualBoolean = Boolean.valueOf(r[0]);
+            if(expectBoolean.equals(actualBoolean)) {
+                logln("#" + i + ": fallback: OK.");
             } else {
-                errln("bool: not OK, was " + new Boolean(r[0]).toString() + " expected " + expectBoolean.toString());
+                errln("#" + i + ": fallback: was " + actualBoolean + " expected " + expectBoolean);
             }
         }
     }
@@ -3408,8 +3397,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_HK"
                 }, {
                     "und_AQ",
-                    "und_Latn_AQ",
-                    "und_AQ"
+                    "_Latn_AQ",
+                    "_AQ"
                 }, {
                     "und_Zzzz",
                     "en_Latn_US",
@@ -3432,8 +3421,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_HK"
                 }, {
                     "und_Zzzz_AQ",
-                    "und_Latn_AQ",
-                    "und_AQ"
+                    "_Latn_AQ",
+                    "_AQ"
                 }, {
                     "und_Latn",
                     "en_Latn_US",
@@ -3456,8 +3445,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_Latn_HK"
                 }, {
                     "und_Latn_AQ",
-                    "und_Latn_AQ",
-                    "und_AQ"
+                    "_Latn_AQ",
+                    "_AQ"
                 }, {
                     "und_Hans",
                     "zh_Hans_CN",
@@ -3528,8 +3517,8 @@ public class ULocaleTest extends TestFmwk {
                     "zh_Moon_HK"
                 }, {
                     "und_Moon_AQ",
-                    "und_Moon_AQ",
-                    "und_Moon_AQ"
+                    "_Moon_AQ",
+                    "_Moon_AQ"
                 }, {
                     "es",
                     "es_Latn_ES",
@@ -3950,6 +3939,50 @@ public class ULocaleTest extends TestFmwk {
                     "art_Moon_AQ",
                     "",
                     ""
+                }, {
+                    "aae_Latn_IT",
+                    "aae_Latn_IT",
+                    "aae_Latn_IT"
+                }, {
+                    "aae_Thai_CO",
+                    "aae_Thai_CO",
+                    "aae_Thai_CO"
+                }, {
+                    "und_CW",
+                    "pap_Latn_CW",
+                    "pap_CW"
+                }, {
+                    "zh_Hant",
+                    "zh_Hant_TW",
+                    "zh_TW"
+                }, {
+                    "zh_Hani",
+                    "zh_Hani_CN",
+                    "zh_Hani"
+                }, {
+                    "und",
+                    "en_Latn_US",
+                    "en"
+                }, {
+                    "und_Thai",
+                    "th_Thai_TH",
+                    "th"
+                }, {
+                    "und_419",
+                    "es_Latn_419",
+                    "es_419"
+                }, {
+                    "und_150",
+                    "ru_Cyrl_RU",
+                    "ru"
+                }, {
+                    "und_AT",
+                    "de_Latn_AT",
+                    "de_AT"
+                }, {
+                    "und_US",
+                    "en_Latn_US",
+                    "en"
                 }
         };
 
@@ -4045,8 +4078,8 @@ public class ULocaleTest extends TestFmwk {
                 {"aa_BB_CYRL",  "aa-BB-x-lvariant-cyrl"},
                 {"en_US_1234",  "en-US-1234"},
                 {"en_US_VARIANTA_VARIANTB", "en-US-varianta-variantb"},
-                {"en_US_VARIANTB_VARIANTA", "en-US-variantb-varianta"},
-                {"ja__9876_5432",   "ja-9876-5432"},
+                {"en_US_VARIANTB_VARIANTA", "en-US-varianta-variantb"}, /* ICU-20478 */
+                {"ja__9876_5432",   "ja-5432-9876"}, /* ICU-20478 */
                 {"zh_Hant__VAR",    "zh-Hant-x-lvariant-var"},
                 {"es__BADVARIANT_GOODVAR",  "es"},
                 {"es__GOODVAR_BAD_BADVARIANT",  "es-goodvar-x-lvariant-bad"},
@@ -4068,6 +4101,18 @@ public class ULocaleTest extends TestFmwk {
                 {"en@attribute=baz;calendar=islamic-civil", "en-u-baz-ca-islamic-civil"},
                 {"en@a=bar;calendar=islamic-civil;x=u-foo", "en-a-bar-u-ca-islamic-civil-x-u-foo"},
                 {"en@a=bar;attribute=baz;calendar=islamic-civil;x=u-foo",   "en-a-bar-u-baz-ca-islamic-civil-x-u-foo"},
+                /* ICU-20320*/
+                {"en@9=efg;a=baz",   "en-9-efg-a-baz"},
+                /* ICU-20478 */
+                {"sl__ROZAJ_BISKE_1994",   "sl-1994-biske-rozaj"},
+                {"en__SCOUSE_FONIPA",   "en-fonipa-scouse"},
+                /* ICU-20310 */
+                {"en-u-kn-true",   "en-u-kn"},
+                {"en-u-kn",   "en-u-kn"},
+                {"de-u-co-yes",   "de-u-co"},
+                {"de-u-co",   "de-u-co"},
+                {"de@collation=yes",   "de-u-co"},
+                {"cmn-hans-cn-u-ca-t-ca-x-t-u",   "cmn-Hans-CN-t-ca-u-ca-x-t-u"},
         };
 
         for (int i = 0; i < locale_to_langtag.length; i++) {
@@ -4081,6 +4126,25 @@ public class ULocaleTest extends TestFmwk {
     }
 
     @Test
+    public void TestForLanguageTagBug20148() {
+        ULocale uloc = ULocale.forLanguageTag("de-DE-1901-1901");
+        assertEquals("ULocale.forLanguageTag(\"de-DE-1901-1901\") ",
+                     "de_DE_1901", uloc.getName());
+
+        uloc = ULocale.forLanguageTag("de-DE-1aBc-1AbC");
+        assertEquals("ULocale.forLanguageTag(\"de-DE-1aBc-1AbC\") ",
+                     "de_DE_1ABC", uloc.getName());
+
+        uloc = ULocale.forLanguageTag("en-a-bbb-a-ccc");
+        assertEquals("ULocale.forLanguageTag(\"en-a-bbb-a-ccc\") ",
+                     "en@a=bbb", uloc.getName());
+
+        uloc = ULocale.forLanguageTag("en-A-bbb-a-ccc");
+        assertEquals("ULocale.forLanguageTag(\"en-A-bbb-a-ccc\") ",
+                     "en@a=bbb", uloc.getName());
+    }
+
+    @Test
     public void TestForLanguageTagBug13776() {
         final Locale backupDefault = Locale.getDefault();
         try {
@@ -4091,6 +4155,33 @@ public class ULocaleTest extends TestFmwk {
         } finally {
             Locale.setDefault(backupDefault);
         }
+    }
+
+    @Test
+    public void TestDigitSingletonExtensionBug20320() {
+        ULocale uloc = ULocale.forLanguageTag("en-0-abc-a-xyz");
+        assertEquals("getExtension(\'a\')", "xyz", uloc.getExtension('a'));
+        assertEquals("getExtension(\'0\')", "abc", uloc.getExtension('0'));
+    }
+
+    @Test
+    public void TestConstructorAcceptsBCP47() {
+        ULocale loc1 = new ULocale("ar-EG-u-nu-latn");
+        ULocale loc2 = new ULocale("ar-EG@numbers=latn");
+        ULocale loc3 = new ULocale("ar-EG");
+        String val;
+
+        // Check getKeywordValue "numbers"
+        val = loc1.getKeywordValue("numbers");
+        assertEquals("BCP47 syntax has ICU keyword value", "latn", val);
+
+        val = loc2.getKeywordValue("numbers");
+        assertEquals("ICU syntax has ICU keyword value", "latn", val);
+
+        val = loc3.getKeywordValue("numbers");
+        assertEquals("Default, ICU keyword", null, val);
+
+        // Note: ICU does not have getUnicodeKeywordValue()
     }
 
     @Test
@@ -4119,7 +4210,7 @@ public class ULocaleTest extends TestFmwk {
                 {"bogus",               "bogus",                NOERROR},
                 {"boguslang",           "",                     Integer.valueOf(0)},
                 {"EN-lATN-us",          "en_Latn_US",           NOERROR},
-                {"und-variant-1234",    "__VARIANT_1234",       NOERROR},
+                {"und-variant-1234",    "__1234_VARIANT",       NOERROR}, /* ICU-20478 */
                 {"und-varzero-var1-vartwo", "__VARZERO",        Integer.valueOf(12)},
                 {"en-u-ca-gregory",     "en@calendar=gregorian",    NOERROR},
                 {"en-U-cu-USD",         "en@currency=usd",      NOERROR},
@@ -4162,6 +4253,19 @@ public class ULocaleTest extends TestFmwk {
                 {"zh-u-ca-gregory-co-pinyin-ca-chinese", "zh@calendar=gregorian;collation=pinyin", NOERROR},
                 {"de-latn-DE-1901-u-co-phonebk-co-pinyin-ca-gregory", "de_Latn_DE_1901@calendar=gregorian;collation=phonebook", NOERROR},
                 {"th-u-kf-nu-thai-kf-false", "th@colcasefirst=yes;numbers=thai", NOERROR},
+                /* #20410 */
+                {"art-lojban-x-0", "jbo@x=0", NOERROR},
+                {"zh-xiang-u-nu-thai-x-0", "hsn@numbers=thai;x=0", NOERROR},
+                /* ICU-20478 */
+                {"ja-9876-5432",    "ja__5432_9876",       NOERROR},
+                {"en-US-variantb-varianta",    "en_US_VARIANTA_VARIANTB",       NOERROR},
+                {"en-US-varianta-variantb",    "en_US_VARIANTA_VARIANTB",       NOERROR},
+                {"sl-rozaj-biske-1994",    "sl__1994_BISKE_ROZAJ",       NOERROR},
+                {"sl-biske-rozaj-1994",    "sl__1994_BISKE_ROZAJ",       NOERROR},
+                {"sl-biske-1994-rozaj",    "sl__1994_BISKE_ROZAJ",       NOERROR},
+                {"sl-1994-biske-rozaj",    "sl__1994_BISKE_ROZAJ",       NOERROR},
+                {"en-fonipa-scouse",    "en__FONIPA_SCOUSE",       NOERROR},
+                {"en-scouse-fonipa",    "en__FONIPA_SCOUSE",       NOERROR},
         };
 
         for (int i = 0; i < langtag_to_locale.length; i++) {
@@ -4244,7 +4348,7 @@ public class ULocaleTest extends TestFmwk {
                 {new ULocale("en__POSIX"), new ULocale("en"), ULocale.ROOT, null},
                 {new ULocale("de_DE@collation=phonebook"), new ULocale("de@collation=phonebook"), new ULocale("@collation=phonebook"), null},
                 {new ULocale("_US_POSIX"), new ULocale("_US"), ULocale.ROOT, null},
-                {new ULocale("root"), ULocale.ROOT, null},
+                {new ULocale("root"), null},
             };
 
         for(ULocale[] chain : TESTLOCALES) {
@@ -4316,7 +4420,7 @@ public class ULocaleTest extends TestFmwk {
         for (String[] testcase : TESTCASES) {
             ULocale loc = ULocale.forLanguageTag(testcase[0]);
 
-            Set<String> expectedAttributes = new HashSet<String>();
+            Set<String> expectedAttributes = new HashSet<>();
             if (testcase[1] != null) {
                 String[] attrs = testcase[1].split(",");
                 for (String s : attrs) {
@@ -4324,7 +4428,7 @@ public class ULocaleTest extends TestFmwk {
                 }
             }
 
-            Map<String, String> expectedKeywords = new HashMap<String, String>();
+            Map<String, String> expectedKeywords = new HashMap<>();
             if (testcase[2] != null) {
                 String[] ukeys = testcase[2].split(",");
                 for (int i = 0; i < ukeys.length; i++) {
@@ -4648,7 +4752,6 @@ public class ULocaleTest extends TestFmwk {
                 "th_TH@calendar=gergorian",
                 "th_TH@numbers=latn",
                 "this is a bogus locale id",
-                "und",
                 "zh_CN",
                 "zh_TW",
                 "zh_Hans",
@@ -4656,7 +4759,7 @@ public class ULocaleTest extends TestFmwk {
                 "zh_Hant_TW",
         };
 
-        TreeSet<ULocale> sortedLocales = new TreeSet<ULocale>();
+        TreeSet<ULocale> sortedLocales = new TreeSet<>();
         for (ULocale locale : locales) {
             sortedLocales.add(locale);
         }
@@ -4694,6 +4797,36 @@ public class ULocaleTest extends TestFmwk {
             String bcpKey = ULocale.toUnicodeLocaleKey(keyword);
             assertEquals("keyword=" + keyword, expected, bcpKey);
         }
+    }
+
+    @Test
+    public void TestBug20321UnicodeLocaleKey() {
+        // key = alphanum alpha ;
+        String[] INVALID = {
+            "a0",
+            "00",
+            "a@",
+            "0@",
+            "@a",
+            "@a",
+            "abc",
+            "0bc",
+        };
+
+        for (String invalid : INVALID) {
+            String bcpKey = ULocale.toUnicodeLocaleKey(invalid);
+            assertNull("keyword=" + invalid, bcpKey);
+        }
+
+        String[] VALID = {
+            "aa",
+            "0a",
+        };
+
+        for (String valid : VALID) {
+            String bcpKey = ULocale.toUnicodeLocaleKey(valid);
+            assertEquals("keyword=" + valid, valid, bcpKey);
+        };
     }
 
     @Test
@@ -4831,5 +4964,282 @@ public class ULocaleTest extends TestFmwk {
                 errln("Error: " + pair[0] + " is not equal to " + pair[1]);
             }
         }
+    }
+
+    @Test
+    public void TestUnd() {
+        final String empty = "";
+        final String root = "root";
+        final String und = "und";
+
+        ULocale empty_new = new ULocale(empty);
+        ULocale empty_tag = ULocale.forLanguageTag(empty);
+
+        ULocale root_new = new ULocale(root);
+        ULocale root_tag = ULocale.forLanguageTag(root);
+        ULocale root_build = new Builder().setLanguageTag(root).build();
+
+        ULocale und_new = new ULocale(und);
+        ULocale und_tag = ULocale.forLanguageTag(und);
+        ULocale und_build = new Builder().setLanguageTag(und).build();
+
+        Assert.assertEquals(empty, empty_new.getName());
+        Assert.assertEquals(empty, root_new.getName());
+        Assert.assertEquals(empty, und_new.getName());
+
+        Assert.assertEquals(empty, empty_tag.getName());
+        Assert.assertEquals(empty, root_tag.getName());
+        Assert.assertEquals(empty, und_tag.getName());
+
+        Assert.assertEquals(empty, root_build.getName());
+        Assert.assertEquals(empty, und_build.getName());
+
+        Assert.assertEquals(und, empty_new.toLanguageTag());
+        Assert.assertEquals(und, root_new.toLanguageTag());
+        Assert.assertEquals(und, und_new.toLanguageTag());
+
+        Assert.assertEquals(und, empty_tag.toLanguageTag());
+        Assert.assertEquals(und, root_tag.toLanguageTag());
+        Assert.assertEquals(und, und_tag.toLanguageTag());
+
+        Assert.assertEquals(und, root_build.toLanguageTag());
+        Assert.assertEquals(und, und_build.toLanguageTag());
+
+        Assert.assertEquals(empty_new, empty_tag);
+
+        Assert.assertEquals(root_new, root_tag);
+        Assert.assertEquals(root_new, root_build);
+        Assert.assertEquals(root_tag, root_build);
+
+        Assert.assertEquals(und_new, und_tag);
+        Assert.assertEquals(und_new, und_build);
+        Assert.assertEquals(und_tag, und_build);
+
+        Assert.assertEquals(empty_new, root_new);
+        Assert.assertEquals(empty_new, und_new);
+        Assert.assertEquals(root_new, und_new);
+
+        Assert.assertEquals(empty_tag, root_tag);
+        Assert.assertEquals(empty_tag, und_tag);
+        Assert.assertEquals(root_tag, und_tag);
+
+        Assert.assertEquals(root_build, und_build);
+
+        final ULocale displayLocale = ULocale.ENGLISH;
+        final String displayName = "Unknown language";
+
+        Assert.assertEquals(displayName, empty_new.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, root_new.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, und_new.getDisplayName(displayLocale));
+
+        Assert.assertEquals(displayName, empty_tag.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, root_tag.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, und_tag.getDisplayName(displayLocale));
+
+        Assert.assertEquals(displayName, root_build.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, und_build.getDisplayName(displayLocale));
+    }
+
+    @Test
+    public void TestUndScript() {
+        final String id = "_Cyrl";
+        final String tag = "und-Cyrl";
+        final String script = "Cyrl";
+
+        ULocale locale_new = new ULocale(id);
+        ULocale locale_legacy = new ULocale(tag);
+        ULocale locale_tag = ULocale.forLanguageTag(tag);
+        ULocale locale_build = new Builder().setScript(script).build();
+
+        Assert.assertEquals(id, locale_new.getName());
+        Assert.assertEquals(id, locale_legacy.getName());
+        Assert.assertEquals(id, locale_tag.getName());
+        Assert.assertEquals(id, locale_build.getName());
+
+        Assert.assertEquals(tag, locale_new.toLanguageTag());
+        Assert.assertEquals(tag, locale_legacy.toLanguageTag());
+        Assert.assertEquals(tag, locale_tag.toLanguageTag());
+        Assert.assertEquals(tag, locale_build.toLanguageTag());
+
+        Assert.assertEquals(locale_new, locale_legacy);
+        Assert.assertEquals(locale_new, locale_tag);
+        Assert.assertEquals(locale_new, locale_build);
+        Assert.assertEquals(locale_tag, locale_build);
+
+        final ULocale displayLocale = ULocale.ENGLISH;
+        final String displayName = "Unknown language (Cyrillic)";
+
+        Assert.assertEquals(displayName, locale_new.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, locale_legacy.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, locale_tag.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, locale_build.getDisplayName(displayLocale));
+    }
+
+    @Test
+    public void TestUndRegion() {
+        final String id = "_AQ";
+        final String tag = "und-AQ";
+        final String region = "AQ";
+
+        ULocale locale_new = new ULocale(id);
+        ULocale locale_legacy = new ULocale(tag);
+        ULocale locale_tag = ULocale.forLanguageTag(tag);
+        ULocale locale_build = new Builder().setRegion(region).build();
+
+        Assert.assertEquals(id, locale_new.getName());
+        Assert.assertEquals(id, locale_legacy.getName());
+        Assert.assertEquals(id, locale_tag.getName());
+        Assert.assertEquals(id, locale_build.getName());
+
+        Assert.assertEquals(tag, locale_new.toLanguageTag());
+        Assert.assertEquals(tag, locale_legacy.toLanguageTag());
+        Assert.assertEquals(tag, locale_tag.toLanguageTag());
+        Assert.assertEquals(tag, locale_build.toLanguageTag());
+
+        Assert.assertEquals(locale_new, locale_legacy);
+        Assert.assertEquals(locale_new, locale_tag);
+        Assert.assertEquals(locale_new, locale_build);
+        Assert.assertEquals(locale_tag, locale_build);
+
+        final ULocale displayLocale = ULocale.ENGLISH;
+        final String displayName = "Unknown language (Antarctica)";
+
+        Assert.assertEquals(displayName, locale_new.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, locale_legacy.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, locale_tag.getDisplayName(displayLocale));
+        Assert.assertEquals(displayName, locale_build.getDisplayName(displayLocale));
+    }
+
+    @Test
+    public void Test20900() {
+        final String [][] testData = new String[][]{
+            {"art-lojban", "jbo"},
+            {"zh-guoyu", "zh"},
+            {"zh-hakka", "hak"},
+            {"zh-xiang", "hsn"},
+            {"zh-min-nan", "nan"},
+            {"zh-gan", "gan"},
+            {"zh-yue", "yue"},
+        };
+        for (int row=0;row<testData.length;row++) {
+            ULocale loc = ULocale.createCanonical(testData[row][0]);
+            Assert.assertEquals(testData[row][1], loc.toLanguageTag());
+        }
+    }
+
+    // Helper function
+    private String canonicalTag(String languageTag) {
+        return ULocale.createCanonical(ULocale.forLanguageTag(languageTag)).toLanguageTag();
+    }
+
+    @Test
+    public void TestCanonical() {
+        // Test replacement of languageAlias
+
+        if (!logKnownIssue("21236", "skip some canonicalization tests until code fixed")) {
+            // language _ variant -> language
+            Assert.assertEquals("nb", canonicalTag("no-BOKMAL"));
+            // also test with script, country and extensions
+            Assert.assertEquals("nb-Cyrl-ID-u-ca-japanese", canonicalTag("no-Cyrl-ID-BOKMAL-u-ca-japanese"));
+            // also test with other variants, script, country and extensions
+            Assert.assertEquals("nb-Cyrl-ID-1901-xsistemo-u-ca-japanese",
+                canonicalTag("no-Cyrl-ID-1901-BOKMAL-xsistemo-u-ca-japanese"));
+            Assert.assertEquals("nb-Cyrl-ID-1901-u-ca-japanese",
+                canonicalTag("no-Cyrl-ID-1901-BOKMAL-u-ca-japanese"));
+            Assert.assertEquals("nb-Cyrl-ID-xsistemo-u-ca-japanese",
+                canonicalTag("no-Cyrl-ID-BOKMAL-xsistemo-u-ca-japanese"));
+
+            Assert.assertEquals("nn", canonicalTag("no-NYNORSK"));
+            // also test with script, country and extensions
+            Assert.assertEquals("nn-Cyrl-ID-u-ca-japanese", canonicalTag("no-Cyrl-ID-NYNORSK-u-ca-japanese"));
+
+            Assert.assertEquals("ssy", canonicalTag("aa-SAAHO"));
+            // also test with script, country and extensions
+            Assert.assertEquals("ssy-Devn-IN-u-ca-japanese", canonicalTag("aa-Devn-IN-SAAHO-u-ca-japanese"));
+        }
+
+        // language -> language
+        Assert.assertEquals("aas", canonicalTag("aam"));
+        // also test with script, country, variants and extensions
+        Assert.assertEquals("aas-Cyrl-ID-3456-u-ca-japanese", canonicalTag("aam-Cyrl-ID-3456-u-ca-japanese"));
+
+        // language -> language _ Script
+        Assert.assertEquals("sr-Latn", canonicalTag("sh"));
+        // also test with script
+        Assert.assertEquals("sr-Cyrl", canonicalTag("sh-Cyrl"));
+        // also test with country, variants and extensions
+        Assert.assertEquals("sr-Latn-ID-3456-u-ca-roc", canonicalTag("sh-ID-3456-u-ca-roc"));
+
+        // language -> language _ country
+        Assert.assertEquals("fa-AF", canonicalTag("prs"));
+        // also test with country
+        Assert.assertEquals("fa-RU", canonicalTag("prs-RU"));
+        // also test with script, variants and extensions
+        Assert.assertEquals("fa-Cyrl-AF-1009-u-ca-roc", canonicalTag("prs-Cyrl-1009-u-ca-roc"));
+
+        Assert.assertEquals("pa-IN", canonicalTag("pa-IN"));
+        // also test with script
+        Assert.assertEquals("pa-Latn-IN", canonicalTag("pa-Latn-IN"));
+        // also test with variants and extensions
+        Assert.assertEquals("pa-IN-5678-u-ca-hindi", canonicalTag("pa-IN-5678-u-ca-hindi"));
+
+        Assert.assertEquals("ky-Cyrl-KG", canonicalTag("ky-Cyrl-KG"));
+        // also test with variants and extensions
+        Assert.assertEquals("ky-Cyrl-KG-3456-u-ca-roc", canonicalTag("ky-Cyrl-KG-3456-u-ca-roc"));
+
+        // Test replacement of scriptAlias
+        Assert.assertEquals("en-Zinh", canonicalTag("en-Qaai"));
+
+        // Test replacement of territoryAlias
+        // 554 has one replacement
+        Assert.assertEquals("en-NZ", canonicalTag("en-554"));
+        Assert.assertEquals("en-NZ-u-nu-arab", canonicalTag("en-554-u-nu-arab"));
+
+        // 172 has multiple replacements
+        // also test with variants
+        Assert.assertEquals("ru-RU-1234", canonicalTag("ru-172-1234"));
+        // also test with variants
+        Assert.assertEquals("ru-RU-1234-u-nu-latn", canonicalTag("ru-172-1234-u-nu-latn"));
+        Assert.assertEquals("uz-UZ", canonicalTag("uz-172"));
+        // also test with scripts
+        Assert.assertEquals("uz-Cyrl-UZ", canonicalTag("uz-Cyrl-172"));
+        Assert.assertEquals("uz-Bopo-UZ", canonicalTag("uz-Bopo-172"));
+        // also test with variants and scripts
+        Assert.assertEquals("uz-Cyrl-UZ-5678-u-nu-latn", canonicalTag("uz-Cyrl-172-5678-u-nu-latn"));
+        // a language not used in this region
+        Assert.assertEquals("fr-RU", canonicalTag("fr-172"));
+
+        Assert.assertEquals("ja-Latn-alalc97", canonicalTag("ja-Latn-hepburn-heploc"));
+
+        Assert.assertEquals("aaa-Fooo-RU", canonicalTag("aaa-Fooo-SU"));
+
+        // ICU-21344
+        Assert.assertEquals("ku-Arab-IQ", canonicalTag("ku-Arab-NT"));
+    }
+
+    @Test
+    public void TestLocaleCanonicalizationFromFile() throws IOException {
+        BufferedReader testFile = TestUtil.getDataReader("unicode/localeCanonicalization.txt");
+        try {
+            String line;
+            while ((line = testFile.readLine()) != null) {
+                if (line.startsWith("#")) {
+                    // ignore any lines start with #
+                    continue;
+                }
+                String[] fields = line.split("\t;\t");
+                if (fields.length != 2) {
+                    // ignore any lines without TAB ; TAB
+                    continue;
+                }
+                String from = fields[0].replace("_", "-");
+                String to = fields[1].replace("_", "-");
+                Assert.assertEquals("canonicalTag(" + from + ")",
+                    to, canonicalTag(from));
+            }
+        } finally {
+            testFile.close();
+        }
+
     }
 }

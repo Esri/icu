@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 ca{
-    Version{"2.1.43.65"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"Abidjan"}
@@ -64,7 +64,7 @@ ca{
             ec{"Douala"}
         }
         "Africa:El_Aaiun"{
-            ec{"Al-aaiun"}
+            ec{"Al-Aaiun"}
         }
         "Africa:Freetown"{
             ec{"Freetown"}
@@ -810,6 +810,9 @@ ca{
         "Asia:Qatar"{
             ec{"Qatar"}
         }
+        "Asia:Qostanay"{
+            ec{"Kostanai"}
+        }
         "Asia:Qyzylorda"{
             ec{"Kizil-Orda"}
         }
@@ -847,7 +850,7 @@ ca{
             ec{"Taixkent"}
         }
         "Asia:Tbilisi"{
-            ec{"Tbilisi"}
+            ec{"Tbilissi"}
         }
         "Asia:Tehran"{
             ec{"Teheran"}
@@ -865,7 +868,7 @@ ca{
             ec{"Ulan Bator"}
         }
         "Asia:Urumqi"{
-            ec{"Urumchi"}
+            ec{"Ürümchi"}
         }
         "Asia:Ust-Nera"{
             ec{"Ust’-Nera"}
@@ -880,7 +883,7 @@ ca{
             ec{"Jakutsk"}
         }
         "Asia:Yekaterinburg"{
-            ec{"Jekaterinburg"}
+            ec{"Iekaterinburg"}
         }
         "Asia:Yerevan"{
             ec{"Erevan"}
@@ -1046,9 +1049,6 @@ ca{
         "Europe:Malta"{
             ec{"Malta"}
         }
-        "Europe:Mariehamn"{
-            ec{"Maarianhamina"}
-        }
         "Europe:Minsk"{
             ec{"Minsk"}
         }
@@ -1089,7 +1089,7 @@ ca{
             ec{"Saràtov"}
         }
         "Europe:Simferopol"{
-            ec{"Simferopol"}
+            ec{"Simferòpol"}
         }
         "Europe:Skopje"{
             ec{"Skopje"}
@@ -1392,9 +1392,9 @@ ca{
             ls{"Hora estàndard d’Austràlia Occidental"}
         }
         "meta:Azerbaijan"{
-            ld{"Hora d’estiu d’Azerbaidjan"}
-            lg{"Hora d’Azerbaidjan"}
-            ls{"Hora estàndard d’Azerbaidjan"}
+            ld{"Hora d’estiu de l’Azerbaidjan"}
+            lg{"Hora de l’Azerbaidjan"}
+            ls{"Hora estàndard de l’Azerbaidjan"}
         }
         "meta:Azores"{
             ld{"Hora d’estiu de les Açores"}
@@ -1402,9 +1402,9 @@ ca{
             ls{"Hora estàndard de les Açores"}
         }
         "meta:Bangladesh"{
-            ld{"Hora d’estiu de Bangla Desh"}
-            lg{"Hora de Bangla Desh"}
-            ls{"Hora estàndard de Bangla Desh"}
+            ld{"Hora d’estiu de Bangladesh"}
+            lg{"Hora de Bangladesh"}
+            ls{"Hora estàndard de Bangladesh"}
         }
         "meta:Bhutan"{
             ls{"Hora de Bhutan"}
@@ -1426,7 +1426,7 @@ ca{
             ls{"Hora estàndard de Cap Verd"}
         }
         "meta:Chamorro"{
-            ls{"Hora de Chamorro"}
+            ls{"Hora estàndard de Chamorro"}
         }
         "meta:Chatham"{
             ld{"Hora d’estiu de Chatham"}
@@ -1548,17 +1548,17 @@ ca{
             ls{"Hora de les illes Gilbert"}
         }
         "meta:Greenland_Eastern"{
-            ld{"Hora d’estiu de l’Est de Grenlàndia"}
-            lg{"Hora de l’Est de Grenlàndia"}
-            ls{"Hora estàndard de l’Est de Grenlàndia"}
+            ld{"Hora d’estiu de l’Est de Groenlàndia"}
+            lg{"Hora de l’Est de Groenlàndia"}
+            ls{"Hora estàndard de l’Est de Groenlàndia"}
         }
         "meta:Greenland_Western"{
-            ld{"Hora d’estiu de l’Oest de Grenlàndia"}
-            lg{"Hora de l’Oest de Grenlàndia"}
-            ls{"Hora estàndard de l’Oest de Grenlàndia"}
+            ld{"Hora d’estiu de l’Oest de Groenlàndia"}
+            lg{"Hora de l’Oest de Groenlàndia"}
+            ls{"Hora estàndard de l’Oest de Groenlàndia"}
         }
         "meta:Gulf"{
-            ls{"Hora del Golf"}
+            ls{"Hora estàndard del Golf"}
         }
         "meta:Guyana"{
             ls{"Hora de Guyana"}
@@ -1585,7 +1585,7 @@ ca{
             ls{"Hora de l’oceà Índic"}
         }
         "meta:Indochina"{
-            ls{"Hora d’Indoxina"}
+            ls{"Hora de l’Indoxina"}
         }
         "meta:Indonesia_Central"{
             ls{"Hora central d’Indonèsia"}
@@ -1597,9 +1597,9 @@ ca{
             ls{"Hora de l’oest d’Indonèsia"}
         }
         "meta:Iran"{
-            ld{"Hora d’estiu d’Iran"}
-            lg{"Hora d’Iran"}
-            ls{"Hora estàndard d’Iran"}
+            ld{"Hora d’estiu de l’Iran"}
+            lg{"Hora de l’Iran"}
+            ls{"Hora estàndard de l’Iran"}
         }
         "meta:Irkutsk"{
             ld{"Hora d’estiu d’Irkutsk"}
@@ -1732,7 +1732,9 @@ ca{
             ls{"Hora de Niue"}
         }
         "meta:Norfolk"{
-            ls{"Hora de les illes Norfolk"}
+            ld{"Hora d’estiu de les illes Norfolk"}
+            lg{"Hora de les illes Norfolk"}
+            ls{"Hora estàndard de les illes Norfolk"}
         }
         "meta:Noronha"{
             ld{"Hora d’estiu de Fernando de Noronha"}
@@ -1740,9 +1742,9 @@ ca{
             ls{"Hora estàndard de Fernando de Noronha"}
         }
         "meta:Novosibirsk"{
-            ld{"Hora d’estiu de Novosibirsk"}
-            lg{"Hora de Novosibirsk"}
-            ls{"Hora estàndard de Novosibirsk"}
+            ld{"Hora d’estiu de Novossibirsk"}
+            lg{"Hora de Novossibirsk"}
+            ls{"Hora estàndard de Novossibirsk"}
         }
         "meta:Omsk"{
             ld{"Hora d’estiu d’Omsk"}
@@ -1771,9 +1773,9 @@ ca{
             ls{"Hora estàndard del Perú"}
         }
         "meta:Philippines"{
-            ld{"Hora d’estiu de Filipines"}
-            lg{"Hora de Filipines"}
-            ls{"Hora estàndard de Filipines"}
+            ld{"Hora d’estiu de les Filipines"}
+            lg{"Hora de les Filipines"}
+            ls{"Hora estàndard de les Filipines"}
         }
         "meta:Phoenix_Islands"{
             ls{"Hora de les illes Phoenix"}
@@ -1820,7 +1822,7 @@ ca{
             ls{"Hora de Singapur"}
         }
         "meta:Solomon"{
-            ls{"Hora de Salomó"}
+            ls{"Hora de les illes Salomó"}
         }
         "meta:South_Georgia"{
             ls{"Hora de Geòrgia del Sud"}
@@ -1893,7 +1895,7 @@ ca{
             ls{"Hora de Vostok"}
         }
         "meta:Wake"{
-            ls{"Hora de Wake"}
+            ls{"Hora de les illes Wake"}
         }
         "meta:Wallis"{
             ls{"Hora de Wallis i Futuna"}

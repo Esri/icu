@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 zh{
-    Version{"2.1.44.76"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"阿比让"}
@@ -790,7 +790,7 @@ zh{
             ec{"新库兹涅茨克"}
         }
         "Asia:Novosibirsk"{
-            ec{"诺沃西比尔斯克"}
+            ec{"新西伯利亚"}
         }
         "Asia:Omsk"{
             ec{"鄂木斯克"}
@@ -809,6 +809,9 @@ zh{
         }
         "Asia:Qatar"{
             ec{"卡塔尔"}
+        }
+        "Asia:Qostanay"{
+            ec{"库斯塔奈"}
         }
         "Asia:Qyzylorda"{
             ec{"克孜洛尔达"}
@@ -1010,7 +1013,7 @@ zh{
             ec{"赫尔辛基"}
         }
         "Europe:Isle_of_Man"{
-            ec{"曼岛"}
+            ec{"马恩岛"}
         }
         "Europe:Istanbul"{
             ec{"伊斯坦布尔"}
@@ -1520,7 +1523,7 @@ zh{
             ls{"东欧标准时间"}
         }
         "meta:Europe_Further_Eastern"{
-            ls{"远东标准时间"}
+            ls{"欧洲极东时间"}
         }
         "meta:Europe_Western"{
             ld{"西欧夏令时间"}
@@ -1751,7 +1754,9 @@ zh{
             ls{"纽埃时间"}
         }
         "meta:Norfolk"{
-            ls{"诺福克岛时间"}
+            ld{"诺福克岛夏令时间"}
+            lg{"诺福克岛时间"}
+            ls{"诺福克岛标准时间"}
         }
         "meta:Noronha"{
             ld{"费尔南多-迪诺罗尼亚岛夏令时间"}

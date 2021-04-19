@@ -1,25 +1,26 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 fr{
     Keys{
         calendar{"calendrier"}
         cf{"format de devise"}
-        colAlternate{"Tri ne tenant pas compte des symboles"}
-        colBackwards{"Tri inversé des caractères accentués"}
-        colCaseFirst{"Classement basé sur les majuscules et les minuscules"}
-        colCaseLevel{"Tri sensible à la casse"}
-        colNormalization{"Tri normalisé"}
-        colNumeric{"Tri numérique"}
-        colStrength{"Priorité du tri"}
+        colAlternate{"tri ne tenant pas compte des symboles"}
+        colBackwards{"tri inversé des caractères accentués"}
+        colCaseFirst{"classement basé sur les majuscules et les minuscules"}
+        colCaseLevel{"tri sensible à la casse"}
+        colNormalization{"tri normalisé"}
+        colNumeric{"tri numérique"}
+        colStrength{"priorité du tri"}
         collation{"ordre de tri"}
         currency{"devise"}
         hc{"système horaire (12 ou 24 heures)"}
         lb{"style de saut de ligne"}
         ms{"système de mesure"}
         numbers{"nombres"}
-        timezone{"Fuseau horaire"}
-        va{"Variante locale"}
-        x{"Usage privé"}
+        timezone{"fuseau horaire"}
+        va{"variante locale"}
+        x{"usage privé"}
     }
     Languages{
         aa{"afar"}
@@ -63,7 +64,7 @@ fr{
         avk{"kotava"}
         awa{"awadhi"}
         ay{"aymara"}
-        az{"azéri"}
+        az{"azerbaïdjanais"}
         ba{"bachkir"}
         bal{"baloutchi"}
         ban{"balinais"}
@@ -76,7 +77,7 @@ fr{
         bej{"bedja"}
         bem{"bemba"}
         bew{"betawi"}
-        bez{"béna"}
+        bez{"bena"}
         bfd{"bafut"}
         bfq{"badaga"}
         bg{"bulgare"}
@@ -109,6 +110,7 @@ fr{
         car{"caribe"}
         cay{"cayuga"}
         cch{"atsam"}
+        ccp{"changma kodha"}
         ce{"tchétchène"}
         ceb{"cebuano"}
         cgg{"kiga"}
@@ -156,7 +158,7 @@ fr{
         dyu{"dioula"}
         dz{"dzongkha"}
         dzg{"dazaga"}
-        ebu{"embou"}
+        ebu{"embu"}
         ee{"éwé"}
         efi{"éfik"}
         egl{"émilien"}
@@ -181,6 +183,7 @@ fr{
         ewo{"éwondo"}
         ext{"estrémègne"}
         fa{"persan"}
+        fa_AF{"dari"}
         fan{"fang"}
         fat{"fanti"}
         ff{"peul"}
@@ -223,7 +226,7 @@ fr{
         grb{"grebo"}
         grc{"grec ancien"}
         gsw{"suisse allemand"}
-        gu{"goudjerati"}
+        gu{"goudjarati"}
         guc{"wayuu"}
         gur{"gurenne"}
         guz{"gusii"}
@@ -316,7 +319,7 @@ fr{
         ks{"cachemiri"}
         ksb{"shambala"}
         ksf{"bafia"}
-        ksh{"francique ripuaire"}
+        ksh{"kölsch"}
         ku{"kurde"}
         kum{"koumyk"}
         kut{"kutenai"}
@@ -639,10 +642,17 @@ fr{
         zxx{"sans contenu linguistique"}
         zza{"zazaki"}
     }
+    Languages%long{
+        zh_Hans{"mandarin simplifié"}
+        zh_Hant{"mandarin traditionnel"}
+    }
+    Languages%menu{
+        ckb{"kurde sorani"}
+        yue{"chinois cantonais"}
+        zh{"chinois mandarin"}
+    }
     Languages%short{
         az{"azéri"}
-        en_GB{"anglais (R.-U.)"}
-        en_US{"anglais (É.-U.)"}
     }
     Languages%variant{
         ps{"pashto"}
@@ -650,6 +660,7 @@ fr{
     }
     Scripts{
         Arab{"arabe"}
+        Aran{"nastaliq"}
         Armi{"araméen impérial"}
         Armn{"arménien"}
         Avst{"avestique"}
@@ -677,6 +688,7 @@ fr{
         Egyd{"démotique égyptien"}
         Egyh{"hiératique égyptien"}
         Egyp{"hiéroglyphes égyptiens"}
+        Elym{"élymaïque"}
         Ethi{"éthiopique"}
         Geok{"géorgien khoutsouri"}
         Geor{"géorgien"}
@@ -694,6 +706,7 @@ fr{
         Hebr{"hébreu"}
         Hira{"hiragana"}
         Hmng{"pahawh hmong"}
+        Hmnp{"nyiakeng puachue hmong"}
         Hrkt{"katakana ou hiragana"}
         Hung{"ancien hongrois"}
         Inds{"indus"}
@@ -728,6 +741,7 @@ fr{
         Moon{"moon"}
         Mtei{"meitei mayek"}
         Mymr{"birman"}
+        Nand{"nandinagari"}
         Nkoo{"n’ko"}
         Ogam{"ogam"}
         Olck{"ol tchiki"}
@@ -742,6 +756,7 @@ fr{
         Phnx{"phénicien"}
         Plrd{"phonétique de Pollard"}
         Prti{"parthe des inscriptions"}
+        Qaag{"zawgyi"}
         Rjng{"rejang"}
         Roro{"rongorongo"}
         Runr{"runique"}
@@ -772,6 +787,7 @@ fr{
         Ugar{"ougaritique"}
         Vaii{"vaï"}
         Visp{"parole visible"}
+        Wcho{"wantcho"}
         Xpeo{"cunéiforme persépolitain"}
         Xsux{"cunéiforme suméro-akkadien"}
         Yiii{"yi"}
@@ -917,6 +933,7 @@ fr{
             hant{"chiffres en chinois traditionnel"}
             hantfin{"chiffres financiers en chinois traditionnel"}
             hebr{"chiffres hébreux"}
+            hmnp{"chiffres nyiakeng puachue hmong"}
             jpan{"chiffres japonais"}
             jpanfin{"chiffres japonais financiers"}
             khmr{"chiffres khmers"}
@@ -937,6 +954,7 @@ fr{
             tibt{"chiffres tibétains"}
             traditional{"Chiffres traditionnels"}
             vaii{"Chiffres en vaï"}
+            wcho{"chiffres wantcho"}
         }
     }
     Variants{
@@ -970,7 +988,6 @@ fr{
         VALENCIA{"valencien"}
         WADEGILE{"Wade-Giles"}
     }
-    Version{"2.1.44.91"}
     characterLabelPattern{
         all{"{0} — tout"}
         category-list{"{0} : {1}"}
@@ -985,6 +1002,8 @@ fr{
             one{"{0} trait"}
             other{"{0} traits"}
         }
+        subscript{"indice {0}"}
+        superscript{"exposant {0}"}
     }
     codePatterns{
         language{"langue : {0}"}

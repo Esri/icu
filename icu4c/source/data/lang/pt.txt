@@ -1,16 +1,17 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 pt{
     Keys{
         calendar{"Calendário"}
         cf{"Formato de moeda"}
         colAlternate{"Ignorar classificação de símbolos"}
-        colBackwards{"Classificação reversa de acentos"}
+        colBackwards{"Classificação de acentos invertida"}
         colCaseFirst{"Ordem de maiúsculas/minúsculas"}
-        colCaseLevel{"Ordem com diferenciação de maiúsculas e minúsculas"}
+        colCaseLevel{"Classificação com distinção entre maiúsculas e minúsculas"}
         colNormalization{"Classificação normalizada"}
         colNumeric{"Classificação numérica"}
-        colStrength{"Intensidade da classificação"}
+        colStrength{"Prioridade da classificação"}
         collation{"Ordenação"}
         currency{"Moeda"}
         hc{"Ciclo de horário (12 vs. 24)"}
@@ -93,6 +94,7 @@ pt{
         car{"caribe"}
         cay{"cayuga"}
         cch{"atsam"}
+        ccp{"chakma"}
         ce{"checheno"}
         ceb{"cebuano"}
         cgg{"chiga"}
@@ -138,7 +140,7 @@ pt{
         dz{"dzonga"}
         dzg{"dazaga"}
         ebu{"embu"}
-        ee{"eve"}
+        ee{"ewe"}
         efi{"efique"}
         egy{"egípcio arcaico"}
         eka{"ekajuk"}
@@ -152,6 +154,7 @@ pt{
         eu{"basco"}
         ewo{"ewondo"}
         fa{"persa"}
+        fa_AF{"dari"}
         fan{"fangue"}
         fat{"fanti"}
         ff{"fula"}
@@ -443,7 +446,7 @@ pt{
         sm{"samoano"}
         sma{"sami meridional"}
         smj{"sami de Lule"}
-        smn{"sami de Inari"}
+        smn{"lapão de Inari"}
         sms{"sami de Skolt"}
         sn{"xona"}
         snk{"soninquê"}
@@ -498,7 +501,7 @@ pt{
         twq{"tasawaq"}
         ty{"taitiano"}
         tyv{"tuviniano"}
-        tzm{"tamazirte do Atlas Central"}
+        tzm{"tamazight do Atlas Central"}
         udm{"udmurte"}
         ug{"uigur"}
         uga{"ugarítico"}
@@ -544,15 +547,21 @@ pt{
         zxx{"sem conteúdo linguístico"}
         zza{"zazaki"}
     }
-    Languages%short{
-        az{"azeri"}
-        en_US{"inglês (EUA)"}
+    Languages%long{
+        zh_Hans{"chinês mandarim (simplificado)"}
+        zh_Hant{"chinês mandarim (tradicional)"}
+    }
+    Languages%menu{
+        yue{"cantonês (tradicional)"}
+        zh{"chinês, mandarim"}
     }
     Languages%variant{
+        ckb{"curdo sorâni"}
         ps{"pushto"}
     }
     Scripts{
         Arab{"árabe"}
+        Aran{"nastaliq"}
         Armi{"armi"}
         Armn{"armênio"}
         Avst{"avéstico"}
@@ -638,7 +647,7 @@ pt{
         Ogam{"ogâmico"}
         Olck{"ol chiki"}
         Orkh{"orkhon"}
-        Orya{"oriya"}
+        Orya{"oriá"}
         Osma{"osmania"}
         Perm{"pérmico antigo"}
         Phag{"phags-pa"}
@@ -648,6 +657,7 @@ pt{
         Phnx{"fenício"}
         Plrd{"fonético pollard"}
         Prti{"prti"}
+        Qaag{"zawgyi"}
         Rjng{"rejang"}
         Roro{"rongorongo"}
         Runr{"rúnico"}
@@ -770,8 +780,8 @@ pt{
             unihan{"Ordem por Radical-Traços"}
         }
         d0{
-            fwidth{"Extensão total"}
-            hwidth{"Extensão total"}
+            fwidth{"Largura inteira"}
+            hwidth{"Meia largura"}
             npinyin{"Numérico"}
         }
         hc{
@@ -796,7 +806,7 @@ pt{
         }
         numbers{
             arab{"Algarismos indo-arábicos"}
-            arabext{"Algarismos indo-arábicos por extenso"}
+            arabext{"Algarismos indo-arábicos estendidos"}
             armn{"Algarismos armênios"}
             armnlow{"Algarismos armênios minúsculos"}
             beng{"Algarismos bengali"}
@@ -808,7 +818,7 @@ pt{
             grek{"Algarismos gregos"}
             greklow{"Algarismos gregos minúsculos"}
             gujr{"Algarismos guzerate"}
-            guru{"Algarismos gurmukhi"}
+            guru{"Algarismos gurmuqui"}
             hanidec{"Algarismos decimais chineses"}
             hans{"Algarismos chineses simplificados"}
             hansfin{"Algarismos financeiros chineses simplificados"}
@@ -823,7 +833,7 @@ pt{
             latn{"Algarismos ocidentais"}
             mlym{"Algarismos malaialos"}
             mong{"Algarismos mongóis"}
-            mymr{"Algarismos de Myanmar"}
+            mymr{"Algarismos mianmarenses"}
             native{"Dígitos nativos"}
             orya{"Algarismos oriá"}
             roman{"Algarismos romanos"}
@@ -880,7 +890,6 @@ pt{
         VALENCIA{"valenciano"}
         WADEGILE{"romanização Wade-Giles"}
     }
-    Version{"2.1.43.65"}
     characterLabelPattern{
         all{"{0} — todos"}
         category-list{"{0}: {1}"}
@@ -895,6 +904,8 @@ pt{
             one{"{0} traço"}
             other{"{0} traços"}
         }
+        subscript{"{0} subscrito"}
+        superscript{"{0} sobrescrito"}
     }
     codePatterns{
         language{"Idioma: {0}"}

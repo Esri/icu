@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 el{
     Keys{
         calendar{"Ημερολόγιο"}
@@ -19,7 +20,7 @@ el{
         numbers{"Αριθμοί"}
         timezone{"Ζώνη ώρας"}
         va{"Παραλλαγή τοπικών ρυθμίσεων"}
-        x{"Προσωπική χρήση"}
+        x{"Ιδιωτική χρήση"}
     }
     Languages{
         aa{"Αφάρ"}
@@ -92,6 +93,7 @@ el{
         car{"Καρίμπ"}
         cay{"Καγιούγκα"}
         cch{"Ατσάμ"}
+        ccp{"Τσάκμα"}
         ce{"Τσετσενικά"}
         ceb{"Σεμπουάνο"}
         cgg{"Τσίγκα"}
@@ -159,6 +161,7 @@ el{
         eu{"Βασκικά"}
         ewo{"Εγουόντο"}
         fa{"Περσικά"}
+        fa_AF{"Νταρί"}
         fan{"Φανγκ"}
         fat{"Φάντι"}
         ff{"Φουλά"}
@@ -507,7 +510,7 @@ el{
         tyv{"Τουβινικά"}
         tzm{"Ταμαζίτ Κεντρικού Μαρόκο"}
         udm{"Ουντμούρτ"}
-        ug{"Ουιγκουρικά"}
+        ug{"Ουιγουρικά"}
         uga{"Ουγκαριτικά"}
         uk{"Ουκρανικά"}
         umb{"Ουμπούντου"}
@@ -551,6 +554,14 @@ el{
         zxx{"Χωρίς γλωσσολογικό περιεχόμενο"}
         zza{"Ζάζα"}
     }
+    Languages%long{
+        zh_Hans{"Απλοποιημένα Μανδαρινικά Κινεζικά"}
+        zh_Hant{"Παραδοσιακά Μανδαρινικά Κινεζικά"}
+    }
+    Languages%menu{
+        yue{"Κινεζικά, Καντονέζικα"}
+        zh{"Κινεζικά, Μανδαρινικά"}
+    }
     Languages%short{
         az{"Αζερικά"}
         en_GB{"Αγγλικά ΗΒ"}
@@ -561,6 +572,7 @@ el{
     }
     Scripts{
         Arab{"Αραβικό"}
+        Aran{"Νασταλίκ"}
         Armi{"Αυτοκρατορικό Αραμαϊκό"}
         Armn{"Αρμενικό"}
         Avst{"Αβεστάν"}
@@ -882,7 +894,6 @@ el{
         VALENCIA{"Βαλενθιανά"}
         WADEGILE{"Εκλατινισμένα Γουάντ-Γκιλς"}
     }
-    Version{"2.1.43.65"}
     characterLabelPattern{
         all{"{0} — όλα"}
         category-list{"{0}: {1}"}
@@ -897,6 +908,8 @@ el{
             one{"{0} γραμμή"}
             other{"{0} γραμμές"}
         }
+        subscript{"δείκτης {0}"}
+        superscript{"εκθέτης {0}"}
     }
     codePatterns{
         language{"Γλώσσα: {0}"}

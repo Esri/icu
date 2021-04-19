@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 uz{
     Countries{
         001{"Dunyo"}
@@ -183,7 +184,7 @@ uz{
         MF{"Sent-Martin"}
         MG{"Madagaskar"}
         MH{"Marshall orollari"}
-        MK{"Makedoniya"}
+        MK{"Shimoliy Makedoniya"}
         ML{"Mali"}
         MM{"Myanma (Birma)"}
         MN{"Mongoliya"}
@@ -287,6 +288,8 @@ uz{
         VU{"Vanuatu"}
         WF{"Uollis va Futuna"}
         WS{"Samoa"}
+        XA{"Qalbaki urg‘u"}
+        XB{"Qalbaki Bidi"}
         XK{"Kosovo"}
         YE{"Yaman"}
         YT{"Mayotta"}
@@ -309,8 +312,6 @@ uz{
         CI{"Fil suyagi qirg‘og‘i"}
         CZ{"Chexiya Respublikasi"}
         FK{"Folklend (Malvin) orollari"}
-        MK{"Makedoniya (SYRM)"}
         TL{"Sharqiy Timor"}
     }
-    Version{"2.1.44.88"}
 }

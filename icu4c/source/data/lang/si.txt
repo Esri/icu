@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 si{
     Keys{
         calendar{"දින දර්ශනය"}
@@ -18,7 +19,7 @@ si{
         ada{"අඩන්ග්මෙ"}
         ady{"අඩිඝෙ"}
         aeb{"ටියුනිසියනු අරාබි"}
-        af{"අෆ්රිකාන්ස්"}
+        af{"අෆ්‍රිකාන්ස්"}
         agq{"ඇගම්"}
         ain{"අයිනු"}
         ak{"අකාන්"}
@@ -59,6 +60,7 @@ si{
         bug{"බුගිනීස්"}
         byn{"බ්ලින්"}
         ca{"කැටලන්"}
+        ccp{"චක්මා"}
         ce{"චෙච්නියානු"}
         ceb{"සෙබුඅනො"}
         cgg{"චිගා"}
@@ -109,6 +111,7 @@ si{
         eu{"බාස්ක්"}
         ewo{"එවොන්ඩො"}
         fa{"පර්සියානු"}
+        fa_AF{"ඩාරි"}
         ff{"ෆුලාහ්"}
         fi{"ෆින්ලන්ත"}
         fil{"පිලිපීන"}
@@ -415,10 +418,22 @@ si{
         zxx{"වාග් විද්‍යා අන්තර්ගතයක් නැත"}
         zza{"සාසා"}
     }
+    Languages%long{
+        zh_Hans{"සරල මැන්ඩරීන් චීන"}
+        zh_Hant{"සාම්ප්‍රදායික මැන්ඩරීන් චීන"}
+    }
+    Languages%menu{
+        ckb{"කුර්දිෂ්, මධ්‍යම"}
+        yue{"චීන, කැන්ටොනීස්"}
+        zh{"චීන, මැන්ඩරීන්"}
+    }
     Languages%short{
         az{"අසීරී"}
         en_GB{"එ.රා ඉංග්‍රීසි"}
         en_US{"එ.ජ ඉංග්‍රීසි"}
+    }
+    Languages%variant{
+        ckb{"කුර්දිෂ්, සොරානි"}
     }
     Scripts{
         Arab{"අරාබි"}
@@ -548,7 +563,6 @@ si{
             tibt{"ටිබෙට ඉලක්කම්"}
         }
     }
-    Version{"2.1.43.50"}
     characterLabelPattern{
         all{"{0} — සියල්ල"}
         category-list{"{0}: {1}"}
@@ -563,6 +577,8 @@ si{
             one{"{0} පහර"}
             other{"{0} පහර"}
         }
+        subscript{"යටකුර {0}"}
+        superscript{"උඩකුර {0}"}
     }
     codePatterns{
         language{"{0} භාෂාව: සිංහල"}

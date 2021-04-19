@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 my{
-    Version{"2.1.44.88"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"အာဘီဂျန်"}
@@ -52,7 +52,7 @@ my{
             ec{"ကိုနာကရီး"}
         }
         "Africa:Dakar"{
-            ec{"ဒက်ကား"}
+            ec{"ဒကျကား"}
         }
         "Africa:Dar_es_Salaam"{
             ec{"ဒါရက်စ်ဆာလမ်"}
@@ -244,7 +244,7 @@ my{
             ec{"ကာရာကာစ်"}
         }
         "America:Catamarca"{
-            ec{"ကာတာမာရျကာ"}
+            ec{"ကာတာမာရကာ"}
         }
         "America:Cayenne"{
             ec{"ကေညင်န်"}
@@ -809,6 +809,9 @@ my{
         }
         "Asia:Qatar"{
             ec{"ကာတာ"}
+        }
+        "Asia:Qostanay"{
+            ec{"ကော့စ်တနေ"}
         }
         "Asia:Qyzylorda"{
             ec{"ကီဇလော်ဒါ"}
@@ -1474,9 +1477,9 @@ my{
             ls{"အရှေ့တီမော အချိန်"}
         }
         "meta:Easter"{
-            ld{"အီစတာကျွန်းနွေရာသီအချိန်"}
-            lg{"အီစတာကျွန်းအချိန်"}
-            ls{"အီစတာကျွန်းစံတော်ချိန်"}
+            ld{"အီစတာကျွန်း နွေရာသီ အချိန်"}
+            lg{"အီစတာကျွန်း အချိန်"}
+            ls{"အီစတာကျွန်း စံတော်ချိန်"}
         }
         "meta:Ecuador"{
             ls{"အီကွေဒေါ အချိန်"}
@@ -1519,7 +1522,7 @@ my{
             ls{"ဂရင်းနစ် စံတော်ချိန်"}
         }
         "meta:Galapagos"{
-            ls{"ဂါလားပါဂိုးစ်အချိန်"}
+            ls{"ဂါလားပါဂိုးစ် အချိန်"}
         }
         "meta:Gambier"{
             ls{"ဂမ်ဘီယာ အချိန်"}
@@ -1715,10 +1718,12 @@ my{
             ls{"နီဦးအေ အချိန်"}
         }
         "meta:Norfolk"{
-            ls{"နောဖော့ခ်ကျွန်းအချိန်"}
+            ld{"နောဖော့ခ်ကျွန်း နွေရာသီ စံတော်ချိန်"}
+            lg{"နောဖော့ခ်ကျွန်း အချိန်"}
+            ls{"နောဖော့ခ်ကျွန်း စံတော်ချိန်"}
         }
         "meta:Noronha"{
-            ld{"ဖာနန်ဒိုးဒီနိုးရိုးညာ နွေရာသီအချိန်"}
+            ld{"ဖာနန်ဒိုးဒီနိုးရိုးညာ နွေရာသီ အချိန်"}
             lg{"ဖာနန်ဒိုးဒီနိုးရိုးညာ အချိန်"}
             ls{"ဖာနန်ဒိုးဒီနိုးရိုးညာ စံတော်ချိန်"}
         }

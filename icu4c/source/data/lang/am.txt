@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 am{
     Keys{
         calendar{"የቀን አቆጣጠር"}
@@ -99,6 +100,7 @@ am{
         car{"ካሪብ"}
         cay{"ካዩጋ"}
         cch{"አትሳም"}
+        ccp{"ቻክማ"}
         ce{"ችችን"}
         ceb{"ካቡዋኖ"}
         cgg{"ቺጋኛ"}
@@ -164,6 +166,7 @@ am{
         eu{"ባስክኛ"}
         ewo{"ኤዎንዶ"}
         fa{"ፐርሺያኛ"}
+        fa_AF{"ዳሪኛ"}
         ff{"ፉላህ"}
         fi{"ፊኒሽ"}
         fil{"ፊሊፒንኛ"}
@@ -488,6 +491,14 @@ am{
         zxx{"ቋንቋዊ ይዘት አይደለም"}
         zza{"ዛዛ"}
     }
+    Languages%long{
+        zh_Hans{"ቀለል ያለ ማንድሪን ቻይንኛ"}
+        zh_Hant{"ባህላዊ ማንድሪን ቻይንኛ"}
+    }
+    Languages%menu{
+        yue{"ቻይና፤ ካንቶንኛ"}
+        zh{"ማንድሪን ቻይንኛ"}
+    }
     Languages%short{
         az{"አዜሪ"}
         en_GB{"የዩናይትድ ኪንግደም እንግሊዝኛ"}
@@ -536,8 +547,8 @@ am{
         Thaa{"ታና"}
         Thai{"ታይ"}
         Tibt{"ቲቤታን"}
-        Zmth{"Zmth"}
-        Zsye{"Zsye"}
+        Zmth{"የሂሳብ መግለጫ"}
+        Zsye{"ኢሞጂ"}
         Zsym{"ምልክቶች"}
         Zxxx{"ያልተጻፈ"}
         Zyyy{"የጋራ"}
@@ -688,7 +699,6 @@ am{
             vaii{"የቫይ አሃዞች"}
         }
     }
-    Version{"2.1.43.65"}
     characterLabelPattern{
         all{"{0} — ሁሉም"}
         category-list{"{0}: {1}"}
@@ -703,6 +713,8 @@ am{
             one{"{0} ምች"}
             other{"{0} ምች"}
         }
+        subscript{"ግርጌ ምልክት {0}"}
+        superscript{"ራስጌ ምልክት {0}"}
     }
     codePatterns{
         language{"{0}"}

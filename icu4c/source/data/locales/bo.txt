@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 bo{
     AuxExemplarCharacters{"[ༀ]"}
     ExemplarCharacters{
@@ -14,7 +15,7 @@ bo{
         "\u0FB3\u0F80} \u0F79 \u0F7A \u0F7B \u0F7C \u0F7D \u0F84]"
     }
     ExemplarCharactersIndex{"[ཀ ཁ ག ང ཅ ཆ ཇ ཉ ཏ ཐ ད ན པ ཕ བ མ ཙ ཚ ཛ ཝ ཞ ཟ འ ཡ ར ལ ཤ ས ཧ ཨ]"}
-    ExemplarCharactersNumbers{"[\\- , . % ‰ + 0༠ 1༡ 2༢ 3༣ 4༤ 5༥ 6༦ 7༧ 8༨ 9༩]"}
+    ExemplarCharactersNumbers{"[\\- ‑ , . % ‰ + 0༠ 1༡ 2༢ 3༣ 4༤ 5༥ 6༦ 7༧ 8༨ 9༩]"}
     NumberElements{
         default{"latn"}
         latn{
@@ -33,7 +34,6 @@ bo{
             }
         }
     }
-    Version{"2.1.38.69"}
     calendar{
         generic{
             DateTimePatterns{

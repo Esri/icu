@@ -1,5 +1,5 @@
 // © 2018 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.dev.test.number;
 
 import static com.ibm.icu.impl.StaticUnicodeSets.get;
@@ -16,8 +16,11 @@ import com.ibm.icu.impl.number.DecimalQuantity_DualStorageBCD;
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.number.NumberFormatter;
 import com.ibm.icu.number.Precision;
+import com.ibm.icu.number.UnlocalizedNumberFormatter;
 import com.ibm.icu.text.DecimalFormatSymbols;
 import com.ibm.icu.text.UnicodeSet;
+import com.ibm.icu.util.MeasureUnit;
+import com.ibm.icu.util.NoUnit;
 import com.ibm.icu.util.ULocale;
 
 /**
@@ -50,7 +53,7 @@ public class ExhaustiveNumberTest extends TestFmwk {
         UnicodeSet minusSign = get(Key.MINUS_SIGN);
         UnicodeSet percent = get(Key.PERCENT_SIGN);
         UnicodeSet permille = get(Key.PERMILLE_SIGN);
-        UnicodeSet infinity = get(Key.INFINITY);
+        UnicodeSet infinity = get(Key.INFINITY_SIGN);
 
         for (ULocale locale : ULocale.getAvailableLocales()) {
             DecimalFormatSymbols dfs = DecimalFormatSymbols.getInstance(locale);
@@ -88,11 +91,29 @@ public class ExhaustiveNumberTest extends TestFmwk {
     }
 
     @Test
+    public void test20417_PercentParity() {
+        UnlocalizedNumberFormatter uNoUnitPercent = NumberFormatter.with().unit(NoUnit.PERCENT);
+        UnlocalizedNumberFormatter uNoUnitPermille = NumberFormatter.with().unit(NoUnit.PERMILLE);
+        UnlocalizedNumberFormatter uMeasurePercent = NumberFormatter.with().unit(MeasureUnit.PERCENT);
+        UnlocalizedNumberFormatter uMeasurePermille = NumberFormatter.with().unit(MeasureUnit.PERMILLE);
+
+        for (ULocale locale : ULocale.getAvailableLocales()) {
+            String sNoUnitPercent = uNoUnitPercent.locale(locale).format(50).toString();
+            String sNoUnitPermille = uNoUnitPermille.locale(locale).format(50).toString();
+            String sMeasurePercent = uMeasurePercent.locale(locale).format(50).toString();
+            String sMeasurePermille = uMeasurePermille.locale(locale).format(50).toString();
+
+            assertEquals("Percent, locale " + locale, sNoUnitPercent, sMeasurePercent);
+            assertEquals("Permille, locale " + locale, sNoUnitPermille, sMeasurePermille);
+        }
+    }
+
+    @Test
     public void unlimitedRoundingBigDecimal() {
         BigDecimal ten10000 = BigDecimal.valueOf(10).pow(10000);
         BigDecimal longFraction = ten10000.subtract(BigDecimal.ONE).divide(ten10000);
         String expected = longFraction.toPlainString();
-        String actual = NumberFormatter.withLocale(ULocale.ENGLISH).rounding(Precision.unlimited())
+        String actual = NumberFormatter.withLocale(ULocale.ENGLISH).precision(Precision.unlimited())
                 .format(longFraction).toString();
         assertEquals("All digits should be displayed", expected, actual);
     }
@@ -102,8 +123,6 @@ public class ExhaustiveNumberTest extends TestFmwk {
         // based on https://github.com/google/double-conversion/issues/28
         double[] hardDoubles = {
                 1651087494906221570.0,
-                -5074790912492772E-327,
-                83602530019752571E-327,
                 2.207817077636718750000000000000,
                 1.818351745605468750000000000000,
                 3.941719055175781250000000000000,
@@ -128,9 +147,11 @@ public class ExhaustiveNumberTest extends TestFmwk {
                 1.305290222167968750000000000000,
                 3.834922790527343750000000000000, };
 
-        double[] integerDoubles = {
+        double[] exactDoubles = {
                 51423,
                 51423e10,
+                -5074790912492772E-327,
+                83602530019752571E-327,
                 4.503599627370496E15,
                 6.789512076111555E15,
                 9.007199254740991E15,
@@ -140,7 +161,7 @@ public class ExhaustiveNumberTest extends TestFmwk {
             checkDoubleBehavior(d, true, "");
         }
 
-        for (double d : integerDoubles) {
+        for (double d : exactDoubles) {
             checkDoubleBehavior(d, false, "");
         }
 

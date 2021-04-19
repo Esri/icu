@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
 **********************************************************************
 * Copyright (c) 2003-2015, International Business Machines
@@ -12,6 +12,7 @@
 */
 package com.ibm.icu.dev.test.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -137,10 +138,10 @@ public class UtilityTest extends TestFmwk {
         }
 
         // test equality
-        if (!x.equals(y) || !x.equals(z))
-            errln("FAIL: test (operator ==): Failed!");
-        if (x.hashCode()!=y.hashCode())
-            errln("FAIL: identical objects have different hash codes.");
+        assertEquals("x==y", x, y);
+        assertEquals("y==z", y, z);
+        assertEquals("x.hashCode()==y.hashCode()", x.hashCode(), y.hashCode());
+        assertEquals("y.hashCode()==z.hashCode()", y.hashCode(), z.hashCode());
 
         // test non-equality
         y = new ByteArrayWrapper(bb, 4);
@@ -290,5 +291,31 @@ public class UtilityTest extends TestFmwk {
             sb.append(RANDOM_CHARS.charAt(RANDOM.nextInt(RANDOM_CHARS.length())));
         }
         return sb;
+    }
+
+    @Test
+    public void TestJoinStrings() {
+        final String data[][] = {
+            //  {"<expected>", "<delimiter>", "<element1>", "<element2>", ...}
+                {"abc-def", "-", "abc", "def"},
+                {"abc-def-ghi", "-", "abc", "def", "ghi"},
+                {"abc--def", "--", "abc", "def"},
+                {"abc", "-", "abc"},
+                {"def", "_", null, "def"},
+                {"abc_def", "_", null, "abc", null, "def", null},
+                {"", "-", null},
+        };
+
+        for (int i = 0; i < data.length; i++) {
+            String expected = data[i][0];
+            String delim = data[i][1];
+            List<String> elements = new ArrayList<>(data.length - 2);
+            for (int j = 2; j < data[i].length; j++) {
+                elements.add(data[i][j]);
+            }
+
+            String actual = Utility.joinStrings(delim, elements);
+            assertEquals("data[" + i + "]", expected, actual);
+        }
     }
 }

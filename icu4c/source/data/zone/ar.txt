@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 ar{
-    Version{"2.1.43.50"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"أبيدجان"}
@@ -646,7 +646,7 @@ ar{
             ec{"ألماتي"}
         }
         "Asia:Amman"{
-            ec{"عمان"}
+            ec{"عمّان"}
         }
         "Asia:Anadyr"{
             ec{"أندير"}
@@ -809,6 +809,9 @@ ar{
         }
         "Asia:Qatar"{
             ec{"قطر"}
+        }
+        "Asia:Qostanay"{
+            ec{"قوستاناي"}
         }
         "Asia:Qyzylorda"{
             ec{"كيزيلوردا"}
@@ -1552,6 +1555,7 @@ ar{
         }
         "meta:Gulf"{
             ls{"توقيت الخليج"}
+            ss{"GST"}
         }
         "meta:Guyana"{
             ls{"توقيت غيانا"}
@@ -1720,7 +1724,9 @@ ar{
             ls{"توقيت نيوي"}
         }
         "meta:Norfolk"{
-            ls{"توقيت جزيرة نورفولك"}
+            ld{"توقيت جزيرة نورفولك الصيفي"}
+            lg{"توقيت جزيرة نورفولك"}
+            ls{"توقيت جزيرة نورفولك الرسمي"}
         }
         "meta:Noronha"{
             ld{"توقيت فرناندو دي نورونها الصيفي"}

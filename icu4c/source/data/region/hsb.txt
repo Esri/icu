@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 hsb{
     Countries{
         001{"swět"}
@@ -181,7 +182,6 @@ hsb{
         MF{"St. Martin"}
         MG{"Madagaskar"}
         MH{"Marshallowe kupy"}
-        MK{"Makedonska"}
         ML{"Mali"}
         MM{"Myanmar"}
         MN{"Mongolska"}
@@ -272,6 +272,7 @@ hsb{
         UA{"Ukraina"}
         UG{"Uganda"}
         UM{"Ameriska Oceaniska"}
+        UN{"Zjednoćene narody"}
         US{"Zjednoćene staty Ameriki"}
         UY{"Uruguay"}
         UZ{"Uzbekistan"}
@@ -304,8 +305,6 @@ hsb{
         CG{"Kongo (Republika)"}
         CI{"Słonowinowy pobrjóh"}
         FK{"Falklandske kupy (Malwiny)"}
-        MK{"Makedonska (FYROM)"}
         TL{"Wuchodny Timor"}
     }
-    Version{"2.1.41.34"}
 }

@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 te{
     Keys{
         calendar{"క్యాలెండర్"}
@@ -86,9 +87,10 @@ te{
         cad{"కేడ్డో"}
         car{"కేరిబ్"}
         cch{"అట్సామ్"}
+        ccp{"చక్మా"}
         ce{"చెచెన్"}
         ceb{"సెబువానో"}
-        cgg{"ఛిగా"}
+        cgg{"చిగా"}
         ch{"చమర్రో"}
         chb{"చిబ్చా"}
         chg{"చాగటై"}
@@ -138,7 +140,7 @@ te{
         eka{"ఏకాజక్"}
         el{"గ్రీక్"}
         elx{"ఎలామైట్"}
-        en{"ఆంగ్లం"}
+        en{"ఇంగ్లీష్"}
         en_AU{"ఆస్ట్రేలియన్ ఇంగ్లీష్"}
         en_CA{"కెనడియన్ ఇంగ్లీష్"}
         en_GB{"బ్రిటిష్ ఇంగ్లీష్"}
@@ -153,6 +155,7 @@ te{
         eu{"బాస్క్యూ"}
         ewo{"ఎవోండొ"}
         fa{"పర్షియన్"}
+        fa_AF{"డారి"}
         fan{"ఫాంగ్"}
         fat{"ఫాంటి"}
         ff{"ఫ్యుల"}
@@ -544,6 +547,14 @@ te{
         zxx{"లిపి లేదు"}
         zza{"జాజా"}
     }
+    Languages%long{
+        zh_Hans{"సరళీకృత మాండరిన్ చైనీస్"}
+        zh_Hant{"సాంప్రదాయక మాండరిన్ చైనీస్"}
+    }
+    Languages%menu{
+        yue{"చైనీస్, కాంటనీస్"}
+        zh{"చైనీస్, మాండరిన్"}
+    }
     Languages%short{
         az{"అజెరి"}
         en_GB{"యు.కె. ఇంగ్లీష్"}
@@ -844,7 +855,6 @@ te{
         REVISED{"సవరించబడిన వర్ణక్రమం"}
         WADEGILE{"వేడ్-గైల్స్ రోమనైజేషన్"}
     }
-    Version{"2.1.43.50"}
     characterLabelPattern{
         all{"{0} — అన్ని"}
         category-list{"{0}: {1}"}
@@ -859,6 +869,8 @@ te{
             one{"{0} స్ట్రోక్"}
             other{"{0} స్ట్రోకులు"}
         }
+        subscript{"సబ్‌స్క్రిప్ట్ {0}"}
+        superscript{"సూపర్‌స్క్రిప్ట్ {0}"}
     }
     codePatterns{
         language{"భాష: {0}"}

@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.number;
 
 import com.ibm.icu.util.Currency;
@@ -11,8 +11,7 @@ import com.ibm.icu.util.Currency;
  * <p>
  * To create a CurrencyPrecision, use one of the factory methods on Precision.
  *
- * @draft ICU 60
- * @provisional This API might change or be removed in a future release.
+ * @stable ICU 60
  * @see NumberFormatter
  */
 public abstract class CurrencyPrecision extends Precision {
@@ -35,8 +34,8 @@ public abstract class CurrencyPrecision extends Precision {
      * @param currency
      *            The currency to associate with this rounding strategy.
      * @return A Precision for chaining or passing to the NumberFormatter rounding() setter.
-     * @draft ICU 60
-     * @provisional This API might change or be removed in a future release.
+     * @throws IllegalArgumentException for null Currency
+     * @stable ICU 60
      * @see NumberFormatter
      */
     public Precision withCurrency(Currency currency) {

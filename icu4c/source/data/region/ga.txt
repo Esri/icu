@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 ga{
     Countries{
         001{"an Domhan"}
@@ -183,7 +184,7 @@ ga{
         MF{"Saint-Martin"}
         MG{"Madagascar"}
         MH{"Oileáin Marshall"}
-        MK{"an Mhacadóin"}
+        MK{"an Mhacadóin Thuaidh"}
         ML{"Mailí"}
         MM{"Maenmar (Burma)"}
         MN{"an Mhongóil"}
@@ -253,7 +254,7 @@ ga{
         SV{"an tSalvadóir"}
         SX{"Sint Maarten"}
         SY{"an tSiria"}
-        SZ{"an tSuasalainn"}
+        SZ{"eSuaitíní"}
         TA{"Tristan da Cunha"}
         TC{"Oileáin na dTurcach agus Caicos"}
         TD{"Sead"}
@@ -274,7 +275,7 @@ ga{
         UA{"an Úcráin"}
         UG{"Uganda"}
         UM{"Oileáin Imeallacha S.A.M."}
-        UN{"na Náisiúin Aontaiteh"}
+        UN{"na Náisiúin Aontaithe"}
         US{"Stáit Aontaithe Mheiriceá"}
         UY{"Uragua"}
         UZ{"an Úisbéiceastáin"}
@@ -287,6 +288,8 @@ ga{
         VU{"Vanuatú"}
         WF{"Vailís agus Futúna"}
         WS{"Samó"}
+        XA{"Bréagdhiaicriticí"}
+        XB{"Bréag-Bidi"}
         XK{"an Chosaiv"}
         YE{"Éimin"}
         YT{"Mayotte"}
@@ -309,8 +312,6 @@ ga{
         CI{"Côte d’Ivoire"}
         CZ{"Poblacht na Seice"}
         FK{"Oileáin Fháclainne (Islas Malvinas)"}
-        MK{"an Mhacadóin (PIIM)"}
-        TL{"TL"}
+        SZ{"an tSuasalainn"}
     }
-    Version{"2.1.44.91"}
 }

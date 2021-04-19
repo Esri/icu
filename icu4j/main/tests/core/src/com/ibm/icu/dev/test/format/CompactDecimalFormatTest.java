@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 1996-2016, Google, International Business Machines Corporation and
@@ -162,27 +162,27 @@ public class CompactDecimalFormatTest extends TestFmwk {
             {1234567890f, "12亿"},
             {12345678901f, "120亿"},
             {123456789012f, "1200亿"},
-            {1234567890123f, "1.2兆"},
-            {12345678901234f, "12兆"},
-            {123456789012345f, "120兆"},
+            {1234567890123f, "1.2万亿"},
+            {12345678901234f, "12万亿"},
+            {123456789012345f, "120万亿"},
     };
 
     Object[][] ChineseCurrencyTestData = {
-            {new CurrencyAmount(1f, Currency.getInstance("CNY")), "￥1"},
-            {new CurrencyAmount(12f, Currency.getInstance("CNY")), "￥12"},
-            {new CurrencyAmount(123f, Currency.getInstance("CNY")), "￥120"},
-            {new CurrencyAmount(1234f, Currency.getInstance("CNY")), "￥1200"},
-            {new CurrencyAmount(12345f, Currency.getInstance("CNY")), "￥1.2万"},
-            {new CurrencyAmount(123456f, Currency.getInstance("CNY")), "￥12万"},
-            {new CurrencyAmount(1234567f, Currency.getInstance("CNY")), "￥120万"},
-            {new CurrencyAmount(12345678f, Currency.getInstance("CNY")), "￥1200万"},
-            {new CurrencyAmount(123456789f, Currency.getInstance("CNY")), "￥1.2亿"},
-            {new CurrencyAmount(1234567890f, Currency.getInstance("CNY")), "￥12亿"},
-            {new CurrencyAmount(12345678901f, Currency.getInstance("CNY")), "￥120亿"},
-            {new CurrencyAmount(123456789012f, Currency.getInstance("CNY")), "￥1200亿"},
-            {new CurrencyAmount(1234567890123f, Currency.getInstance("CNY")), "￥1.2兆"},
-            {new CurrencyAmount(12345678901234f, Currency.getInstance("CNY")), "￥12兆"},
-            {new CurrencyAmount(123456789012345f, Currency.getInstance("CNY")), "￥120兆"},
+            {new CurrencyAmount(1f, Currency.getInstance("CNY")), "¥1"},
+            {new CurrencyAmount(12f, Currency.getInstance("CNY")), "¥12"},
+            {new CurrencyAmount(123f, Currency.getInstance("CNY")), "¥120"},
+            {new CurrencyAmount(1234f, Currency.getInstance("CNY")), "¥1200"},
+            {new CurrencyAmount(12345f, Currency.getInstance("CNY")), "¥1.2万"},
+            {new CurrencyAmount(123456f, Currency.getInstance("CNY")), "¥12万"},
+            {new CurrencyAmount(1234567f, Currency.getInstance("CNY")), "¥120万"},
+            {new CurrencyAmount(12345678f, Currency.getInstance("CNY")), "¥1200万"},
+            {new CurrencyAmount(123456789f, Currency.getInstance("CNY")), "¥1.2亿"},
+            {new CurrencyAmount(1234567890f, Currency.getInstance("CNY")), "¥12亿"},
+            {new CurrencyAmount(12345678901f, Currency.getInstance("CNY")), "¥120亿"},
+            {new CurrencyAmount(123456789012f, Currency.getInstance("CNY")), "¥1200亿"},
+            {new CurrencyAmount(1234567890123f, Currency.getInstance("CNY")), "¥1.2万亿"},
+            {new CurrencyAmount(12345678901234f, Currency.getInstance("CNY")), "¥12万亿"},
+            {new CurrencyAmount(123456789012345f, Currency.getInstance("CNY")), "¥120万亿"},
     };
     Object[][] GermanCurrencyTestData = {
             {new CurrencyAmount(1f, Currency.getInstance("EUR")), "1 €"},
@@ -698,9 +698,9 @@ public class CompactDecimalFormatTest extends TestFmwk {
         // Check currency formatting as well
         cdf = CompactDecimalFormat.getInstance(new ULocale("ar-EG"), CompactDecimalFormat.CompactStyle.SHORT);
         result = cdf.format(new CurrencyAmount(43000f, Currency.getInstance("USD")));
-        assertEquals("CDF should correctly format 43000 with currency in 'ar-EG'", "US$ ٤٣ ألف", result);
+        assertEquals("CDF should correctly format 43000 with currency in 'ar-EG'", "٤٣ ألف US$", result);
         result = cdf.format(new CurrencyAmount(-43000f, Currency.getInstance("USD")));
-        assertEquals("CDF should correctly format -43000 with currency in 'ar-EG'", "؜-US$ ٤٣ ألف", result);
+        assertEquals("CDF should correctly format -43000 with currency in 'ar-EG'", "؜-٤٣ ألف US$", result);
 
         // Extra locale with different positive/negative formats
         cdf = CompactDecimalFormat.getInstance(new ULocale("fi"), CompactDecimalFormat.CompactStyle.SHORT);
@@ -713,45 +713,33 @@ public class CompactDecimalFormatTest extends TestFmwk {
 
     @Test
     public void TestBug12689() {
-        if (logKnownIssue("12689", "CDF fails for numbers less than 1 thousand in most locales")) {
-            return;
-        }
-
         CompactDecimalFormat cdf;
         String result;
 
         cdf = CompactDecimalFormat.getInstance(ULocale.forLanguageTag("en"), CompactStyle.SHORT);
         result = cdf.format(new CurrencyAmount(123, Currency.getInstance("USD")));
-        assertEquals("CDF should correctly format 123 with currency in 'en'", "$120", result);
+        assertEquals("CDF should correctly format 123 with currency in 'en'", "$123", result);
 
         cdf = CompactDecimalFormat.getInstance(ULocale.forLanguageTag("it"), CompactStyle.SHORT);
         result = cdf.format(new CurrencyAmount(123, Currency.getInstance("EUR")));
-        assertEquals("CDF should correctly format 123 with currency in 'it'", "120 €", result);
+        assertEquals("CDF should correctly format 123 with currency in 'it'", "123\u00A0€", result);
     }
 
     @Test
     public void TestBug12688() {
-        if (logKnownIssue("12688", "CDF fails for numbers less than 1 million in 'it'")) {
-            return;
-        }
-
         CompactDecimalFormat cdf;
         String result;
 
         cdf = CompactDecimalFormat.getInstance(ULocale.forLanguageTag("it"), CompactStyle.SHORT);
         result = cdf.format(new CurrencyAmount(123000, Currency.getInstance("EUR")));
-        assertEquals("CDF should correctly format 123000 with currency in 'it'", "120000 €", result);
+        assertEquals("CDF should correctly format 123000 with currency in 'it'", "123.000\u00A0€", result);
     }
 
     @Test
     public void TestBug11319() {
-        if (logKnownIssue("11319", "CDF does not fall back from zh-Hant-HK to zh-Hant")) {
-            return;
-        }
-
-        CompactDecimalFormat cdf = CompactDecimalFormat.getInstance(new ULocale("zh-Hant-HK"), CompactStyle.SHORT);
+        CompactDecimalFormat cdf = CompactDecimalFormat.getInstance(new ULocale("yue-HK"), CompactStyle.SHORT);
         String result = cdf.format(958000000L);
-        assertEquals("CDF should correctly format 958 million in zh-Hant-HK", "9.6億", result);
+        assertEquals("CDF should correctly format 958 million in yue-HK", "9.6億", result);
     }
 
     @Test

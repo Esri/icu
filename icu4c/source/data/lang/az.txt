@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 az{
     Keys{
         calendar{"Təqvim"}
@@ -74,6 +75,7 @@ az{
         cad{"keddo"}
         car{"karib"}
         cch{"atsam"}
+        ccp{"Çakma"}
         ce{"çeçen"}
         ceb{"sebuan"}
         cgg{"çiqa"}
@@ -141,6 +143,7 @@ az{
         eu{"bask"}
         ewo{"evondo"}
         fa{"fars"}
+        fa_AF{"dari"}
         fan{"fang"}
         fat{"fanti"}
         ff{"fula"}
@@ -345,7 +348,6 @@ az{
         no{"norveç"}
         nog{"noqay"}
         non{"qədim nors"}
-        nqo{"nqo"}
         nr{"cənubi ndebele"}
         nso{"şimal soto"}
         nus{"nuer"}
@@ -526,10 +528,20 @@ az{
         zxx{"dil məzmunu yoxdur"}
         zza{"zaza"}
     }
+    Languages%long{
+        zh_Hans{"sadələşmiş mandarin çincəsi"}
+        zh_Hant{"ənənəvi mandarin çincəsi"}
+    }
+    Languages%menu{
+        ckb{"Kürdcə, mərkəzi"}
+        yue{"Çin, kanton"}
+        zh{"Çin, mandarin"}
+    }
     Languages%short{
         az{"azəri"}
-        en_GB{"ingilis (BK)"}
-        en_US{"ingilis (ABŞ)"}
+    }
+    Languages%variant{
+        ckb{"Kürdcə, sorani"}
     }
     Scripts{
         Arab{"ərəb"}
@@ -745,7 +757,6 @@ az{
             tibt{"Tibet Rəqəmləri"}
         }
     }
-    Version{"2.1.44.53"}
     characterLabelPattern{
         all{"{0} — Bütün"}
         category-list{"{0}: {1}"}
@@ -760,6 +771,8 @@ az{
             one{"{0} Vurğu"}
             other{"{0} Vurğu"}
         }
+        subscript{"indeks {0}"}
+        superscript{"üst indeks {0}"}
     }
     codePatterns{
         language{"Dil: {0}"}

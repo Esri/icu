@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 eu{
     AuxExemplarCharacters{"[á à ă â å ä ã ā æ é è ĕ ê ë ē í ì ĭ î ï ī ó ò ŏ ô ö ø ō œ ú ù ŭ û ü ū ÿ]"}
     Ellipsis{
@@ -14,12 +15,24 @@ eu{
     ExemplarCharactersIndex{"[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"}
     ExemplarCharactersNumbers{"[, . % ‰ + − 0 1 2 3 4 5 6 7 8 9]"}
     ExemplarCharactersPunctuation{
-        "[\\- ‐ – — , ; \\: ! ? . … ' ‘ ’ \u0022 “ ” ( ) \\[ \\] § @ * / \\& # † ‡ ′ "
-        "″]"
+        "[\\- ‐ ‑ – — , ; \\: ! ? . … ' ‘ ’ \u0022 “ ” ( ) \\[ \\] § @ * / \\& # † ‡ "
+        "′ ″]"
     }
     MoreInformation{"?"}
     NumberElements{
-        default{"latn"}
+        arab{
+            symbols{
+                minusSign{"-"}
+                percentSign{"٪؜"}
+                plusSign{"+"}
+            }
+        }
+        arabext{
+            symbols{
+                minusSign{"‎-‎"}
+                plusSign{"‎+‎"}
+            }
+        }
         latn{
             miscPatterns{
                 approximately{"~{0}"}
@@ -37,16 +50,16 @@ eu{
             patternsLong{
                 decimalFormat{
                     1000{
-                        one{"0000"}
-                        other{"0000"}
+                        one{"0"}
+                        other{"0"}
                     }
                     10000{
-                        one{"00000"}
-                        other{"00000"}
+                        one{"0"}
+                        other{"0"}
                     }
                     100000{
-                        one{"000000"}
-                        other{"000000"}
+                        one{"0"}
+                        other{"0"}
                     }
                     1000000{
                         one{"0 milioi"}
@@ -89,16 +102,16 @@ eu{
             patternsShort{
                 currencyFormat{
                     1000{
-                        one{"0000 ¤"}
-                        other{"0000 ¤"}
+                        one{"0"}
+                        other{"0"}
                     }
                     10000{
-                        one{"00000 ¤"}
-                        other{"00000 ¤"}
+                        one{"0"}
+                        other{"0"}
                     }
                     100000{
-                        one{"000000 ¤"}
-                        other{"000000 ¤"}
+                        one{"0"}
+                        other{"0"}
                     }
                     1000000{
                         one{"0 M ¤"}
@@ -139,16 +152,16 @@ eu{
                 }
                 decimalFormat{
                     1000{
-                        one{"0000"}
-                        other{"0000"}
+                        one{"0"}
+                        other{"0"}
                     }
                     10000{
-                        one{"00000"}
-                        other{"00000"}
+                        one{"0"}
+                        other{"0"}
                     }
                     100000{
-                        one{"000000"}
-                        other{"000000"}
+                        one{"0"}
+                        other{"0"}
                     }
                     1000000{
                         one{"0 M"}
@@ -198,9 +211,7 @@ eu{
                 nan{"NaN"}
                 perMille{"‰"}
                 percentSign{"%"}
-                plusSign{"+"}
                 superscriptingExponent{"×"}
-                timeSeparator{":"}
             }
         }
         minimalPairs{
@@ -208,14 +219,11 @@ eu{
                 other{"{0}. bira eskuinetara"}
             }
             plural{
-                one{"Nire {0} lagunarekin nago"}
-                other{"Nire {0} lagunekin nago"}
+                one{"{0} lagun etorri da"}
+                other{"{0} lagun etorri dira"}
             }
         }
-        minimumGroupingDigits{"1"}
-        native{"latn"}
     }
-    Version{"2.1.43.65"}
     calendar{
         buddhist{
             eras{
@@ -234,18 +242,18 @@ eu{
                 "G. 'aroko' y. 'urteko' MMMM d",
                 "G. 'aroko' y('e')'ko' MMM d",
                 "GGGGG y-MM-dd",
-                "{1} {0}",
-                "{1} {0}",
-                "{1} {0}",
-                "{1} {0}",
-                "{1} {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
+                "{1}, {0}",
             }
             availableFormats{
-                Bh{"h B"}
-                Bhm{"h:mm B"}
-                Bhms{"h:mm:ss B"}
+                Bh{"B h('r')('a')'k'"}
+                Bhm{"B h:mm"}
+                Bhms{"B h:mm:s"}
                 E{"ccc"}
-                EBhm{"E h:mm B"}
+                EBhm{"E B h:mm"}
                 EBhms{"E h:mm:ss B"}
                 EHm{"E HH:mm"}
                 EHms{"E HH:mm:ss"}
@@ -262,9 +270,9 @@ eu{
                 M{"L"}
                 MEd{"MM/dd, EEEE"}
                 MMM{"LLL"}
-                MMMEd{"MMM d, EEEE"}
-                MMMMd{"MMMM d"}
-                MMMd{"MMM d"}
+                MMMEd{"MMM'k' d, EEEE"}
+                MMMMd{"MMMM'k' d"}
+                MMMd{"MMM'k' d"}
                 Md{"MM/dd"}
                 d{"d"}
                 h{"h a"}
@@ -275,25 +283,51 @@ eu{
                 yM{"y/MM"}
                 yMEd{"y/MM/dd, EEEE"}
                 yMMM{"y('e')'ko' MMMM"}
-                yMMMEd{"y('e')'ko' MMMM d, EEEE"}
-                yMMMd{"y('e')'ko' MMMM d"}
+                yMMMEd{"y('e')'ko' MMMM'k' d, EEEE"}
+                yMMMd{"y('e')'ko' MMMM'k' d"}
                 yMd{"y/MM/dd"}
-                yQQQ{"y QQQ"}
+                yQQQ{"y('e')'ko' QQQ"}
                 yQQQQ{"y('e')'ko' QQQQ"}
                 yyyy{"G y"}
                 yyyyM{"G y/MM"}
-                yyyyMEd{"G y/MM/dd, EEEE"}
-                yyyyMMM{"G y MMM"}
+                yyyyMEd{"G('e')'ko' y/MM/dd, EEEE"}
+                yyyyMMM{"G, y('e')'ko' MMM"}
                 yyyyMMMEd{"G y MMM d, EEEE"}
                 yyyyMMMM{"G y('e')'ko' MMMM"}
                 yyyyMMMMEd{"G y('e')'ko' MMMM d, EEEE"}
                 yyyyMMMMd{"G y('e')'ko' MMMM d"}
                 yyyyMMMd{"G y MMM d"}
-                yyyyMd{"G y/MM/dd"}
+                yyyyMd{"G('e')'ko' y/MM/dd"}
                 yyyyQQQ{"G y QQQ"}
                 yyyyQQQQ{"G y('e')'ko' QQQQ"}
             }
             intervalFormats{
+                Bh{
+                    B{"B h – B h"}
+                    h{"B h–h"}
+                }
+                Bhm{
+                    B{"B h:mm – B h:mm"}
+                    h{"B h:mm–h:mm"}
+                    m{"B h:mm–h:mm"}
+                }
+                GyMMM{
+                    G{"G y, MMM – G y, MMM"}
+                    M{"G y, MMM–MMM"}
+                    y{"G y, MMM – G y, MMM"}
+                }
+                GyMMMEd{
+                    G{"G y, MMM d, E – G y, MMM d, E"}
+                    M{"G y, MMM d, E – MMM d, E"}
+                    d{"G y, MMM d, E – MMM d, E"}
+                    y{"G y, MMM d, E – G y, MMM d, E"}
+                }
+                GyMMMd{
+                    G{"G y, MMM d – G y, MMM d"}
+                    M{"G y, MMM d – MMM d"}
+                    d{"G y, MMM d–d"}
+                    y{"G y, MMM d – G y, MMM d"}
+                }
                 H{
                     H{"HH–HH"}
                 }
@@ -319,11 +353,11 @@ eu{
                     M{"MMM – MMM"}
                 }
                 MMMEd{
-                    M{"MMMM d, EEEE – MMMM d, EEEE"}
-                    d{"MMMM d, EEEE – MMMM d, EEEE"}
+                    M{"MMM'k' d, EEEE – MMM'k' d, EEEE"}
+                    d{"MMM'k' d, EEEE – MMM'k' d, EEEE"}
                 }
                 MMMd{
-                    M{"MMMM d – MMMM d"}
+                    M{"MMM'k' d – MMMM'k' d"}
                     d{"MMMM d–d"}
                 }
                 Md{
@@ -446,8 +480,8 @@ eu{
                 MMM{"LLL"}
                 MMMEd{"MMM d, E"}
                 MMMMW{
-                    one{"MMM W. 'astea'"}
-                    other{"MMM W. 'astea'"}
+                    one{"MMMM W. 'astea'"}
+                    other{"MMMM W. 'astea'"}
                 }
                 MMMMd{"MMMM d"}
                 MMMd{"MMM d"}
@@ -639,6 +673,32 @@ eu{
                 }
             }
             intervalFormats{
+                Bh{
+                    B{"B h – B h"}
+                    h{"B h–h"}
+                }
+                Bhm{
+                    B{"B h:mm – B h:mm"}
+                    h{"B h:mm–h:mm"}
+                    m{"B h:mm–h:mm"}
+                }
+                GyMMM{
+                    G{"G y, MMM – G y, MMM"}
+                    M{"G y, MMM–MMM"}
+                    y{"G y, MMM – G y, MMM"}
+                }
+                GyMMMEd{
+                    G{"G y, MMM d, E – G y, MMM d, E"}
+                    M{"G y, MMM d, E – MMM d, E"}
+                    d{"G y, MMM d, E – MMM d, E"}
+                    y{"G y, MMM d, E – G y, MMM d, E"}
+                }
+                GyMMMd{
+                    G{"G y, MMM d – G y, MMM d"}
+                    M{"G y, MMM d – MMM d"}
+                    d{"G y, MMM d–d"}
+                    y{"G y, MMM d – G y, MMM d"}
+                }
                 H{
                     H{"HH–HH"}
                 }
@@ -764,18 +824,18 @@ eu{
                         "A",
                     }
                     wide{
-                        "urtarrila",
-                        "otsaila",
-                        "martxoa",
-                        "apirila",
-                        "maiatza",
-                        "ekaina",
-                        "uztaila",
-                        "abuztua",
-                        "iraila",
-                        "urria",
-                        "azaroa",
-                        "abendua",
+                        "urtarrilak",
+                        "otsailak",
+                        "martxoak",
+                        "apirilak",
+                        "maiatzak",
+                        "ekainak",
+                        "uztailak",
+                        "abuztuak",
+                        "irailak",
+                        "urriak",
+                        "azaroak",
+                        "abenduak",
                     }
                 }
                 stand-alone{
@@ -877,15 +937,15 @@ eu{
     }
     characterLabel{
         activities{"Jarduerak"}
-        african_scripts{"Script afrikarrak"}
-        american_scripts{"Script amerikarrak"}
-        animal{"animalia"}
+        african_scripts{"Idazkera afrikarrak"}
+        american_scripts{"Idazkera amerikarrak"}
+        animal{"Animalia"}
         animals_nature{"Animaliak eta natura"}
         arrows{"Geziak"}
-        body{"gorputza"}
+        body{"Gorputza"}
         box_drawing{"Koadro-marrazketa"}
-        braille{"Braille"}
-        building{"eraikina"}
+        braille{"Braillea"}
+        building{"Eraikinak"}
         bullets_stars{"Buletak/Izarrak"}
         consonantal_jamo{"Jamo kontsonantea"}
         currency_symbols{"Moneten ikurrak"}
@@ -895,11 +955,11 @@ eu{
         divination_symbols{"Astrologia-ikurrak"}
         downwards_arrows{"Behera-geziak"}
         downwards_upwards_arrows{"Behera-/Gora-geziak"}
-        east_asian_scripts{"Asiako ekialdeko scriptak"}
+        east_asian_scripts{"Asiako ekialdeko idazkerak"}
         emoji{"Emotikonoa"}
-        european_scripts{"Script europearrak"}
-        female{"emakumea"}
-        flag{"bandera"}
+        european_scripts{"Idazkera europarrak"}
+        female{"Emakumea"}
+        flag{"Bandera"}
         flags{"Banderak"}
         food_drink{"Jan-edariak"}
         format{"Formatua"}
@@ -912,55 +972,55 @@ eu{
         hanja{"Hanja"}
         hanzi_simplified{"Hanzi (sinplifikatua)"}
         hanzi_traditional{"Hanzi (tradizionala)"}
-        heart{"bihotza"}
-        historic_scripts{"Script historikoak"}
+        heart{"Bihotza"}
+        historic_scripts{"Idazkera historikoak"}
         ideographic_desc_characters{"Karaktere ideografiko deskribatzaileak"}
         japanese_kana{"Japonierako kana"}
         kanbun{"Kanbuna"}
         kanji{"Kanjia"}
-        keycap{"tekla"}
+        keycap{"Tekla"}
         leftwards_arrows{"Ezker-geziak"}
         leftwards_rightwards_arrows{"Ezker-/Eskuin-geziak"}
         letterlike_symbols{"Hizkien antzeko ikurrak"}
         limited_use{"Erabilera mugatua"}
         male{"gizona"}
         math_symbols{"Matematikako ikurrak"}
-        middle_eastern_scripts{"Ekialde Ertaineko scriptak"}
+        middle_eastern_scripts{"Ekialde Ertaineko idazkerak"}
         miscellaneous{"Askotarikoak"}
-        modern_scripts{"Script modernoak"}
+        modern_scripts{"Idazkera modernoak"}
         modifier{"Aldatzailea"}
         musical_symbols{"Musika-ikurrak"}
-        nature{"natura"}
-        nonspacing{"Tarterik gabeko"}
+        nature{"Natura"}
+        nonspacing{"Tarterik gabekoak"}
         numbers{"Zenbakiak"}
         objects{"Objektuak"}
         other{"Bestelakoak"}
         paired{"Parekatuta"}
-        person{"pertsona"}
+        person{"Pertsona"}
         phonetic_alphabet{"Alfabeto fonetikoa"}
         pictographs{"Piktogramak"}
-        place{"tokia"}
-        plant{"landarea"}
+        place{"Tokia"}
+        plant{"Landarea"}
         punctuation{"Puntuazioa"}
         rightwards_arrows{"Eskuin-geziak"}
         sign_standard_symbols{"Zeinuak / Ikur estandarrak"}
         small_form_variant{"Forma-aldaera txikiak"}
         smiley{"emotikonoa"}
         smileys_people{"Emotikonoak eta jendea"}
-        south_asian_scripts{"Asiako hegoaldeko scriptak"}
+        south_asian_scripts{"Asiako hegoaldeko idazkerak"}
         southeast_asian_scripts{"Asiako hego-ekialdeko scriptak"}
         spacing{"Tartea"}
-        sport{"kirola"}
+        sport{"Kirola"}
         symbols{"Ikurrak"}
         technical_symbols{"Ikur teknikoak"}
         tone_marks{"Tonu-markak"}
-        travel{"bidaiak"}
+        travel{"Bidaiak"}
         travel_places{"Bidaiak eta tokiak"}
         upwards_arrows{"Gora-geziak"}
         variant_forms{"Aldaeren formak"}
         vocalic_jamo{"Jamo bokala"}
-        weather{"eguraldia"}
-        western_asian_scripts{"Asiako mendebaldeko scriptak"}
+        weather{"Eguraldia"}
+        western_asian_scripts{"Asiako mendebaldeko idazkerak"}
         whitespace{"Zuriunea"}
     }
     delimiters{
@@ -1764,6 +1824,10 @@ eu{
             end{"{0} eta {1}"}
             middle{"{0}, {1}"}
             start{"{0}, {1}"}
+        }
+        standard-narrow{
+            2{"{0}, {1}"}
+            end{"{0}, {1}"}
         }
         unit{
             2{"{0} eta {1}"}

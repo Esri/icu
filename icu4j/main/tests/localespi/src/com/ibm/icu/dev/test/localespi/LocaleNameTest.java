@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 2008-2015, International Business Machines Corporation and    *
@@ -274,6 +274,23 @@ public class LocaleNameTest extends TestFmwk {
                     }
                 }
             }
+        }
+    }
+
+    @Test
+    public void Test20639_DeprecatesISO3Language() {
+        String[][] cases = new String[][]{
+            {"nb", "nob"},
+            {"no", "nor"}, // why not nob?
+            {"he", "heb"},
+            {"iw", "heb"},
+            {"ro", "ron"},
+            {"mo", "mol"},
+        };
+        for (String[] cas : cases) {
+            ULocale loc = new ULocale(cas[0]);
+            String actual = loc.getISO3Language();
+            assertEquals(cas[0], cas[1], actual);
         }
     }
 }

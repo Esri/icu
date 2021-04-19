@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 fil{
     Countries{
         001{"Mundo"}
@@ -183,7 +184,7 @@ fil{
         MF{"Saint Martin"}
         MG{"Madagascar"}
         MH{"Marshall Islands"}
-        MK{"Macedonia"}
+        MK{"North Macedonia"}
         ML{"Mali"}
         MM{"Myanmar (Burma)"}
         MN{"Mongolia"}
@@ -287,6 +288,8 @@ fil{
         VU{"Vanuatu"}
         WF{"Wallis & Futuna"}
         WS{"Samoa"}
+        XA{"Mga Pseudo-Accent"}
+        XB{"Pseudo-Bidi"}
         XK{"Kosovo"}
         YE{"Yemen"}
         YT{"Mayotte"}
@@ -309,8 +312,6 @@ fil{
         CI{"Ivory Coast"}
         CZ{"Czech Republic"}
         FK{"Falkland Islands (Islas Malvinas)"}
-        MK{"Macedonia (FYROM)"}
         TL{"East Timor"}
     }
-    Version{"2.1.44.91"}
 }

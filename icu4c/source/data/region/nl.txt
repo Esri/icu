@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 nl{
     Countries{
         001{"wereld"}
@@ -183,7 +184,7 @@ nl{
         MF{"Saint-Martin"}
         MG{"Madagaskar"}
         MH{"Marshalleilanden"}
-        MK{"Macedonië"}
+        MK{"Noord-Macedonië"}
         ML{"Mali"}
         MM{"Myanmar (Birma)"}
         MN{"Mongolië"}
@@ -253,7 +254,7 @@ nl{
         SV{"El Salvador"}
         SX{"Sint-Maarten"}
         SY{"Syrië"}
-        SZ{"Swaziland"}
+        SZ{"Eswatini"}
         TA{"Tristan da Cunha"}
         TC{"Turks- en Caicoseilanden"}
         TD{"Tsjaad"}
@@ -287,6 +288,8 @@ nl{
         VU{"Vanuatu"}
         WF{"Wallis en Futuna"}
         WS{"Samoa"}
+        XA{"Pseudo-Accenten"}
+        XB{"Pseudo-Bidi"}
         XK{"Kosovo"}
         YE{"Jemen"}
         YT{"Mayotte"}
@@ -306,11 +309,9 @@ nl{
     Countries%variant{
         CD{"Congo (DRC)"}
         CG{"Congo (Republiek)"}
-        CI{"Republiek Ivoorkust"}
         CZ{"Tsjechische Republiek"}
         FK{"Falklandeilanden (Islas Malvinas)"}
-        MK{"Macedonië (FYROM)"}
+        SZ{"Swaziland"}
         TL{"Democratische Republiek Oost-Timor"}
     }
-    Version{"2.1.45.14"}
 }

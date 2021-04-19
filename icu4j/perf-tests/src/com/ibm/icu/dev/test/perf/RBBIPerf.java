@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
 **********************************************************************
 * Copyright (c) 2002-2004, International Business Machines
@@ -7,12 +7,14 @@
 **********************************************************************
 */
 package com.ibm.icu.dev.test.perf;
-import com.ibm.icu.text.*;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
 import java.text.BreakIterator;
+
+import com.ibm.icu.text.RuleBasedBreakIterator;
+import com.ibm.icu.text.UTF16;
 
 /**
  * A class for testing UnicodeSet performance.

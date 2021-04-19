@@ -1,7 +1,7 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 ml{
-    Version{"2.1.43.50"}
     zoneStrings{
         "Africa:Abidjan"{
             ec{"അബിദ്‌ജാൻ‌"}
@@ -583,7 +583,7 @@ ml{
             ec{"തിയുവാന"}
         }
         "America:Toronto"{
-            ec{"ടൊറണ്ടോ"}
+            ec{"ടൊറന്റോ"}
         }
         "America:Tortola"{
             ec{"ടോർ‌ട്ടോള"}
@@ -809,6 +809,9 @@ ml{
         }
         "Asia:Qatar"{
             ec{"ഖത്തർ"}
+        }
+        "Asia:Qostanay"{
+            ec{"കോസ്റ്റനേ"}
         }
         "Asia:Qyzylorda"{
             ec{"ഖിസിലോർഡ"}
@@ -1749,7 +1752,9 @@ ml{
             ls{"ന്യൂയി സമയം"}
         }
         "meta:Norfolk"{
-            ls{"നോർഫാക്ക് ദ്വീപുകൾ സമയം"}
+            ld{"നോർഫാക്ക് ദ്വീപ് ഡേലൈറ്റ് സമയം"}
+            lg{"നോർഫാക്ക് ദ്വീപ് സമയം"}
+            ls{"നോർഫാക്ക് ദ്വീപ് സ്റ്റാൻഡേർഡ് സമയം"}
         }
         "meta:Noronha"{
             ld{"ഫെർണാഡോ ഡി നൊറോൻഹ ഗ്രീഷ്‌മകാല സമയം"}

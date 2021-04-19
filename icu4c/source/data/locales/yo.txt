@@ -1,13 +1,14 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 yo{
     AuxExemplarCharacters{"[c q v x z]"}
     ExemplarCharacters{
-        "[a á à b d e é è ẹ {ẹ\u0301} {ẹ\u0300} f g {gb} h i í ì j k l m n o ó ò ọ {ọ"
-        "\u0301} {ọ\u0300} p r s ṣ t u ú ù w y]"
+        "[a á à b d e é è ẹ {ẹ\u0301} {ẹ\u0300} f g {gb} h i í ì j k l m n ń o ó ò ọ "
+        "{ọ\u0301} {ọ\u0300} p r s ṣ t u ú ù w y]"
     }
     ExemplarCharactersIndex{"[A B D E F G H I J K L M N O P R S T U W Y]"}
-    ExemplarCharactersNumbers{"[\\- , . % ‰ + 0 1 2 3 4 5 6 7 8 9]"}
+    ExemplarCharactersPunctuation{"[\\- ‐ ‑ – — , ; \\: ! ? . … ' ‘ ’ \u0022 “ ” ( ) @ * / \\& # † ‡ ′ ″]"}
     NumberElements{
         latn{
             miscPatterns{
@@ -21,7 +22,48 @@ yo{
                 percentFormat{"#,##0%"}
                 scientificFormat{"#E0"}
             }
+            patternsLong{
+                decimalFormat{
+                    1000{
+                        other{"0 ẹgbẹ̀rún"}
+                    }
+                    10000{
+                        other{"00 ẹgbẹ̀rún"}
+                    }
+                    100000{
+                        other{"000 ẹgbẹ̀rún"}
+                    }
+                    1000000{
+                        other{"0 mílíọ̀nù"}
+                    }
+                    10000000{
+                        other{"00 mílíọ̀nù"}
+                    }
+                    100000000{
+                        other{"000 mílíọ̀nù"}
+                    }
+                    1000000000{
+                        other{"0 bilíọ̀nù"}
+                    }
+                    10000000000{
+                        other{"00 bilíọ̀nù"}
+                    }
+                    100000000000{
+                        other{"000 bilíọ̀nù"}
+                    }
+                    1000000000000{
+                        other{"0 tiriliọ̀nù"}
+                    }
+                    10000000000000{
+                        other{"00 tiriliọ̀nù"}
+                    }
+                    100000000000000{
+                        other{"000 tiriliọ̀nù"}
+                    }
+                }
+            }
             symbols{
+                approximatelySign{"dáàṣì"}
                 decimal{"."}
                 exponential{"E"}
                 group{","}
@@ -34,23 +76,30 @@ yo{
                 superscriptingExponent{"×"}
             }
         }
+        minimalPairs{
+            ordinal{
+                other{"Mú {0} apá ọ̀tún"}
+            }
+            plural{
+                other{"Àwọn ọjọ́ {0}"}
+            }
+        }
         minimumGroupingDigits{"1"}
     }
-    Version{"2.1.44.88"}
     calendar{
         generic{
             DateTimePatterns{
                 "HH:mm:ss zzzz",
-                "HH:mm:ss z",
-                "HH:mm:ss",
-                "HH:mm",
-                "EEEE, d MMMM y G",
-                "d MMMM y G",
-                "d MMM y G",
-                "dd/MM/y GGGGG",
+                "H:mm:ss z",
+                "H:m:s",
+                "H:m",
+                "EEEE, d MM y G",
+                "d MM y G",
+                "d MM y G",
+                "dd/MM/y G",
                 "{1} {0}",
-                "{1} {0}",
-                "{1} {0}",
+                "{1} 'ní' {0}",
+                "{1} 'ní' {0}",
                 "{1} {0}",
                 "{1} {0}",
             }
@@ -76,6 +125,9 @@ yo{
                 yMMMM{"MMMM y"}
                 yQQQ{"QQQ y"}
                 yQQQQ{"QQQQ y"}
+            }
+            intervalFormats{
+                fallback{"{0} – {1}"}
             }
         }
         gregorian{
@@ -93,13 +145,13 @@ yo{
             }
             DateTimePatterns{
                 "HH:mm:ss zzzz",
-                "HH:mm:ss z",
-                "HH:mm:ss",
-                "HH:mm",
-                "EEEE, d MMMM y",
-                "d MMMM y",
+                "H:mm:ss z",
+                "H:m:s",
+                "H:m",
+                "EEEE, d MMM y",
                 "d MMM y",
-                "dd/MM/y",
+                "d MM y",
+                "d/M/y",
                 "{1} {0}",
                 "{1} {0}",
                 "{1} {0}",
@@ -113,7 +165,7 @@ yo{
                 E{"ccc"}
                 EHm{"E HH:mm"}
                 EHms{"E HH:mm:ss"}
-                Ed{"d, E"}
+                Ed{"E, d"}
                 Ehm{"E h:mm a"}
                 Ehms{"E h:mm:ss a"}
                 Gy{"G y"}
@@ -126,16 +178,13 @@ yo{
                 Hmsv{"HH:mm:ss v"}
                 Hmv{"HH:mm v"}
                 M{"L"}
-                MEd{"E, M/d"}
+                MEd{"E, d/M"}
                 MMM{"LLL"}
-                MMMEd{"E, MMM d"}
-                MMMMEd{"E, MMMM d"}
-                MMMMW{
-                    other{"'week' W 'of' MMM"}
-                }
-                MMMMd{"MMMM d"}
-                MMMd{"MMM d"}
-                Md{"M/d"}
+                MMMEd{"d MMM, E"}
+                MMMMEd{"d, MMMM E"}
+                MMMMd{"d MMMM"}
+                MMMd{"d MMM"}
+                Md{"d/M"}
                 d{"d"}
                 h{"h a"}
                 hm{"h:mm a"}
@@ -145,37 +194,34 @@ yo{
                 ms{"mm:ss"}
                 y{"y"}
                 yM{"M/y"}
-                yMEd{"E, M/d/y"}
+                yMEd{"d/M/y, E"}
                 yMMM{"MMM y"}
-                yMMMEd{"E, MMM d, y"}
+                yMMMEd{"E, d MMM , y"}
                 yMMMM{"MMMM y"}
-                yMMMd{"y MMM d"}
-                yMd{"y-MM-dd"}
+                yMMMd{"d MMM y"}
+                yMd{"d/M/y"}
                 yQQQ{"QQQ y"}
                 yQQQQ{"QQQQ y"}
-                yw{
-                    other{"'week' w 'of' Y"}
-                }
             }
             dayNames{
                 format{
                     abbreviated{
-                        "Àìkú",
-                        "Ajé",
-                        "Ìsẹ́gun",
-                        "Ọjọ́rú",
-                        "Ọjọ́bọ",
-                        "Ẹtì",
-                        "Àbámẹ́ta",
+                        "Àìk",
+                        "Aj",
+                        "Ìsẹ́g",
+                        "Ọjọ́r",
+                        "Ọjọ́b",
+                        "Ẹt",
+                        "Àbám",
                     }
-                    short{
-                        "Àìkú",
-                        "Ajé",
-                        "Ìsẹ́gun",
-                        "Ọjọ́rú",
-                        "Ọjọ́bọ",
-                        "Ẹtì",
-                        "Àbámẹ́ta",
+                    narrow{
+                        "À",
+                        "A",
+                        "Ì",
+                        "Ọ",
+                        "Ọ",
+                        "Ẹ",
+                        "À",
                     }
                     wide{
                         "Ọjọ́ Àìkú",
@@ -188,32 +234,23 @@ yo{
                     }
                 }
                 stand-alone{
-                    abbreviated{
-                        "Àìkú",
-                        "Ajé",
-                        "Ìsẹ́gun",
-                        "Ọjọ́rú",
-                        "Ọjọ́bọ",
-                        "Ẹtì",
-                        "Àbámẹ́ta",
-                    }
-                    short{
-                        "Àìkú",
-                        "Ajé",
-                        "Ìsẹ́gun",
-                        "Ọjọ́rú",
-                        "Ọjọ́bọ",
-                        "Ẹtì",
-                        "Àbámẹ́ta",
+                    narrow{
+                        "À",
+                        "A",
+                        "Ì",
+                        "Ọ",
+                        "Ọ",
+                        "Ẹ",
+                        "À",
                     }
                     wide{
-                        "Ọjọ́ Àìkú",
-                        "Ọjọ́ Ajé",
-                        "Ọjọ́ Ìsẹ́gun",
+                        "Àìkú",
+                        "Ajé",
+                        "Ìsẹ́gun",
                         "Ọjọ́rú",
                         "Ọjọ́bọ",
-                        "Ọjọ́ Ẹtì",
-                        "Ọjọ́ Àbámẹ́ta",
+                        "Ẹtì",
+                        "Àbámẹ́ta",
                     }
                 }
             }
@@ -236,7 +273,7 @@ yo{
             eras{
                 abbreviated{
                     "BCE",
-                    "LK",
+                    "AD",
                 }
                 abbreviated%variant{
                     "BCE",
@@ -247,7 +284,7 @@ yo{
                     "Lehin Kristi",
                 }
                 wide%variant{
-                    "BCE",
+                    "Sáájú ìgbà mímọ̀",
                     "CE",
                 }
             }
@@ -314,12 +351,12 @@ yo{
                     y{"y–y"}
                 }
                 yM{
-                    M{"y-MM – y-MM"}
+                    M{"MM-y – MM-y"}
                     y{"y-MM – y-MM"}
                 }
                 yMEd{
                     M{"y-MM-dd, E – y-MM-dd, E"}
-                    d{"y-MM-dd, E – y-MM-dd, E"}
+                    d{"E, dd-MM-y – E dd-MM-y, E"}
                     y{"y-MM-dd, E – y-MM-dd, E"}
                 }
                 yMMM{
@@ -327,17 +364,17 @@ yo{
                     y{"y MMM – y MMM"}
                 }
                 yMMMEd{
-                    M{"y MMM d, E – MMM d, E"}
-                    d{"y MMM d, E – MMM d, E"}
-                    y{"y MMM d, E – y MMM d, E"}
+                    M{"MMM d, E – MMM d, E y"}
+                    d{"MMM d, E – MMM d, E y"}
+                    y{"y MMM d y, E – MMM d, E y"}
                 }
                 yMMMM{
-                    M{"y MMMM–MMMM"}
-                    y{"y MMMM – y MMMM"}
+                    M{"MMMM–MMMM y"}
+                    y{"MMMM – y MMMM y"}
                 }
                 yMMMd{
-                    M{"y MMM d – MMM d"}
-                    d{"y MMM d–d"}
+                    M{"MMM d – MMM d y"}
+                    d{"MMM d–d y"}
                     y{"y MMM d – y MMM d"}
                 }
                 yMd{
@@ -349,32 +386,32 @@ yo{
             monthNames{
                 format{
                     abbreviated{
-                        "Ṣẹ́rẹ́",
-                        "Èrèlè",
-                        "Ẹrẹ̀nà",
-                        "Ìgbé",
-                        "Ẹ̀bibi",
-                        "Òkúdu",
-                        "Agẹmọ",
-                        "Ògún",
-                        "Owewe",
-                        "Ọ̀wàrà",
-                        "Bélú",
-                        "Ọ̀pẹ̀",
+                        "Ṣẹ́r",
+                        "Èrèl",
+                        "Ẹrẹ̀n",
+                        "Ìgb",
+                        "Ẹ̀bi",
+                        "Òkú",
+                        "Agẹ",
+                        "Ògú",
+                        "Owe",
+                        "Ọ̀wà",
+                        "Bél",
+                        "Ọ̀pẹ",
                     }
                     narrow{
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
+                        "S",
+                        "È",
+                        "Ẹ",
+                        "Ì",
+                        "Ẹ̀",
+                        "Ò",
+                        "A",
+                        "Ò",
+                        "O",
+                        "Ọ̀",
+                        "B",
+                        "Ọ̀",
                     }
                     wide{
                         "Oṣù Ṣẹ́rẹ́",
@@ -393,6 +430,34 @@ yo{
                 }
                 stand-alone{
                     abbreviated{
+                        "Ṣẹ́",
+                        "Èr",
+                        "Ẹr",
+                        "Ìg",
+                        "Ẹ̀b",
+                        "Òk",
+                        "Ag",
+                        "Òg",
+                        "Ow",
+                        "Ọ̀w",
+                        "Bé",
+                        "Ọ̀p",
+                    }
+                    narrow{
+                        "S",
+                        "È",
+                        "Ẹ",
+                        "Ì",
+                        "Ẹ̀",
+                        "Ò",
+                        "A",
+                        "Ò",
+                        "O",
+                        "Ọ̀",
+                        "B",
+                        "Ọ̀",
+                    }
+                    wide{
                         "Ṣẹ́rẹ́",
                         "Èrèlè",
                         "Ẹrẹ̀nà",
@@ -405,76 +470,36 @@ yo{
                         "Ọ̀wàrà",
                         "Bélú",
                         "Ọ̀pẹ̀",
-                    }
-                    narrow{
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12",
-                    }
-                    wide{
-                        "Oṣù Ṣẹ́rẹ́",
-                        "Oṣù Èrèlè",
-                        "Oṣù Ẹrẹ̀nà",
-                        "Oṣù Ìgbé",
-                        "Oṣù Ẹ̀bibi",
-                        "Oṣù Òkúdu",
-                        "Oṣù Agẹmọ",
-                        "Oṣù Ògún",
-                        "Oṣù Owewe",
-                        "Oṣù Ọ̀wàrà",
-                        "Oṣù Bélú",
-                        "Oṣù Ọ̀pẹ̀",
                     }
                 }
             }
             quarters{
                 format{
-                    abbreviated{
-                        "K1",
-                        "K2",
-                        "K3",
-                        "K4",
-                    }
                     narrow{
-                        "1",
-                        "2",
-                        "3",
-                        "4",
+                        "kíní",
+                        "Kejì",
+                        "Kẹta",
+                        "Kẹin",
                     }
                     wide{
-                        "Kọ́tà Kínní",
-                        "Kọ́tà Kejì",
-                        "Kọ́à Keta",
-                        "Kọ́tà Kẹrin",
+                        "Ìdámẹ́rin kíní",
+                        "Ìdámẹ́rin Kejì",
+                        "Ìdámẹ́rin Kẹta",
+                        "Ìdámẹ́rin Kẹrin",
                     }
                 }
                 stand-alone{
-                    abbreviated{
-                        "K1",
-                        "K2",
-                        "K3",
-                        "K4",
-                    }
                     narrow{
-                        "1",
-                        "2",
-                        "3",
-                        "4",
+                        "kí",
+                        "Ke",
+                        "Kẹt",
+                        "Kẹr",
                     }
                     wide{
-                        "Kọ́tà Kínní",
-                        "Kọ́tà Kejì",
-                        "Kọ́à Keta",
-                        "Kọ́tà Kẹrin",
+                        "Ìdámẹ́rin kíní",
+                        "Ìdámẹ́rin Kejì",
+                        "Ìdámẹ́rin Kẹta",
+                        "Ìdámẹ́rin Kẹrin",
                     }
                 }
             }
@@ -497,41 +522,136 @@ yo{
                 "2"{"òtúùnla"}
             }
         }
+        dayOfYear{
+            dn{"Ọjọ́ inú ọdún"}
+        }
+        dayOfYear-narrow{
+            dn{"Ọjọ́ inú ọd."}
+        }
+        dayOfYear-short{
+            dn{"Ọjọ́ inú ọd."}
+        }
         dayperiod{
             dn{"Àárọ̀/ọ̀sán"}
         }
         era{
-            dn{"Ìgbà"}
+            dn{"sáà"}
+        }
+        era-narrow{
+            dn{"Sáà"}
+        }
+        era-short{
+            dn{"sáà"}
         }
         hour{
-            dn{"wákàtí"}
-        }
-        hour-narrow{
-            dn{"wákàtí"}
-        }
-        hour-short{
-            dn{"wákàtí"}
+            dn{"Wákàtí"}
         }
         minute{
             dn{"Ìsẹ́jú"}
         }
         month{
             dn{"Osù"}
+            relative{
+                "-1"{"óṣù tó kọjá"}
+                "0"{"oṣù yìí"}
+                "1"{"óṣù tó ń bọ̀,"}
+            }
+        }
+        month-narrow{
+            dn{"Oṣù"}
+        }
+        quarter{
+            dn{"Ìdá mẹ́rin"}
+        }
+        quarter-narrow{
+            dn{"Ìdá mẹ́rin"}
         }
         second{
             dn{"Ìsẹ́jú Ààyá"}
         }
+        second-narrow{
+            dn{"Ìsẹ́jú Ààyá"}
+        }
+        second-short{
+            dn{"Ìsẹ́jú Ààyá"}
+        }
+        sun{
+            relative{
+                "-1"{"Ọjọ́ Àìkú tó kọjá"}
+                "0"{"Ọjọ́ Àìkú yìí"}
+                "1"{"Ọjọ́ Àìkú tó ń bọ̀"}
+            }
+        }
+        sun-narrow{
+            relativeTime{
+                future{
+                    other{"Ọjọ́ Àíkú +{0}"}
+                }
+            }
+        }
         week{
-            dn{"Ọ̀sè"}
+            dn{"Ọ̀sẹ̀"}
+            relative{
+                "-1"{"ọ̀sẹ̀ tó kọjá"}
+                "0"{"ọ̀sẹ̀ yìí"}
+                "1"{"ọ́sẹ̀ tó ń bọ̀"}
+            }
+            relativePeriod{"ọ̀sẹ̀ ti {0}"}
+        }
+        week-short{
+            relativePeriod{"ọ̀sẹ̀ ti {0}"}
+        }
+        weekOfMonth{
+            dn{"Ọṣẹ̀ inú Oṣù"}
         }
         weekday{
-            dn{"Ọjọ́ Ọ̀sẹ̀"}
+            dn{"Ọjọ́ tó wà láàárín ọ̀sẹ̀"}
+        }
+        weekday-narrow{
+            dn{"ọjọ́ inú ọṣẹ̀."}
+        }
+        weekday-short{
+            dn{"ọjọ́ inú ọṣẹ̀."}
+        }
+        weekdayOfMonth{
+            dn{"ọjọ́ ọṣẹ̀ inú oṣù"}
+        }
+        weekdayOfMonth-narrow{
+            dn{"ọjọ́ ọṣẹ̀ inú oṣù"}
+        }
+        weekdayOfMonth-short{
+            dn{"ọjọ́ ọṣẹ̀ inú oṣù"}
         }
         year{
             dn{"Ọdún"}
+            relative{
+                "-1"{"Èṣín"}
+                "0"{"Ọdúnǹí"}
+                "1"{"Àmọ́dún"}
+            }
+        }
+        year-short{
+            relative{
+                "-1"{"Ọdún tó kọjá"}
+                "0"{"Ọdún yìí"}
+                "1"{"Ọdún tó ńbọ̀"}
+            }
         }
         zone{
-            dn{"Ibi Àkókò Àgbáyé"}
+            dn{"Agbègbè àkókò"}
         }
+    }
+    listPattern{
+        standard{
+            2{"{0}, {1}"}
+            end{"{0}, {1}"}
+            middle{"{0}, {1}"}
+            start{"{0}, {1}"}
+        }
+    }
+    measurementSystemNames{
+        UK{"Ilẹ̀ Gẹ̀ẹ́sì"}
+        US{"Orílẹ̀-Èdè Amẹ́ríkà"}
+        metric{"Mẹ́tíríìkì"}
     }
 }

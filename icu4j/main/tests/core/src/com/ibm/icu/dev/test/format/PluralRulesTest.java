@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 2007-2015, International Business Machines Corporation and
@@ -41,6 +41,13 @@ import com.ibm.icu.dev.test.serializable.SerializableTestUtility;
 import com.ibm.icu.dev.util.CollectionUtilities;
 import com.ibm.icu.impl.Relation;
 import com.ibm.icu.impl.Utility;
+import com.ibm.icu.number.FormattedNumber;
+import com.ibm.icu.number.FormattedNumberRange;
+import com.ibm.icu.number.LocalizedNumberFormatter;
+import com.ibm.icu.number.NumberFormatter;
+import com.ibm.icu.number.NumberRangeFormatter;
+import com.ibm.icu.number.Precision;
+import com.ibm.icu.number.UnlocalizedNumberFormatter;
 import com.ibm.icu.text.NumberFormat;
 import com.ibm.icu.text.PluralRules;
 import com.ibm.icu.text.PluralRules.FixedDecimal;
@@ -183,6 +190,35 @@ public class PluralRulesTest extends TestFmwk {
         checkOldSamples(description, test, "other", SampleType.DECIMAL, 99d, 99.1, 99.2d, 999d);
     }
 
+    /**
+     * This test is for the support of X.YeZ scientific notation of numbers in
+     * the plural sample string.
+     */
+    @Test
+    public void testSamplesWithExponent() {
+        String description = "one: i = 0,1 @integer 0, 1, 1e5 @decimal 0.0~1.5, 1.1e5; "
+                + "many: e = 0 and i != 0 and i % 1000000 = 0 and v = 0 or e != 0..5"
+                + " @integer 1000000, 2e6, 3e6, 4e6, 5e6, 6e6, 7e6, … @decimal 2.1e6, 3.1e6, 4.1e6, 5.1e6, 6.1e6, 7.1e6, …; "
+                + "other:  @integer 2~17, 100, 1000, 10000, 100000, 2e5, 3e5, 4e5, 5e5, 6e5, 7e5, …"
+                + " @decimal 2.0~3.5, 10.0, 100.0, 1000.0, 10000.0, 100000.0, 1000000.0, 2.1e5, 3.1e5, 4.1e5, 5.1e5, 6.1e5, 7.1e5, …"
+                ;
+        // Creating the PluralRules object means being able to parse numbers
+        // like 1e5 and 1.1e5
+        PluralRules test = PluralRules.createRules(description);
+        checkNewSamples(description, test, "one", PluralRules.SampleType.INTEGER, "@integer 0, 1, 1e5", true,
+                new FixedDecimal(0));
+        checkNewSamples(description, test, "one", PluralRules.SampleType.DECIMAL, "@decimal 0.0~1.5, 1.1e5", true,
+                new FixedDecimal(0, 1));
+        checkNewSamples(description, test, "many", PluralRules.SampleType.INTEGER, "@integer 1000000, 2e6, 3e6, 4e6, 5e6, 6e6, 7e6, …", false,
+                new FixedDecimal(1000000));
+        checkNewSamples(description, test, "many", PluralRules.SampleType.DECIMAL, "@decimal 2.1e6, 3.1e6, 4.1e6, 5.1e6, 6.1e6, 7.1e6, …", false,
+                FixedDecimal.createWithExponent(2.1, 1, 6));
+        checkNewSamples(description, test, "other", PluralRules.SampleType.INTEGER, "@integer 2~17, 100, 1000, 10000, 100000, 2e5, 3e5, 4e5, 5e5, 6e5, 7e5, …", false,
+                new FixedDecimal(2));
+        checkNewSamples(description, test, "other", PluralRules.SampleType.DECIMAL, "@decimal 2.0~3.5, 10.0, 100.0, 1000.0, 10000.0, 100000.0, 1000000.0, 2.1e5, 3.1e5, 4.1e5, 5.1e5, 6.1e5, 7.1e5, …", false,
+                new FixedDecimal(2.0, 1));
+    }
+
     public void checkOldSamples(String description, PluralRules rules, String keyword, SampleType sampleType,
             Double... expected) {
         Collection<Double> oldSamples = rules.getSamples(keyword, sampleType);
@@ -323,8 +359,8 @@ public class PluralRulesTest extends TestFmwk {
     public void testUniqueRules() {
         main: for (ULocale locale : factory.getAvailableULocales()) {
             PluralRules rules = factory.forLocale(locale);
-            Map<String, PluralRules> keywordToRule = new HashMap<String, PluralRules>();
-            Collection<FixedDecimalSamples> samples = new LinkedHashSet<FixedDecimalSamples>();
+            Map<String, PluralRules> keywordToRule = new HashMap<>();
+            Collection<FixedDecimalSamples> samples = new LinkedHashSet<>();
 
             for (String keyword : rules.getKeywords()) {
                 for (SampleType sampleType : SampleType.values()) {
@@ -363,7 +399,10 @@ public class PluralRulesTest extends TestFmwk {
                             }
                             String old = collisionTest.get(item);
                             if (old != null) {
-                                errln(locale + "\tNon-unique rules: " + item + " => " + old + " & " + foundKeyword);
+                                if (!locale.getLanguage().equals("fr") ||
+                                        !logKnownIssue("21328", "fr Non-unique rules: 1e6 => one & many")) {
+                                    errln(locale + "\tNon-unique rules: " + item + " => " + old + " & " + foundKeyword);
+                                }
                                 rule.select(item);
                             } else {
                                 collisionTest.put(item, foundKeyword);
@@ -467,21 +506,84 @@ public class PluralRulesTest extends TestFmwk {
 
     @Test
     public void testBuiltInRules() {
-        // spot check
-        PluralRules rules = factory.forLocale(ULocale.US);
-        assertEquals("us 0", PluralRules.KEYWORD_OTHER, rules.select(0));
-        assertEquals("us 1", PluralRules.KEYWORD_ONE, rules.select(1));
-        assertEquals("us 2", PluralRules.KEYWORD_OTHER, rules.select(2));
+        Object[][] cases = {
+                {"en-US", PluralRules.KEYWORD_OTHER, 0},
+                {"en-US", PluralRules.KEYWORD_ONE, 1},
+                {"en-US", PluralRules.KEYWORD_OTHER, 2},
+                {"ja-JP", PluralRules.KEYWORD_OTHER, 0},
+                {"ja-JP", PluralRules.KEYWORD_OTHER, 1},
+                {"ja-JP", PluralRules.KEYWORD_OTHER, 2},
+                {"ru", PluralRules.KEYWORD_MANY, 0},
+                {"ru", PluralRules.KEYWORD_ONE, 1},
+                {"ru", PluralRules.KEYWORD_FEW, 2}
+        };
+        for (Object[] cas : cases) {
+            ULocale locale = new ULocale((String) cas[0]);
+            PluralRules rules = factory.forLocale(locale);
+            String expectedKeyword = (String) cas[1];
+            double number = (Integer) cas[2];
+            String message = locale + " " + number;
+            // Check both as double and as FormattedNumber.
+            assertEquals(message, expectedKeyword, rules.select(number));
+            FormattedNumber fn = NumberFormatter.withLocale(locale).format(number);
+            assertEquals(message, expectedKeyword, rules.select(fn));
+        }
+    }
 
-        rules = factory.forLocale(ULocale.JAPAN);
-        assertEquals("ja 0", PluralRules.KEYWORD_OTHER, rules.select(0));
-        assertEquals("ja 1", PluralRules.KEYWORD_OTHER, rules.select(1));
-        assertEquals("ja 2", PluralRules.KEYWORD_OTHER, rules.select(2));
+    @Test
+    public void testSelectTrailingZeros() {
+        UnlocalizedNumberFormatter unf = NumberFormatter.with()
+                .precision(Precision.fixedFraction(2));
+        Object[][] cases = {
+                // 1) locale
+                // 2) double expected keyword
+                // 3) formatted number expected keyword (2 fraction digits)
+                // 4) input number
+                {"bs",  PluralRules.KEYWORD_FEW,   PluralRules.KEYWORD_OTHER, 5.2},  // 5.2 => two, but 5.20 => other
+                {"si",  PluralRules.KEYWORD_ONE,   PluralRules.KEYWORD_ONE,   0.0},
+                {"si",  PluralRules.KEYWORD_ONE,   PluralRules.KEYWORD_ONE,   1.0},
+                {"si",  PluralRules.KEYWORD_ONE,   PluralRules.KEYWORD_OTHER, 0.1},  // 0.1 => one, but 0.10 => other
+                {"si",  PluralRules.KEYWORD_ONE,   PluralRules.KEYWORD_ONE,   0.01}, // 0.01 => one
+                {"hsb", PluralRules.KEYWORD_FEW,   PluralRules.KEYWORD_FEW,   1.03}, // (f % 100 == 3) => few
+                {"hsb", PluralRules.KEYWORD_FEW,   PluralRules.KEYWORD_OTHER, 1.3},  // 1.3 => few, but 1.30 => other
+        };
+        for (Object[] cas : cases) {
+            ULocale locale = new ULocale((String) cas[0]);
+            PluralRules rules = factory.forLocale(locale);
+            String expectedDoubleKeyword = (String) cas[1];
+            String expectedFormattedKeyword = (String) cas[2];
+            double number = (Double) cas[3];
+            String message = locale + " " + number;
+            // Check both as double and as FormattedNumber.
+            assertEquals(message, expectedDoubleKeyword, rules.select(number));
+            FormattedNumber fn = unf.locale(locale).format(number);
+            assertEquals(message, expectedFormattedKeyword, rules.select(fn));
+        }
+    }
 
-        rules = factory.forLocale(ULocale.createCanonical("ru"));
-        assertEquals("ru 0", PluralRules.KEYWORD_MANY, rules.select(0));
-        assertEquals("ru 1", PluralRules.KEYWORD_ONE, rules.select(1));
-        assertEquals("ru 2", PluralRules.KEYWORD_FEW, rules.select(2));
+    private void compareLocaleResults(String loc1, String loc2, String loc3) {
+        PluralRules rules1 = PluralRules.forLocale(new ULocale(loc1));
+        PluralRules rules2 = PluralRules.forLocale(new ULocale(loc2));
+        PluralRules rules3 = PluralRules.forLocale(new ULocale(loc3));
+        for (int value = 0; value <= 12; value++) {
+            String result1 = rules1.select(value);
+            String result2 = rules2.select(value);
+            String result3 = rules3.select(value);
+            if (!result1.equals(result2) || !result1.equals(result3)) {
+                errln("PluralRules.select(" + value + ") does not return the same values for "
+                        + loc1 + ", " + loc2 + ", " + loc3);
+            }
+        }
+    }
+
+    @Test
+    public void testLocaleExtension() {
+        PluralRules rules = PluralRules.forLocale(new ULocale("pt@calendar=gregorian"));
+        String key = rules.select(1);
+        assertEquals("pt@calendar=gregorian select(1)", "one", key);
+        compareLocaleResults("ar", "ar_SA", "ar_SA@calendar=gregorian");
+        compareLocaleResults("ru", "ru_UA", "ru-u-cu-RUB");
+        compareLocaleResults("fr", "fr_CH", "fr@ms=uksystem");
     }
 
     @Test
@@ -605,11 +707,15 @@ public class PluralRulesTest extends TestFmwk {
      */
     @Test
     public void TestGetSamples() {
-        Set<ULocale> uniqueRuleSet = new HashSet<ULocale>();
+        Set<ULocale> uniqueRuleSet = new HashSet<>();
         for (ULocale locale : factory.getAvailableULocales()) {
             uniqueRuleSet.add(PluralRules.getFunctionalEquivalent(locale, null));
         }
         for (ULocale locale : uniqueRuleSet) {
+            if (locale.getLanguage().equals("fr") &&
+                    logKnownIssue("21299", "PluralRules::getSamples cannot distinguish 1e5 from 100000")) {
+                continue;
+            }
             PluralRules rules = factory.forLocale(locale);
             logln("\nlocale: " + (locale == ULocale.ROOT ? "root" : locale.toString()) + ", rules: " + rules);
             Set<String> keywords = rules.getKeywords();
@@ -719,7 +825,7 @@ public class PluralRulesTest extends TestFmwk {
                 } else if ("null".equals(valueList)) {
                     values = null;
                 } else {
-                    values = new TreeSet<Double>();
+                    values = new TreeSet<>();
                     for (String value : valueList.split(",")) {
                         values.add(Double.parseDouble(value));
                     }
@@ -798,7 +904,7 @@ public class PluralRulesTest extends TestFmwk {
                     for (String keyword : rules.getKeywords()) {
                         boolean isLimited = rules.isLimited(keyword, sampleType);
                         boolean computeLimited = rules.computeLimited(keyword, sampleType);
-                        if (!keyword.equals("other")) {
+                        if (!keyword.equals("other") && !(locale.getLanguage().equals("fr") && logKnownIssue("ICU-21270", "fr plurals many case computeLimited == isLimited"))) {
                             assertEquals(getAssertMessage("computeLimited == isLimited", locale, rules, keyword),
                                     computeLimited, isLimited);
                         }
@@ -825,9 +931,9 @@ public class PluralRulesTest extends TestFmwk {
                                                                                                    // suppressed in
                                                                                                    // INTEGER but not
                                                                                                    // DECIMAL
-                }, { { "en", new HashSet<Double>(Arrays.asList(1.0d)) }, // check that 1 is suppressed
+                }, { { "en", new HashSet<>(Arrays.asList(1.0d)) }, // check that 1 is suppressed
                         { "one", KeywordStatus.SUPPRESSED, null }, { "other", KeywordStatus.UNBOUNDED, null } }, };
-        Output<Double> uniqueValue = new Output<Double>();
+        Output<Double> uniqueValue = new Output<>();
         for (Object[][] test : tests) {
             ULocale locale = new ULocale((String) test[0][0]);
             // NumberType numberType = (NumberType) test[1];
@@ -860,6 +966,66 @@ public class PluralRulesTest extends TestFmwk {
                 assertNull("Invalid keyword " + keyword, uniqueValue.value);
             }
         }
+    }
+
+
+
+    @Test
+    public void testCompactDecimalPluralKeyword() {
+        PluralRules rules = PluralRules.createRules("one: i = 0,1 @integer 0, 1 @decimal 0.0~1.5;  many: e = 0 and i % 1000000 = 0 and v = 0 or " +
+                "e != 0 .. 5;  other:  @integer 2~17, 100, 1000, 10000, 100000, 1000000, @decimal 2.0~3.5, 10.0, 100.0, 1000.0, 10000.0, 100000.0, 1000000.0, …");
+        ULocale locale = new ULocale("fr-FR");
+
+        Object[][] casesData = {
+                // unlocalized formatter skeleton, input, string output, plural rule keyword
+                {"",             0, "0", "one"},
+                {"compact-long", 0, "0", "one"},
+
+                {"",             1, "1", "one"},
+                {"compact-long", 1, "1", "one"},
+
+                {"",             2, "2", "other"},
+                {"compact-long", 2, "2", "other"},
+
+                {"",             1000000, "1 000 000", "many"},
+                {"compact-long", 1000000, "1 million", "many"},
+
+                {"",             1000001, "1 000 001", "other"},
+                {"compact-long", 1000001, "1 million", "many"},
+
+                {"",             120000, "1 200 000", "other"},
+                {"compact-long", 1200000, "1,2 millions", "many"},
+
+                {"",             1200001, "1 200 001", "other"},
+                {"compact-long", 1200001, "1,2 millions", "many"},
+
+                {"",             2000000, "2 000 000", "many"},
+                {"compact-long", 2000000, "2 millions", "many"},
+        };
+
+        for (Object[] caseDatum : casesData) {
+            String skeleton = (String) caseDatum[0];
+            int input = (int) caseDatum[1];
+            // String expectedString = (String) caseDatum[2];
+            String expectPluralRuleKeyword = (String) caseDatum[3];
+
+            String actualPluralRuleKeyword =
+                    getPluralKeyword(rules, locale, input, skeleton);
+
+            assertEquals(
+                    String.format("PluralRules select %s: %d", skeleton, input),
+                    expectPluralRuleKeyword,
+                    actualPluralRuleKeyword);
+        }
+    }
+
+    private String getPluralKeyword(PluralRules rules, ULocale locale, double number, String skeleton) {
+        LocalizedNumberFormatter formatter =
+                NumberFormatter.forSkeleton(skeleton)
+                    .locale(locale);
+        FormattedNumber fn = formatter.format(number);
+        String pluralKeyword = rules.select(fn);
+        return pluralKeyword;
     }
 
     enum StandardPluralCategories {
@@ -938,7 +1104,7 @@ public class PluralRulesTest extends TestFmwk {
     };
 
     private void generateLOCALE_SNAPSHOT() {
-        Comparator c = new CollectionUtilities.CollectionComparator<Comparable>();
+        Comparator c = new CollectionUtilities.CollectionComparator<>();
         Relation<Set<StandardPluralCategories>, PluralRules> setsToRules = Relation.of(
                 new TreeMap<Set<StandardPluralCategories>, Set<PluralRules>>(c), TreeSet.class, PLURAL_RULE_COMPARATOR);
         Relation<PluralRules, ULocale> data = Relation.of(
@@ -984,11 +1150,11 @@ public class PluralRulesTest extends TestFmwk {
 
             // [one, other]
             "am,bn,fa,gu,hi,kn,mr,zu; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
-            "ff,fr,hy,kab; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
+            "ff,hy,kab; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
             "ast,ca,de,en,et,fi,fy,gl,it,ji,nl,sv,sw,ur,yi; one: @integer 1; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1000000, …",
             "pt; one: @integer 1; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1000000, …",
             "si; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
-            "ak,bh,guw,ln,mg,nso,pa,ti,wa; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
+            "ak,bho,guw,ln,mg,nso,pa,ti,wa; one: @integer 0, 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
             "tzm; one: @integer 0, 1, 11~24; other: @integer 2~10, 100~106, 1000, 10000, 100000, 1000000, …",
             "af,asa,az,bem,bez,bg,brx,cgg,chr,ckb,dv,ee,el,eo,es,eu,fo,fur,gsw,ha,haw,hu,jgo,jmc,ka,kaj,kcg,kk,kkj,kl,ks,ksb,ku,ky,lb,lg,mas,mgo,ml,mn,nah,nb,nd,ne,nn,nnh,no,nr,ny,nyn,om,or,os,pap,ps,rm,rof,rwk,saq,seh,sn,so,sq,ss,ssy,st,syr,ta,te,teo,tig,tk,tn,tr,ts,ug,uz,ve,vo,vun,wae,xh,xog; one: @integer 1; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1000000, …",
             "pt_PT; one: @integer 1; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1000000, …",
@@ -1003,11 +1169,14 @@ public class PluralRulesTest extends TestFmwk {
             "ksh; zero: @integer 0; one: @integer 1; other: @integer 2~17, 100, 1000, 10000, 100000, 1000000, …",
 
             // [one, two, other]
-            "iu,kw,naq,se,sma,smi,smj,smn,sms; one: @integer 1; two: @integer 2; other: @integer 0, 3~17, 100, 1000, 10000, 100000, 1000000, …",
+            "iu,naq,se,sma,smi,smj,smn,sms; one: @integer 1; two: @integer 2; other: @integer 0, 3~17, 100, 1000, 10000, 100000, 1000000, …",
+
+            // [one, many, other]
+            "fr; one: @integer 0, 1; many: @integer 1000000; other: @integer 2~17, 100, 1000, 10000, 100000, …",
 
             // [one, few, other]
             "shi; one: @integer 0, 1; few: @integer 2~10; other: @integer 11~26, 100, 1000, 10000, 100000, 1000000, …",
-            "mo,ro; one: @integer 1; few: @integer 0, 2~16, 101, 1001, …; other: @integer 20~35, 100, 1000, 10000, 100000, 1000000, …",
+            "mo,ro; one: @integer 1; few: @integer 0, 2~16, 102, 1002, …; other: @integer 20~35, 100, 1000, 10000, 100000, 1000000, …",
             "bs,hr,sh,sr; one: @integer 1, 21, 31, 41, 51, 61, 71, 81, 101, 1001, …; few: @integer 2~4, 22~24, 32~34, 42~44, 52~54, 62, 102, 1002, …; other: @integer 0, 5~19, 100, 1000, 10000, 100000, 1000000, …",
 
             // [one, two, few, other]
@@ -1032,7 +1201,8 @@ public class PluralRulesTest extends TestFmwk {
 
             // [zero, one, two, few, many, other]
             "ar; zero: @integer 0; one: @integer 1; two: @integer 2; few: @integer 3~10, 103~110, 1003, …; many: @integer 11~26, 111, 1011, …; other: @integer 100~102, 200~202, 300~302, 400~402, 500~502, 600, 1000, 10000, 100000, 1000000, …",
-            "cy; zero: @integer 0; one: @integer 1; two: @integer 2; few: @integer 3; many: @integer 6; other: @integer 4, 5, 7~20, 100, 1000, 10000, 100000, 1000000, …", };
+            "cy; zero: @integer 0; one: @integer 1; two: @integer 2; few: @integer 3; many: @integer 6; other: @integer 4, 5, 7~20, 100, 1000, 10000, 100000, 1000000, …",
+            "kw; zero: @integer 0; one: @integer 1; two: @integer 2, 22, 42, 62, 82, 102, 122, 142, 1002, …; few: @integer 3, 23, 43, 63, 83, 103, 123, 143, 1003, …; many: @integer 21, 41, 61, 81, 101, 121, 141, 161, 1001, …; other: @integer 4~19, 100, 1000000, …", };
 
     private <T extends Serializable> T serializeAndDeserialize(T original, Output<Integer> size) {
         try {
@@ -1054,7 +1224,7 @@ public class PluralRulesTest extends TestFmwk {
 
     @Test
     public void TestSerialization() {
-        Output<Integer> size = new Output<Integer>();
+        Output<Integer> size = new Output<>();
         int max = 0;
         for (ULocale locale : PluralRules.getAvailableULocales()) {
             PluralRules item = PluralRules.forLocale(locale);
@@ -1114,7 +1284,7 @@ public class PluralRulesTest extends TestFmwk {
      * @return
      */
     private String showBytes(byte[] contents) {
-        StringBuilder b = new StringBuilder('[');
+        StringBuilder b = new StringBuilder("[");
         for (int i = 0; i < contents.length; ++i) {
             int item = contents[i] & 0xFF;
             if (item >= 0x20 && item <= 0x7F) {
@@ -1135,5 +1305,49 @@ public class PluralRulesTest extends TestFmwk {
         PluralRules rulesU1 = PluralRules.forLocale(ULocale.FRANCE, PluralType.ORDINAL);
         PluralRules rulesJ1 = PluralRules.forLocale(Locale.FRANCE, PluralType.ORDINAL);
         assertEquals("forLocale() with type", rulesU1, rulesJ1);
+    }
+
+    @Test
+    public void testBug20264() {
+        String expected = "1.23400";
+        FixedDecimal fd = new FixedDecimal(1.234, 5, 2);
+        assertEquals("FixedDecimal toString", expected, fd.toString());
+        Locale.setDefault(Locale.FRENCH);
+        assertEquals("FixedDecimal toString", expected, fd.toString());
+        Locale.setDefault(Locale.GERMAN);
+        assertEquals("FixedDecimal toString", expected, fd.toString());
+    }
+
+    @Test
+    public void testSelectRange() {
+        int d1 = 102;
+        int d2 = 201;
+        ULocale locale = new ULocale("sl");
+
+        // Locale sl has interesting data: one + two => few
+        FormattedNumberRange range = NumberRangeFormatter.withLocale(locale).formatRange(d1, d2);
+        PluralRules rules = PluralRules.forLocale(locale);
+
+        // For testing: get plural form of first and second numbers
+        FormattedNumber a = NumberFormatter.withLocale(locale).format(d1);
+        FormattedNumber b = NumberFormatter.withLocale(locale).format(d2);
+        assertEquals("First plural", "two", rules.select(a));
+        assertEquals("Second plural", "one", rules.select(b));
+
+        // Check the range plural now:
+        String form = rules.select(range);
+        assertEquals("Range plural", "few", form);
+
+        // Test when plural ranges data is unavailable:
+        PluralRules bare = PluralRules.createRules("a: i = 0,1");
+        try {
+            form = bare.select(range);
+            fail("Expected exception");
+        } catch (UnsupportedOperationException e) {}
+
+        // However, they should not throw when no data is available for a language.
+        PluralRules xyz = PluralRules.forLocale(new ULocale("xyz"));
+        form = xyz.select(range);
+        assertEquals("Fallback form", "other", form);
     }
 }

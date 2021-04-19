@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 hr{
     Countries{
         001{"Svijet"}
@@ -183,7 +184,7 @@ hr{
         MF{"Saint Martin"}
         MG{"Madagaskar"}
         MH{"Maršalovi Otoci"}
-        MK{"Makedonija"}
+        MK{"Sjeverna Makedonija"}
         ML{"Mali"}
         MM{"Mjanmar (Burma)"}
         MN{"Mongolija"}
@@ -219,7 +220,7 @@ hr{
         PH{"Filipini"}
         PK{"Pakistan"}
         PL{"Poljska"}
-        PM{"Sveti Petar i Mikelon"}
+        PM{"Saint-Pierre-et-Miquelon"}
         PN{"Otoci Pitcairn"}
         PR{"Portoriko"}
         PS{"Palestinsko područje"}
@@ -253,7 +254,7 @@ hr{
         SV{"Salvador"}
         SX{"Sint Maarten"}
         SY{"Sirija"}
-        SZ{"Svazi"}
+        SZ{"Esvatini"}
         TA{"Tristan da Cunha"}
         TC{"Otoci Turks i Caicos"}
         TD{"Čad"}
@@ -287,6 +288,8 @@ hr{
         VU{"Vanuatu"}
         WF{"Wallis i Futuna"}
         WS{"Samoa"}
+        XA{"pseudo naglasci"}
+        XB{"pseudo bidi"}
         XK{"Kosovo"}
         YE{"Jemen"}
         YT{"Mayotte"}
@@ -304,13 +307,12 @@ hr{
         US{"SAD"}
     }
     Countries%variant{
-        CD{"Kongo (DRK)"}
+        CD{"Kongo (DR)"}
         CG{"Kongo (RK)"}
         CI{"Bjelokosna Obala"}
         CZ{"Češka Republika"}
         FK{"Falklandski otoci (Malvini)"}
-        MK{"Makedonija (BJRM)"}
+        SZ{"Svazi"}
         TL{"Istočni Timor"}
     }
-    Version{"2.1.43.50"}
 }

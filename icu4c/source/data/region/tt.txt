@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 tt{
     Countries{
         AD{"Андорра"}
@@ -74,7 +75,7 @@ tt{
         FO{"Фарер утраулары"}
         FR{"Франция"}
         GA{"Габон"}
-        GB{"Бөекбритания"}
+        GB{"Берләшкән Корольлек"}
         GD{"Гренада"}
         GE{"Грузия"}
         GF{"Француз Гвианасы"}
@@ -140,6 +141,7 @@ tt{
         MF{"Сент-Мартин"}
         MG{"Мадагаскар"}
         MH{"Маршалл утраулары"}
+        MK{"Төньяк Македония"}
         ML{"Мали"}
         MN{"Монголия"}
         MO{"Макао Махсус Идарәле Төбәге"}
@@ -250,7 +252,5 @@ tt{
     }
     Countries%variant{
         CD{"Конго (КДР)"}
-        MK{"Македония (Македония Элекке Югославия Республикасы)"}
     }
-    Version{"2.1.44.88"}
 }

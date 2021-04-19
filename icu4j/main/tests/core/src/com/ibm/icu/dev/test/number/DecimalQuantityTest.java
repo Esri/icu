@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.dev.test.number;
 
 import java.math.BigDecimal;
@@ -19,13 +19,20 @@ import com.ibm.icu.dev.impl.number.DecimalQuantity_64BitBCD;
 import com.ibm.icu.dev.impl.number.DecimalQuantity_ByteArrayBCD;
 import com.ibm.icu.dev.impl.number.DecimalQuantity_SimpleStorage;
 import com.ibm.icu.dev.test.TestFmwk;
+import com.ibm.icu.impl.FormattedStringBuilder;
 import com.ibm.icu.impl.number.DecimalFormatProperties;
 import com.ibm.icu.impl.number.DecimalQuantity;
 import com.ibm.icu.impl.number.DecimalQuantity_DualStorageBCD;
+import com.ibm.icu.impl.number.RoundingUtils;
+import com.ibm.icu.number.FormattedNumber;
 import com.ibm.icu.number.LocalizedNumberFormatter;
+import com.ibm.icu.number.Notation;
 import com.ibm.icu.number.NumberFormatter;
+import com.ibm.icu.number.Precision;
+import com.ibm.icu.number.Scale;
 import com.ibm.icu.text.CompactDecimalFormat.CompactStyle;
 import com.ibm.icu.text.DecimalFormatSymbols;
+import com.ibm.icu.text.PluralRules.Operand;
 import com.ibm.icu.util.ULocale;
 
 @RunWith(JUnit4.class)
@@ -36,7 +43,7 @@ public class DecimalQuantityTest extends TestFmwk {
     public void testBehavior() throws ParseException {
 
         // Make a list of several formatters to test the behavior of DecimalQuantity.
-        List<LocalizedNumberFormatter> formats = new ArrayList<LocalizedNumberFormatter>();
+        List<LocalizedNumberFormatter> formats = new ArrayList<>();
 
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance(ULocale.ENGLISH);
 
@@ -120,7 +127,7 @@ public class DecimalQuantityTest extends TestFmwk {
             assertEquals("Double is not valid", Double.toString(Double.parseDouble(str)), str);
         }
 
-        List<DecimalQuantity> qs = new ArrayList<DecimalQuantity>();
+        List<DecimalQuantity> qs = new ArrayList<>();
         BigDecimal d = new BigDecimal(str);
         qs.add(new DecimalQuantity_SimpleStorage(d));
         if (mode == 0)
@@ -167,8 +174,8 @@ public class DecimalQuantityTest extends TestFmwk {
         DecimalQuantity q0 = rq.createCopy();
         // Force an accurate double
         q0.roundToInfinity();
-        q0.setIntegerLength(1, Integer.MAX_VALUE);
-        q0.setFractionLength(1, Integer.MAX_VALUE);
+        q0.setMinInteger(1);
+        q0.setMinFraction(1);
         String actual = q0.toPlainString();
         assertEquals("Unexpected output from simple string conversion (" + q0 + ")", expected, actual);
     }
@@ -234,8 +241,12 @@ public class DecimalQuantityTest extends TestFmwk {
         for (LocalizedNumberFormatter format : formats) {
             DecimalQuantity q0 = rq0.createCopy();
             DecimalQuantity q1 = rq1.createCopy();
-            String s1 = format.format(q0).toString();
-            String s2 = format.format(q1).toString();
+            FormattedStringBuilder nsb1 = new FormattedStringBuilder();
+            FormattedStringBuilder nsb2 = new FormattedStringBuilder();
+            format.formatImpl(q0, nsb1);
+            format.formatImpl(q1, nsb2);
+            String s1 = nsb1.toString();
+            String s2 = nsb2.toString();
             assertEquals("Different output from formatter (" + q0 + ", " + q1 + ")", s1, s2);
         }
     }
@@ -304,6 +315,15 @@ public class DecimalQuantityTest extends TestFmwk {
         assertFalse("Should not be using byte array", fq.isUsingBytes());
         assertEquals("Failed on round", "1.23412341234E+16", fq.toScientificString());
         assertNull("Failed health check", fq.checkHealth());
+        // Bytes with popFromLeft
+        fq.setToBigDecimal(new BigDecimal("999999999999999999"));
+        assertToStringAndHealth(fq, "<DecimalQuantity 0:0 bytes 999999999999999999E0>");
+        fq.applyMaxInteger(17);
+        assertToStringAndHealth(fq, "<DecimalQuantity 0:0 bytes 99999999999999999E0>");
+        fq.applyMaxInteger(16);
+        assertToStringAndHealth(fq, "<DecimalQuantity 0:0 long 9999999999999999E0>");
+        fq.applyMaxInteger(15);
+        assertToStringAndHealth(fq, "<DecimalQuantity 0:0 long 999999999999999E0>");
     }
 
     @Test
@@ -388,25 +408,26 @@ public class DecimalQuantityTest extends TestFmwk {
     @Test
     public void testDecimalQuantityBehaviorStandalone() {
         DecimalQuantity_DualStorageBCD fq = new DecimalQuantity_DualStorageBCD();
-        assertToStringAndHealth(fq, "<DecimalQuantity 999:0:0:-999 long 0E0>");
+        assertToStringAndHealth(fq, "<DecimalQuantity 0:0 long 0E0>");
         fq.setToInt(51423);
-        assertToStringAndHealth(fq, "<DecimalQuantity 999:0:0:-999 long 51423E0>");
+        assertToStringAndHealth(fq, "<DecimalQuantity 0:0 long 51423E0>");
         fq.adjustMagnitude(-3);
-        assertToStringAndHealth(fq, "<DecimalQuantity 999:0:0:-999 long 51423E-3>");
-        fq.setToLong(999999999999000L);
-        assertToStringAndHealth(fq, "<DecimalQuantity 999:0:0:-999 long 999999999999E3>");
-        fq.setIntegerLength(2, 5);
-        assertToStringAndHealth(fq, "<DecimalQuantity 5:2:0:-999 long 999999999999E3>");
-        fq.setFractionLength(3, 6);
-        assertToStringAndHealth(fq, "<DecimalQuantity 5:2:-3:-6 long 999999999999E3>");
+        assertToStringAndHealth(fq, "<DecimalQuantity 0:0 long 51423E-3>");
+        fq.setToLong(90909090909000L);
+        assertToStringAndHealth(fq, "<DecimalQuantity 0:0 long 90909090909E3>");
+        fq.setMinInteger(2);
+        fq.applyMaxInteger(5);
+        assertToStringAndHealth(fq, "<DecimalQuantity 2:0 long 9E3>");
+        fq.setMinFraction(3);
+        assertToStringAndHealth(fq, "<DecimalQuantity 2:-3 long 9E3>");
         fq.setToDouble(987.654321);
-        assertToStringAndHealth(fq, "<DecimalQuantity 5:2:-3:-6 long 987654321E-6>");
+        assertToStringAndHealth(fq, "<DecimalQuantity 2:-3 long 987654321E-6>");
         fq.roundToInfinity();
-        assertToStringAndHealth(fq, "<DecimalQuantity 5:2:-3:-6 long 987654321E-6>");
+        assertToStringAndHealth(fq, "<DecimalQuantity 2:-3 long 987654321E-6>");
         fq.roundToIncrement(new BigDecimal("0.005"), MATH_CONTEXT_HALF_EVEN);
-        assertToStringAndHealth(fq, "<DecimalQuantity 5:2:-3:-6 long 987655E-3>");
+        assertToStringAndHealth(fq, "<DecimalQuantity 2:-3 long 987655E-3>");
         fq.roundToMagnitude(-2, MATH_CONTEXT_HALF_EVEN);
-        assertToStringAndHealth(fq, "<DecimalQuantity 5:2:-3:-6 long 98766E-2>");
+        assertToStringAndHealth(fq, "<DecimalQuantity 2:-3 long 98766E-2>");
     }
 
     @Test
@@ -481,8 +502,7 @@ public class DecimalQuantityTest extends TestFmwk {
         Object[][] cases = new Object[][] {
             { "0", 0.0 },
             { "514.23", 514.23 },
-            // NOTE: This does not currently pass in Java. See DecimalFormat_AbstractBCD#toDecimal.
-            // { "-3.142E-271", -3.142e-271 }
+            { "-3.142E-271", -3.142e-271 }
         };
 
         for (Object[] cas : cases) {
@@ -500,20 +520,360 @@ public class DecimalQuantityTest extends TestFmwk {
     public void testMaxDigits() {
         DecimalQuantity_DualStorageBCD dq = new DecimalQuantity_DualStorageBCD(876.543);
         dq.roundToInfinity();
-        dq.setIntegerLength(0, 2);
-        dq.setFractionLength(0, 2);
+        dq.setMinInteger(0);
+        dq.applyMaxInteger(2);
+        dq.setMinFraction(0);
+        dq.roundToMagnitude(-2, RoundingUtils.mathContextUnlimited(RoundingMode.FLOOR));
         assertEquals("Should trim, toPlainString", "76.54", dq.toPlainString());
         assertEquals("Should trim, toScientificString", "7.654E+1", dq.toScientificString());
         assertEquals("Should trim, toLong", 76, dq.toLong(true));
         assertEquals("Should trim, toFractionLong", 54, dq.toFractionLong(false));
-        if (!logKnownIssue("13701", "consider cleaning up")) {
-            assertEquals("Should trim, toDouble", 76.54, dq.toDouble());
-            assertEquals("Should trim, toBigDecimal", new BigDecimal("76.54"), dq.toBigDecimal());
+        assertEquals("Should trim, toDouble", 76.54, dq.toDouble());
+        assertEquals("Should trim, toBigDecimal", new BigDecimal("76.54"), dq.toBigDecimal());
+    }
+
+    @Test
+    public void testNickelRounding() {
+        Object[][] cases = new Object[][] {
+            {1.000, -2, RoundingMode.HALF_EVEN, "1"},
+            {1.001, -2, RoundingMode.HALF_EVEN, "1"},
+            {1.010, -2, RoundingMode.HALF_EVEN, "1"},
+            {1.020, -2, RoundingMode.HALF_EVEN, "1"},
+            {1.024, -2, RoundingMode.HALF_EVEN, "1"},
+            {1.025, -2, RoundingMode.HALF_EVEN, "1"},
+            {1.025, -2, RoundingMode.HALF_DOWN, "1"},
+            {1.025, -2, RoundingMode.HALF_UP,   "1.05"},
+            {1.026, -2, RoundingMode.HALF_EVEN, "1.05"},
+            {1.030, -2, RoundingMode.HALF_EVEN, "1.05"},
+            {1.040, -2, RoundingMode.HALF_EVEN, "1.05"},
+            {1.050, -2, RoundingMode.HALF_EVEN, "1.05"},
+            {1.060, -2, RoundingMode.HALF_EVEN, "1.05"},
+            {1.070, -2, RoundingMode.HALF_EVEN, "1.05"},
+            {1.074, -2, RoundingMode.HALF_EVEN, "1.05"},
+            {1.075, -2, RoundingMode.HALF_DOWN, "1.05"},
+            {1.075, -2, RoundingMode.HALF_UP,   "1.1"},
+            {1.075, -2, RoundingMode.HALF_EVEN, "1.1"},
+            {1.076, -2, RoundingMode.HALF_EVEN, "1.1"},
+            {1.080, -2, RoundingMode.HALF_EVEN, "1.1"},
+            {1.090, -2, RoundingMode.HALF_EVEN, "1.1"},
+            {1.099, -2, RoundingMode.HALF_EVEN, "1.1"},
+            {1.999, -2, RoundingMode.HALF_EVEN, "2"},
+            {2.25, -1, RoundingMode.HALF_EVEN, "2"},
+            {2.25, -1, RoundingMode.HALF_UP,   "2.5"},
+            {2.75, -1, RoundingMode.HALF_DOWN, "2.5"},
+            {2.75, -1, RoundingMode.HALF_EVEN, "3"},
+            {3.00, -1, RoundingMode.CEILING, "3"},
+            {3.25, -1, RoundingMode.CEILING, "3.5"},
+            {3.50, -1, RoundingMode.CEILING, "3.5"},
+            {3.75, -1, RoundingMode.CEILING, "4"},
+            {4.00, -1, RoundingMode.FLOOR, "4"},
+            {4.25, -1, RoundingMode.FLOOR, "4"},
+            {4.50, -1, RoundingMode.FLOOR, "4.5"},
+            {4.75, -1, RoundingMode.FLOOR, "4.5"},
+            {5.00, -1, RoundingMode.UP, "5"},
+            {5.25, -1, RoundingMode.UP, "5.5"},
+            {5.50, -1, RoundingMode.UP, "5.5"},
+            {5.75, -1, RoundingMode.UP, "6"},
+            {6.00, -1, RoundingMode.DOWN, "6"},
+            {6.25, -1, RoundingMode.DOWN, "6"},
+            {6.50, -1, RoundingMode.DOWN, "6.5"},
+            {6.75, -1, RoundingMode.DOWN, "6.5"},
+            {7.00, -1, RoundingMode.UNNECESSARY, "7"},
+            {7.50, -1, RoundingMode.UNNECESSARY, "7.5"},
+        };
+        for (Object[] cas : cases) {
+            double input = (Double) cas[0];
+            int magnitude = (Integer) cas[1];
+            RoundingMode roundingMode = (RoundingMode) cas[2];
+            String expected = (String) cas[3];
+            String message = input + " @ " + magnitude + " / " + roundingMode;
+            for (int i=0; i<2; i++) {
+                DecimalQuantity dq;
+                if (i == 0) {
+                    dq = new DecimalQuantity_DualStorageBCD(input);
+                } else {
+                    dq = new DecimalQuantity_SimpleStorage(input);
+                }
+                dq.roundToNickel(magnitude, RoundingUtils.mathContextUnlimited(roundingMode));
+                String actual = dq.toPlainString();
+                assertEquals(message, expected, actual);
+            }
+        }
+        try {
+            DecimalQuantity_DualStorageBCD dq = new DecimalQuantity_DualStorageBCD(7.1);
+            dq.roundToNickel(-1, RoundingUtils.mathContextUnlimited(RoundingMode.UNNECESSARY));
+            fail("Expected ArithmeticException");
+        } catch (ArithmeticException expected) {
+            // pass
         }
     }
 
+    @Test
+    public void testCompactDecimalSuppressedExponent() {
+        ULocale locale = new ULocale("fr-FR");
+
+        Object[][] casesData = {
+                // unlocalized formatter skeleton, input, string output, long output, double output, BigDecimal output, plain string, suppressed exponent
+                {"",              123456789, "123 456 789",  123456789L, 123456789.0, new BigDecimal("123456789"), "123456789", 0},
+                {"compact-long",  123456789, "123 millions", 123000000L, 123000000.0, new BigDecimal("123000000"), "123000000", 6},
+                {"compact-short", 123456789, "123 M",        123000000L, 123000000.0, new BigDecimal("123000000"), "123000000", 6},
+                {"scientific",    123456789, "1,234568E8",   123456800L, 123456800.0, new BigDecimal("123456800"), "123456800", 8},
+
+                {"",              1234567, "1 234 567",   1234567L, 1234567.0, new BigDecimal("1234567"), "1234567", 0},
+                {"compact-long",  1234567, "1,2 million", 1200000L, 1200000.0, new BigDecimal("1200000"), "1200000", 6},
+                {"compact-short", 1234567, "1,2 M",       1200000L, 1200000.0, new BigDecimal("1200000"), "1200000", 6},
+                {"scientific",    1234567, "1,234567E6",  1234567L, 1234567.0, new BigDecimal("1234567"), "1234567", 6},
+
+                {"",              123456, "123 456",   123456L, 123456.0, new BigDecimal("123456"), "123456", 0},
+                {"compact-long",  123456, "123 mille", 123000L, 123000.0, new BigDecimal("123000"), "123000", 3},
+                {"compact-short", 123456, "123 k",     123000L, 123000.0, new BigDecimal("123000"), "123000", 3},
+                {"scientific",    123456, "1,23456E5", 123456L, 123456.0, new BigDecimal("123456"), "123456", 5},
+
+                {"",              123, "123",    123L, 123.0, new BigDecimal("123"), "123", 0},
+                {"compact-long",  123, "123",    123L, 123.0, new BigDecimal("123"), "123", 0},
+                {"compact-short", 123, "123",    123L, 123.0, new BigDecimal("123"), "123", 0},
+                {"scientific",    123, "1,23E2", 123L, 123.0, new BigDecimal("123"), "123", 2},
+
+                {"",              1.2, "1,2",   1L, 1.2, new BigDecimal("1.2"), "1.2", 0},
+                {"compact-long",  1.2, "1,2",   1L, 1.2, new BigDecimal("1.2"), "1.2", 0},
+                {"compact-short", 1.2, "1,2",   1L, 1.2, new BigDecimal("1.2"), "1.2", 0},
+                {"scientific",    1.2, "1,2E0", 1L, 1.2, new BigDecimal("1.2"), "1.2", 0},
+
+                {"",              0.12, "0,12",   0L, 0.12, new BigDecimal("0.12"), "0.12", 0},
+                {"compact-long",  0.12, "0,12",   0L, 0.12, new BigDecimal("0.12"), "0.12", 0},
+                {"compact-short", 0.12, "0,12",   0L, 0.12, new BigDecimal("0.12"), "0.12", 0},
+                {"scientific",    0.12, "1,2E-1", 0L, 0.12, new BigDecimal("0.12"), "0.12", -1},
+
+                {"",              0.012, "0,012",   0L, 0.012, new BigDecimal("0.012"), "0.012", 0},
+                {"compact-long",  0.012, "0,012",   0L, 0.012, new BigDecimal("0.012"), "0.012", 0},
+                {"compact-short", 0.012, "0,012",   0L, 0.012, new BigDecimal("0.012"), "0.012", 0},
+                {"scientific",    0.012, "1,2E-2",  0L, 0.012, new BigDecimal("0.012"), "0.012", -2},
+
+                {"",              999.9, "999,9",     999L,  999.9,  new BigDecimal("999.9"), "999.9", 0},
+                {"compact-long",  999.9, "1 millier", 1000L, 1000.0, new BigDecimal("1000"),  "1000",  3},
+                {"compact-short", 999.9, "1 k",       1000L, 1000.0, new BigDecimal("1000"),  "1000",  3},
+                {"scientific",    999.9, "9,999E2",   999L,  999.9,  new BigDecimal("999.9"), "999.9", 2},
+
+                {"",              1000.0, "1 000",     1000L, 1000.0, new BigDecimal("1000"), "1000", 0},
+                {"compact-long",  1000.0, "1 millier", 1000L, 1000.0, new BigDecimal("1000"), "1000", 3},
+                {"compact-short", 1000.0, "1 k",       1000L, 1000.0, new BigDecimal("1000"), "1000", 3},
+                {"scientific",    1000.0, "1E3",       1000L, 1000.0, new BigDecimal("1000"), "1000", 3},
+        };
+
+        for (Object[] caseDatum : casesData) {
+            // test the helper methods used to compute plural operand values
+
+            String skeleton = (String) caseDatum[0];
+            LocalizedNumberFormatter formatter =
+                    NumberFormatter.forSkeleton(skeleton)
+                        .locale(locale);
+            double input = ((Number) caseDatum[1]).doubleValue();
+            String expectedString = (String) caseDatum[2];
+            long expectedLong = (long) caseDatum[3];
+            double expectedDouble = (double) caseDatum[4];
+            BigDecimal expectedBigDecimal = (BigDecimal) caseDatum[5];
+            String expectedPlainString = (String) caseDatum[6];
+            int expectedSuppressedExponent = (int) caseDatum[7];
+
+            FormattedNumber fn = formatter.format(input);
+            DecimalQuantity_DualStorageBCD dq = (DecimalQuantity_DualStorageBCD)
+                    fn.getFixedDecimal();
+            String actualString = fn.toString();
+            long actualLong = dq.toLong(true);
+            double actualDouble = dq.toDouble();
+            BigDecimal actualBigDecimal = dq.toBigDecimal();
+            String actualPlainString = dq.toPlainString();
+            int actualSuppressedExponent = dq.getExponent();
+
+            assertEquals(
+                    String.format("formatted number %s toString: %f", skeleton, input),
+                    expectedString,
+                    actualString);
+            assertEquals(
+                    String.format("compact decimal %s toLong: %f", skeleton, input),
+                    expectedLong,
+                    actualLong);
+            assertDoubleEquals(
+                    String.format("compact decimal %s toDouble: %f", skeleton, input),
+                    expectedDouble,
+                    actualDouble);
+            assertBigDecimalEquals(
+                    String.format("compact decimal %s toBigDecimal: %f", skeleton, input),
+                    expectedBigDecimal,
+                    actualBigDecimal);
+            assertEquals(
+                    String.format("formatted number %s toPlainString: %f", skeleton, input),
+                    expectedPlainString,
+                    actualPlainString);
+            assertEquals(
+                    String.format("compact decimal %s suppressed exponent: %f", skeleton, input),
+                    expectedSuppressedExponent,
+                    actualSuppressedExponent);
+
+            // test the actual computed values of the plural operands
+
+            double expectedNOperand = expectedDouble;
+            double expectedIOperand = expectedLong;
+            double expectedEOperand = expectedSuppressedExponent;
+            double actualNOperand = dq.getPluralOperand(Operand.n);
+            double actualIOperand = dq.getPluralOperand(Operand.i);
+            double actualEOperand = dq.getPluralOperand(Operand.e);
+
+            assertEquals(
+                    String.format("formatted number %s toString: %s", skeleton, input),
+                    expectedString,
+                    actualString);
+            assertDoubleEquals(
+                    String.format("compact decimal %s n operand: %f", skeleton, input),
+                    expectedNOperand,
+                    actualNOperand);
+            assertDoubleEquals(
+                    String.format("compact decimal %s i operand: %f", skeleton, input),
+                    expectedIOperand,
+                    actualIOperand);
+            assertDoubleEquals(
+                    String.format("compact decimal %s e operand: %f", skeleton, input),
+                    expectedEOperand,
+                    actualEOperand);
+        }
+    }
+
+
+    @Test
+    public void testCompactNotationFractionPluralOperands() {
+        ULocale locale = new ULocale("fr-FR");
+        LocalizedNumberFormatter formatter =
+                NumberFormatter.withLocale(locale)
+                    .notation(Notation.compactLong())
+                    .precision(Precision.fixedFraction(5))
+                    .scale(Scale.powerOfTen(-1));
+        double formatterInput = 12345;
+        double inputVal = 1234.5;
+        FormattedNumber fn = formatter.format(formatterInput);
+        DecimalQuantity_DualStorageBCD dq = (DecimalQuantity_DualStorageBCD)
+                fn.getFixedDecimal();
+
+        double expectedNOperand = 1234.5;
+        double expectedIOperand = 1234;
+        double expectedFOperand = 50;
+        double expectedTOperand = 5;
+        double expectedVOperand = 2;
+        double expectedWOperand = 1;
+        double expectedEOperand = 3;
+        String expectedString = "1,23450 millier";
+        double actualNOperand = dq.getPluralOperand(Operand.n);
+        double actualIOperand = dq.getPluralOperand(Operand.i);
+        double actualFOperand = dq.getPluralOperand(Operand.f);
+        double actualTOperand = dq.getPluralOperand(Operand.t);
+        double actualVOperand = dq.getPluralOperand(Operand.v);
+        double actualWOperand = dq.getPluralOperand(Operand.w);
+        double actualEOperand = dq.getPluralOperand(Operand.e);
+        String actualString = fn.toString();
+
+        assertDoubleEquals(
+                String.format("compact decimal fraction n operand: %f", inputVal),
+                expectedNOperand,
+                actualNOperand);
+        assertDoubleEquals(
+                String.format("compact decimal fraction i operand: %f", inputVal),
+                expectedIOperand,
+                actualIOperand);
+        assertDoubleEquals(
+                String.format("compact decimal fraction f operand: %f", inputVal),
+                expectedFOperand,
+                actualFOperand);
+        assertDoubleEquals(
+                String.format("compact decimal fraction t operand: %f", inputVal),
+                expectedTOperand,
+                actualTOperand);
+        assertDoubleEquals(
+                String.format("compact decimal fraction v operand: %f", inputVal),
+                expectedVOperand,
+                actualVOperand);
+        assertDoubleEquals(
+                String.format("compact decimal fraction w operand: %f", inputVal),
+                expectedWOperand,
+                actualWOperand);
+        assertDoubleEquals(
+                String.format("compact decimal fraction e operand: %f", inputVal),
+                expectedEOperand,
+                actualEOperand);
+        assertEquals(
+                String.format("compact decimal fraction toString: %f", inputVal),
+                expectedString,
+                actualString);
+    }
+
+    @Test
+    public void testSuppressedExponentUnchangedByInitialScaling() {
+        ULocale locale = new ULocale("fr-FR");
+        LocalizedNumberFormatter withLocale = NumberFormatter.withLocale(locale);
+        LocalizedNumberFormatter compactLong =
+                withLocale.notation(Notation.compactLong());
+        LocalizedNumberFormatter compactScaled =
+                compactLong.scale(Scale.powerOfTen(3));
+
+        Object[][] casesData = {
+                // input, compact long string output,
+                // compact n operand, compact i operand, compact e operand
+                {123456789, "123 millions", 123000000.0, 123000000.0, 6.0},
+                {1234567,   "1,2 million",  1200000.0,   1200000.0,   6.0},
+                {123456,    "123 mille",    123000.0,    123000.0,    3.0},
+                {123,       "123",          123.0,       123.0,       0.0},
+        };
+
+        for (Object[] caseDatum : casesData) {
+            int input = (int) caseDatum[0];
+            String expectedString = (String) caseDatum[1];
+            double expectedNOperand = (double) caseDatum[2];
+            double expectedIOperand = (double) caseDatum[3];
+            double expectedEOperand = (double) caseDatum[4];
+
+            FormattedNumber fnCompactScaled = compactScaled.format(input);
+            DecimalQuantity_DualStorageBCD dqCompactScaled =
+                    (DecimalQuantity_DualStorageBCD) fnCompactScaled.getFixedDecimal();
+            double compactScaledEOperand = dqCompactScaled.getPluralOperand(Operand.e);
+
+            FormattedNumber fnCompact = compactLong.format(input);
+            DecimalQuantity_DualStorageBCD dqCompact =
+                    (DecimalQuantity_DualStorageBCD) fnCompact.getFixedDecimal();
+            String actualString = fnCompact.toString();
+            double compactNOperand = dqCompact.getPluralOperand(Operand.n);
+            double compactIOperand = dqCompact.getPluralOperand(Operand.i);
+            double compactEOperand = dqCompact.getPluralOperand(Operand.e);
+            assertEquals(
+                    String.format("formatted number compactLong toString: %s", input),
+                    expectedString,
+                    actualString);
+            assertDoubleEquals(
+                    String.format("compact decimal %d, n operand vs. expected", input),
+                    expectedNOperand,
+                    compactNOperand);
+            assertDoubleEquals(
+                    String.format("compact decimal %d, i operand vs. expected", input),
+                    expectedIOperand,
+                    compactIOperand);
+            assertDoubleEquals(
+                    String.format("compact decimal %d, e operand vs. expected", input),
+                    expectedEOperand,
+                    compactEOperand);
+
+            // By scaling by 10^3 in a locale that has words / compact notation
+            // based on powers of 10^3, we guarantee that the suppressed
+            // exponent will differ by 3.
+            assertDoubleEquals(
+                    String.format("decimal %d, e operand for compact vs. compact scaled", input),
+                    compactEOperand + 3,
+                    compactScaledEOperand);
+        }
+    }
+
+    static boolean doubleEquals(double d1, double d2) {
+        return (Math.abs(d1 - d2) < 1e-6) || (Math.abs((d1 - d2) / d1) < 1e-6);
+    }
+
     static void assertDoubleEquals(String message, double d1, double d2) {
-        boolean equal = (Math.abs(d1 - d2) < 1e-6) || (Math.abs((d1 - d2) / d1) < 1e-6);
+        boolean equal = doubleEquals(d1, d2);
         handleAssert(equal, message, d1, d2, null, false);
     }
 

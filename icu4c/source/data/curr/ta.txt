@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 ta{
     Currencies{
         AED{
@@ -124,7 +125,7 @@ ta{
         }
         CNH{
             "CNH",
-            "CNH",
+            "சீன யுவான் (ஆஃப்ஷோர்)",
         }
         CNY{
             "CN¥",
@@ -881,8 +882,8 @@ ta{
             other{"சிலியன் பெசோக்கள்"}
         }
         CNH{
-            one{"CNH"}
-            other{"CNH"}
+            one{"சீன யுவான் (ஆஃப்ஷோர்)"}
+            other{"சீன யுவான் (ஆஃப்ஷோர்)"}
         }
         CNY{
             one{"சீன யுவான்"}
@@ -1413,5 +1414,4 @@ ta{
         one{"{0} {1}"}
         other{"{0} {1}"}
     }
-    Version{"2.1.43.50"}
 }

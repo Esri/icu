@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 fo{
     Keys{
         calendar{"kalendari"}
@@ -59,6 +60,7 @@ fo{
         bug{"buginesiskt"}
         byn{"blin"}
         ca{"katalani"}
+        ccp{"khakma"}
         ce{"tjetjenskt"}
         ceb{"cebuano"}
         cgg{"chiga"}
@@ -101,6 +103,7 @@ fo{
         eu{"baskiskt"}
         ewo{"ewondo"}
         fa{"persiskt"}
+        fa_AF{"dari"}
         ff{"fulah"}
         fi{"finskt"}
         fil{"filipiniskt"}
@@ -301,7 +304,6 @@ fo{
         ro{"rumenskt"}
         ro_MD{"moldaviskt"}
         rof{"rombo"}
-        root{"root"}
         ru{"russiskt"}
         rup{"aromenskt"}
         rw{"kinyarwanda"}
@@ -411,10 +413,20 @@ fo{
         zxx{"einki málsligt innihald"}
         zza{"zaza"}
     }
+    Languages%long{
+        zh_Hans{"mandarin kinesiskt (einkult)"}
+        zh_Hant{"mandarin kinesiskt (vanligt)"}
+    }
+    Languages%menu{
+        ckb{"kurdiskt, mið"}
+        yue{"kinesiskt, kantonesiskt"}
+        zh{"kinesiskt, mandarin"}
+    }
     Languages%short{
         az{"azeri"}
-        en_GB{"enskt (UK)"}
-        en_US{"enskt (USA)"}
+    }
+    Languages%variant{
+        ckb{"kurdiskt, sorani"}
     }
     Scripts{
         Arab{"arabisk"}
@@ -550,7 +562,6 @@ fo{
         POLYTON{"polytonísk"}
         WADEGILE{"Wade-Giles"}
     }
-    Version{"2.1.41.34"}
     characterLabelPattern{
         all{"{0} — Alt"}
         category-list{"{0}: {1}"}
@@ -565,6 +576,8 @@ fo{
             one{"{0} strok"}
             other{"{0} strok"}
         }
+        subscript{"lágskrift {0}"}
+        superscript{"háskrift {0}"}
     }
     codePatterns{
         language{"Mál: {0}"}

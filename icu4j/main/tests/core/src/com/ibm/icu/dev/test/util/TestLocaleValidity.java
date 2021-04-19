@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 2015-2016, International Business Machines Corporation and    *
@@ -60,6 +60,7 @@ public class TestLocaleValidity extends TestFmwk {
                 {"OK", "en-u-co-big5han"},
                 {"OK", "en-u-cu-adp"},
                 {"OK", "en-u-fw-fri"},
+                {"OK", "en-u-dx-thai"},
                 {"OK", "en-u-hc-h11"},
                 {"OK", "en-u-ka-noignore"},
                 {"OK", "en-u-kb-false"},
@@ -105,8 +106,8 @@ public class TestLocaleValidity extends TestFmwk {
 
                 {"OK", "en-u-ca-buddhist-ca-islamic-umalqura-cf-account-co-big5han-cu-adp-fw-fri-hc-h11-ka-noignore-kb-false-kc-false-kf-false-kk-false-kn-false-kr-latn-digit-symbol-ks-identic-kv-currency-nu-ahom-sd-usny-tz-adalv-va-posix"},
 
-                // bad case (for language tag)
-                {"{language, root}", "root"},
+                // root is canonicalized to the root locale (ICU-20273)
+                {"OK", "root"},
 
                 // deprecated, but turned into valid by ULocale.Builder()
                 {"OK", "en-u-ca-islamicc"}, // deprecated

@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 en_CA{
     %%Parent{"en_001"}
     Currencies{
@@ -7,12 +8,9 @@ en_CA{
             "$",
             "Canadian Dollar",
         }
-    }
-    CurrencyPlurals{
-        ILS{
-            one{"Israeli new sheqel"}
-            other{"Israeli new sheqels"}
+        VES{
+            "VES",
+            "Venezuelan Bolívar",
         }
     }
-    Version{"2.1.44.88"}
 }

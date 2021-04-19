@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 yue_Hans{
     %%Parent{"root"}
     Keys{
@@ -109,6 +110,7 @@ yue_Hans{
         car{"加勒比文"}
         cay{"卡尤加文"}
         cch{"阿灿文"}
+        ccp{"查克马文"}
         ce{"车臣文"}
         ceb{"宿雾文"}
         cgg{"奇加文"}
@@ -173,6 +175,7 @@ yue_Hans{
         ewo{"依汪都文"}
         ext{"埃斯特雷马杜拉文"}
         fa{"波斯文"}
+        fa_AF{"达里文"}
         fan{"芳族文"}
         fat{"芳蒂文"}
         ff{"富拉文"}
@@ -626,8 +629,13 @@ yue_Hans{
         zxx{"无语言内容"}
         zza{"扎扎文"}
     }
-    Languages%short{
-        az{"亚塞拜然文"}
+    Languages%long{
+        zh_Hans{"简体中文 (普通话)"}
+        zh_Hant{"繁体中文 (普通话)"}
+    }
+    Languages%menu{
+        yue{"中文 (粤语)"}
+        zh{"中文 (普通话)"}
     }
     Scripts{
         Afak{"阿法卡文字"}
@@ -1025,7 +1033,6 @@ yue_Hans{
         VALLADER{"瑞士瓦勒德方言"}
         WADEGILE{"威妥玛式拼音"}
     }
-    Version{"2.1.44.91"}
     characterLabelPattern{
         all{"{0} — 全部"}
         category-list{"{0}: {1}"}
@@ -1039,6 +1046,8 @@ yue_Hans{
         strokes{
             other{"{0}斜线"}
         }
+        subscript{"下标 {0}"}
+        superscript{"上标 {0}"}
     }
     codePatterns{
         language{"语言：{0}"}

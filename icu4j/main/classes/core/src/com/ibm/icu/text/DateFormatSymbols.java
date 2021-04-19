@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 1996-2016, International Business Machines Corporation and
@@ -695,7 +695,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
      */
     private static final Map<String, CapitalizationContextUsage> contextUsageTypeMap;
     static {
-        contextUsageTypeMap=new HashMap<String, CapitalizationContextUsage>();
+        contextUsageTypeMap=new HashMap<>();
         contextUsageTypeMap.put("month-format-except-narrow", CapitalizationContextUsage.MONTH_FORMAT);
         contextUsageTypeMap.put("month-standalone-except-narrow", CapitalizationContextUsage.MONTH_STANDALONE);
         contextUsageTypeMap.put("month-narrow",   CapitalizationContextUsage.MONTH_NARROW);
@@ -720,7 +720,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
     Map<CapitalizationContextUsage,boolean[]> capitalization = null;
 
     /**
-     * Returns era strings. For example: "AD" and "BC".
+     * Returns abbreviated era strings. For example: "AD" and "BC".
      * @return the era strings.
      * @stable ICU 2.0
      */
@@ -729,7 +729,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
     }
 
     /**
-     * Sets era strings. For example: "AD" and "BC".
+     * Sets abbreviated era strings. For example: "AD" and "BC".
      * @param newEras the new era strings.
      * @stable ICU 2.0
      */
@@ -738,7 +738,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
     }
 
     /**
-     * {@icu} Returns era name strings. For example: "Anno Domini" and "Before Christ".
+     * {@icu} Returns full era name strings. For example: "Anno Domini" and "Before Christ".
      * @return the era strings.
      * @stable ICU 3.4
      */
@@ -747,12 +747,30 @@ public class DateFormatSymbols implements Serializable, Cloneable {
     }
 
     /**
-     * {@icu} Sets era name strings. For example: "Anno Domini" and "Before Christ".
+     * {@icu} Sets full era name strings. For example: "Anno Domini" and "Before Christ".
      * @param newEraNames the new era strings.
      * @stable ICU 3.8
      */
     public void setEraNames(String[] newEraNames) {
         eraNames = duplicate(newEraNames);
+    }
+
+    /**
+     * {@icu} Returns narrow era name strings. For example: "A" and "B".
+     * @return the narrow era strings.
+     * @stable ICU 64
+     */
+    public String[] getNarrowEras() {
+        return duplicate(narrowEras);
+    }
+
+    /**
+     * {@icu} Sets narrow era name strings. For example: "A" and "B".
+     * @param newNarrowEras the new narrow era strings.
+     * @stable ICU 64
+     */
+    public void setNarrowEras(String[] newNarrowEras) {
+        narrowEras = duplicate(newNarrowEras);
     }
 
     /**
@@ -1458,6 +1476,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
         DateFormatSymbols that = (DateFormatSymbols) obj;
         return (Utility.arrayEquals(eras, that.eras)
                 && Utility.arrayEquals(eraNames, that.eraNames)
+                && Utility.arrayEquals(narrowEras, that.narrowEras)
                 && Utility.arrayEquals(months, that.months)
                 && Utility.arrayEquals(shortMonths, that.shortMonths)
                 && Utility.arrayEquals(narrowMonths, that.narrowMonths)
@@ -1592,9 +1611,9 @@ public class DateFormatSymbols implements Serializable, Cloneable {
     private static final class CalendarDataSink extends UResource.Sink {
 
         // Data structures to store resources from the resource bundle
-        Map<String, String[]> arrays = new TreeMap<String, String[]>();
-        Map<String, Map<String, String>> maps = new TreeMap<String, Map<String, String>>();
-        List<String> aliasPathPairs = new ArrayList<String>();
+        Map<String, String[]> arrays = new TreeMap<>();
+        Map<String, Map<String, String>> maps = new TreeMap<>();
+        List<String> aliasPathPairs = new ArrayList<>();
 
         // Current and next calendar resource table which should be loaded
         String currentCalendarType = null;
@@ -1649,7 +1668,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
                     // Whenever an alias to the next calendar (except gregorian) is encountered, register the
                     // calendar type it's pointing to
                     if (resourcesToVisitNext == null) {
-                        resourcesToVisitNext = new HashSet<String>();
+                        resourcesToVisitNext = new HashSet<>();
                     }
                     resourcesToVisitNext.add(aliasRelativePath);
                     continue;
@@ -1737,7 +1756,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
                 if (value.getType() == ICUResourceBundle.STRING) {
                     // We are on a leaf, store the map elements into the stringMap
                     if (i == 0) {
-                        stringMap = new HashMap<String, String>();
+                        stringMap = new HashMap<>();
                         maps.put(path, stringMap);
                     }
                     assert stringMap != null;
@@ -2006,7 +2025,7 @@ public class DateFormatSymbols implements Serializable, Cloneable {
         ULocale uloc = rb.getULocale();
         setLocale(uloc, uloc);
 
-        capitalization = new HashMap<CapitalizationContextUsage,boolean[]>();
+        capitalization = new HashMap<>();
         boolean[] noTransforms = new boolean[2];
         noTransforms[0] = false;
         noTransforms[1] = false;

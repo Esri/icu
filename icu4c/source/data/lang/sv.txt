@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 sv{
     Keys{
         calendar{"kalender"}
@@ -109,6 +110,7 @@ sv{
         car{"karibiska"}
         cay{"cayuga"}
         cch{"atsam"}
+        ccp{"chakma"}
         ce{"tjetjenska"}
         ceb{"cebuano"}
         cgg{"chiga"}
@@ -181,6 +183,7 @@ sv{
         ewo{"ewondo"}
         ext{"extremaduriska"}
         fa{"persiska"}
+        fa_AF{"dari"}
         fan{"fang"}
         fat{"fanti"}
         ff{"fulani"}
@@ -290,7 +293,7 @@ sv{
         kgp{"kaingang"}
         kha{"khasi"}
         kho{"khotanesiska"}
-        khq{"Timbuktu-songhoy"}
+        khq{"Timbuktu-songhai"}
         khw{"khowar"}
         ki{"kikuyu"}
         kiu{"kirmanjki"}
@@ -322,7 +325,7 @@ sv{
         kut{"kutenaj"}
         kv{"kome"}
         kw{"korniska"}
-        ky{"kirgisiska"}
+        ky{"kirgiziska"}
         la{"latin"}
         lad{"ladino"}
         lag{"langi"}
@@ -445,7 +448,7 @@ sv{
         pap{"papiamento"}
         pau{"palau"}
         pcd{"pikardiska"}
-        pcm{"Nigeria-pidgin"}
+        pcm{"nigeriansk pidgin"}
         pdc{"Pennsylvaniatyska"}
         pdt{"mennonitisk lågtyska"}
         peo{"fornpersiska"}
@@ -505,7 +508,7 @@ sv{
         seh{"sena"}
         sei{"seri"}
         sel{"selkup"}
-        ses{"Gao-songhay"}
+        ses{"songhai"}
         sg{"sango"}
         sga{"forniriska"}
         sgs{"samogitiska"}
@@ -639,8 +642,19 @@ sv{
         zxx{"inget språkligt innehåll"}
         zza{"zazaiska"}
     }
+    Languages%long{
+        zh_Hans{"förenklad kinesiska"}
+        zh_Hant{"traditionell kinesiska"}
+    }
+    Languages%menu{
+        ars{"arabiska (najd)"}
+        ckb{"kurdiska (sorani)"}
+        zh{"mandarin"}
+    }
     Languages%short{
         az{"azeriska"}
+        en_GB{"brittisk engelska"}
+        en_US{"amerikansk engelska"}
     }
     Languages%variant{
         ps{"pashto"}
@@ -652,6 +666,7 @@ sv{
         Aghb{"kaukasiska albanska"}
         Ahom{"ahom"}
         Arab{"arabiska"}
+        Aran{"nastaliq"}
         Armi{"imperisk arameiska"}
         Armn{"armeniska"}
         Avst{"avestiska"}
@@ -672,18 +687,22 @@ sv{
         Cari{"kariska"}
         Cham{"cham"}
         Cher{"cherokee"}
+        Chrs{"khwarezmiska"}
         Cirt{"cirt"}
         Copt{"koptiska"}
         Cprt{"cypriotiska"}
         Cyrl{"kyrilliska"}
         Cyrs{"fornkyrkoslavisk kyrilliska"}
         Deva{"devanagari"}
+        Diak{"dives akuru"}
+        Dogr{"dogriska"}
         Dsrt{"deseret"}
         Dupl{"Duployéstenografiska"}
         Egyd{"demotiska"}
         Egyh{"hieratiska"}
         Egyp{"egyptiska hieroglyfer"}
         Elba{"elbasiska"}
+        Elym{"elymaiska"}
         Ethi{"etiopiska"}
         Geok{"kutsuri"}
         Geor{"georgiska"}
@@ -699,13 +718,14 @@ sv{
         Hang{"hangul"}
         Hani{"han"}
         Hano{"hanunó’o"}
-        Hans{"förenklade"}
-        Hant{"traditionella"}
+        Hans{"förenklad"}
+        Hant{"traditionell"}
         Hatr{"hatran"}
         Hebr{"hebreiska"}
         Hira{"hiragana"}
         Hluw{"hittitiska hieroglyfer"}
         Hmng{"pahaw mong"}
+        Hmnp{"nyiakeng puachue hmong"}
         Hrkt{"katakana/hiragana"}
         Hung{"fornungerska"}
         Inds{"indus"}
@@ -719,6 +739,7 @@ sv{
         Khar{"kharoshti"}
         Khmr{"khmeriska"}
         Khoj{"khojkiska"}
+        Kits{"khitanska"}
         Knda{"kanaresiska"}
         Kore{"koreanska"}
         Kpel{"kpellé"}
@@ -737,10 +758,12 @@ sv{
         Lyci{"lykiska"}
         Lydi{"lydiska"}
         Mahj{"mahajaniska"}
+        Maka{"makasariska"}
         Mand{"mandaéiska"}
         Mani{"manikeanska"}
         Marc{"marchenska"}
         Maya{"mayahieroglyfer"}
+        Medf{"medefaidrin"}
         Mend{"mende"}
         Merc{"kursiv-meroitiska"}
         Mero{"meroitiska"}
@@ -752,6 +775,7 @@ sv{
         Mtei{"meitei-mayek"}
         Mult{"multaniska"}
         Mymr{"burmesiska"}
+        Nand{"nandinagari"}
         Narb{"fornnordarabiska"}
         Nbat{"nabateiska"}
         Newa{"newariska"}
@@ -774,6 +798,7 @@ sv{
         Phnx{"feniciska"}
         Plrd{"pollardtecken"}
         Prti{"tidig parthianska"}
+        Qaag{"zawgyi"}
         Rjng{"rejang"}
         Rohg{"hanifiska"}
         Roro{"rongo-rongo"}
@@ -817,9 +842,11 @@ sv{
         Vaii{"vaj"}
         Visp{"synligt tal"}
         Wara{"varang kshiti"}
+        Wcho{"wancho"}
         Wole{"woleai"}
         Xpeo{"fornpersiska"}
         Xsux{"sumero-akkadisk kilskrift"}
+        Yezi{"yazidiska"}
         Yiii{"yi"}
         Zanb{"zanabazar kvadratisk skrift"}
         Zinh{"ärvda"}
@@ -932,7 +959,7 @@ sv{
             ungegn{"enligt FN:s geografiska namnkommitté"}
         }
         ms{
-            metric{"SI-enheter"}
+            metric{"metersystem"}
             uksystem{"brittiskt måttsystem"}
             ussystem{"USA:s måttsystem"}
         }
@@ -949,6 +976,7 @@ sv{
             cham{"chamiska siffror"}
             cyrl{"kyrilliska taltecken"}
             deva{"devanagariska siffror"}
+            diak{"dives akuru-siffror"}
             ethi{"etiopiska taltecken"}
             finance{"finansiella siffror"}
             fullwide{"fullbreddssiffror"}
@@ -966,6 +994,7 @@ sv{
             hantfin{"traditionellt kinesiskt finansiellt stavade tal"}
             hebr{"hebreiska taltecken"}
             hmng{"pahawh hmong-siffror"}
+            hmnp{"nyiakeng puachue hmong-siffror"}
             java{"javanesiska siffror"}
             jpan{"japanskt stavade tal"}
             jpanfin{"japanskt finansiellt stavade tal"}
@@ -1016,6 +1045,7 @@ sv{
             traditional{"Traditionella siffror"}
             vaii{"vai-siffror"}
             wara{"varang kshiti-siffror"}
+            wcho{"wanchosiffror"}
         }
     }
     Variants{
@@ -1026,11 +1056,15 @@ sv{
         1994{"1994 års resisk stavning"}
         1996{"1996 års reformerad tysk stavning"}
         ABL1943{"1943 års stavning"}
+        AKUAPEM{"akapuem (twi)"}
         ALALC97{"1997 års ALA-LC"}
         ALUKU{"Aluku-dialekt"}
         AO1990{"stavning enligt 1990 års överenskommelse"}
+        ARANES{"aranesiska (occitanska)"}
         AREVELA{"östarmeniska"}
         AREVMDA{"västarmeniska"}
+        ASANTE{"asante (twi)"}
+        AUVERN{"auvergniska (occitanska)"}
         BAKU1926{"1926 års stavning"}
         BALANKA{"balanka-dialekt"}
         BARLA{"barlavento-dialekt"}
@@ -1040,14 +1074,23 @@ sv{
         BISKE{"Bila-dialekt"}
         BOHORIC{"Bohorič-alfabetet"}
         BOONT{"boontling"}
+        BORNHOLM{"Bornholm"}
+        CISAUP{"cisalpinska (occitanska)"}
         COLB1945{"stavning enligt 1945 års konvention mellan Portugal och Brasilien"}
         CORNU{"kornisk engelska"}
+        CREISS{"croissant-occitanska"}
         DAJNKO{"Dajnko-alfabetet"}
         EKAVSK{"ekavisk dialekt"}
         EMODENG{"tidig modern engelska"}
         FONIPA{"internationell fonetisk notation - IPA"}
+        FONKIRSH{"Kirshenbaums fonetiska alfabet"}
+        FONNAPA{"nordamerikanskt fonetiskt alfabet"}
         FONUPA{"uralisk fonetisk notation"}
         FONXSAMP{"X-SAMPA fonetisk notation"}
+        GASCON{"Gascogne-occitanska"}
+        GRCLASS{"klassisk occitanska"}
+        GRITAL{"italiensk-inspirerad occitanska"}
+        GRMISTR{"Mistral-occitanska"}
         HEPBURN{"Hepburn"}
         HOGNORSK{"högnorsk dialekt"}
         HSISTEMO{"h-system"}
@@ -1060,6 +1103,8 @@ sv{
         KOCIEWIE{"kociewiska"}
         KSCOR{"standardstavning"}
         LAUKIKA{"laukika-dialekt"}
+        LEMOSIN{"Limousin-occitanska"}
+        LENGADOC{"languedociska"}
         LIPAW{"Lipovaz-dialekt"}
         LUNA1918{"1918 års stavning"}
         METELKO{"Metelko-alfabetet"}
@@ -1067,6 +1112,7 @@ sv{
         NDYUKA{"Ndyuka-dialekt"}
         NEDIS{"natisonsk dialekt"}
         NEWFOUND{"Newfoundland-engelska"}
+        NICARD{"Nice-occitanska"}
         NJIVA{"Njiva-dialekt"}
         NULIK{"nulik-stavning"}
         OSOJS{"Osojane-dialekt"}
@@ -1079,6 +1125,7 @@ sv{
         PINYIN{"pinyin"}
         POLYTON{"polytonisk stavning"}
         POSIX{"Posix"}
+        PROVENC{"provensalska"}
         PUTER{"puter-dialekt"}
         REVISED{"reformerad stavning"}
         RIGIK{"klassisk volapük"}
@@ -1102,10 +1149,10 @@ sv{
         VAIDIKA{"vedisk dialekt"}
         VALENCIA{"valensisk dialekt"}
         VALLADER{"vallader-dialekt"}
+        VIVARAUP{"vivaroalpinska (occitanska)"}
         WADEGILE{"Wade-Giles"}
         XSISTEMO{"x-system"}
     }
-    Version{"2.1.43.94"}
     characterLabelPattern{
         all{"{0} – alla"}
         category-list{"{0}: {1}"}
@@ -1120,6 +1167,8 @@ sv{
             one{"{0} streck"}
             other{"{0} streck"}
         }
+        subscript{"nedsänkt {0}"}
+        superscript{"upphöjt {0}"}
     }
     codePatterns{
         language{"språk: {0}"}

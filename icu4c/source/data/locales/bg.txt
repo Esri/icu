@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 bg{
     AuxExemplarCharacters{"[{а\u0300} ѐ ё ѝ {о\u0300} {у\u0300} {ъ\u0300} ы ѣ э {ю\u0300} {я\u0300} ѫ]"}
     Ellipsis{
@@ -12,8 +13,8 @@ bg{
     }
     ExemplarCharacters{"[а б в г д е ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ь ю я]"}
     ExemplarCharactersIndex{"[А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ю Я]"}
-    ExemplarCharactersNumbers{"[  \\- , % ‰ + 0 1 2 3 4 5 6 7 8 9]"}
-    ExemplarCharactersPunctuation{"[\\- ‐ – — , ; \\: ! ? . … ' ‘ ‚ \u0022 “ „ ( ) \\[ \\] § * / ″ №]"}
+    ExemplarCharactersNumbers{"[  \\- ‑ , % ‰ + 0 1 2 3 4 5 6 7 8 9]"}
+    ExemplarCharactersPunctuation{"[\\- ‐ ‑ – — , ; \\: ! ? . … ' ‘ ‚ \u0022 “ „ ( ) \\[ \\] § @ * / ″ №]"}
     MoreInformation{"?"}
     NumberElements{
         default{"latn"}
@@ -212,7 +213,6 @@ bg{
         minimumGroupingDigits{"2"}
         native{"latn"}
     }
-    Version{"2.1.43.94"}
     calendar{
         generic{
             DateTimePatterns{
@@ -231,7 +231,7 @@ bg{
                 "{1}, {0}",
             }
             availableFormats{
-                Bh{"h 'ч' .B"}
+                Bh{"h 'ч'. B"}
                 Bhm{"h:mm 'ч'. B"}
                 Bhms{"h:mm:ss 'ч'. B"}
                 E{"ccc"}
@@ -249,9 +249,9 @@ bg{
                 GyMMMMEd{"E, d MMMM y 'г'. G"}
                 GyMMMMd{"d MMMM y 'г'. G"}
                 GyMMMd{"d.MM.y 'г'. G"}
-                H{"HH"}
-                Hm{"HH:mm"}
-                Hms{"HH:mm:ss"}
+                H{"HH 'ч'."}
+                Hm{"HH:mm 'ч'."}
+                Hms{"HH:mm:ss 'ч'."}
                 M{"M"}
                 MEd{"E, d.MM"}
                 MMM{"MM"}
@@ -262,7 +262,7 @@ bg{
                 MMMd{"d.MM"}
                 Md{"d.MM"}
                 d{"d"}
-                h{"h a"}
+                h{"h 'ч'. a"}
                 hm{"h:mm 'ч'. a"}
                 hms{"h:mm:ss 'ч'. a"}
                 ms{"mm:ss"}
@@ -281,6 +281,52 @@ bg{
                 yyyyQQQQ{"QQQQ y 'г'. G"}
             }
             intervalFormats{
+                Bh{
+                    B{"h B – h B"}
+                    h{"h – h B"}
+                }
+                Bhm{
+                    h{"h:mm – h:mm B"}
+                    m{"h:mm – h:mm B"}
+                }
+                Gy{
+                    G{"y G – y G"}
+                    y{"y – y G"}
+                }
+                GyM{
+                    G{"M.y GGGGG – M.y GGGGG"}
+                    M{"M.y – M.y GGGGG"}
+                    y{"M.y – M.y GGGGG"}
+                }
+                GyMEd{
+                    G{"E, d.M.y GGGGG – E, d.M.y GGGGG"}
+                    M{"E, d.M.y – E, d.M.y GGGGG"}
+                    d{"E, d.M.y – E, d.M.y GGGGG"}
+                    y{"E, d.M.y – E, d.M.y GGGGG"}
+                }
+                GyMMM{
+                    G{"MMM y G – MMM y G"}
+                    M{"MMM – MMM y G"}
+                    y{"MMM y – MMM y G"}
+                }
+                GyMMMEd{
+                    G{"E, d MMM y G – E, d MMM y G"}
+                    M{"E, d MMM – E, d MMM y G"}
+                    d{"E, d MMM – E, d MMM y G"}
+                    y{"E, d MMM y – E, d MMM y G"}
+                }
+                GyMMMd{
+                    G{"d MMM y G – d MMM y G"}
+                    M{"d MMM – d MMM y G"}
+                    d{"d – d MMM y G"}
+                    y{"d MMM y – d MMM y G"}
+                }
+                GyMd{
+                    G{"d.M.y GGGGG – d.M.y GGGGG"}
+                    M{"d.M.y – d.M.y GGGGG"}
+                    d{"d.M.y – d.M.y GGGGG"}
+                    y{"d.M.y – d.M.y GGGGG"}
+                }
                 H{
                     H{"HH–HH"}
                 }
@@ -436,7 +482,7 @@ bg{
                 EBhm{"E, h:mm 'ч'. B"}
                 EBhms{"E, h:mm:ss 'ч'. B"}
                 EHm{"E, HH:mm 'ч'."}
-                EHms{"E, H:mm:ss 'ч'."}
+                EHms{"E, HH:mm:ss 'ч'."}
                 Ed{"E, d"}
                 Ehm{"E, h:mm 'ч'. a"}
                 Ehms{"E, h:mm:ss 'ч'. a"}
@@ -447,9 +493,9 @@ bg{
                 GyMMMMEd{"E, d MMMM y 'г'. G"}
                 GyMMMMd{"d MMMM y 'г'. G"}
                 GyMMMd{"d.MM.y 'г'. G"}
-                H{"H 'ч'."}
-                Hm{"H:mm 'ч'."}
-                Hms{"H:mm:ss 'ч'."}
+                H{"HH 'ч'."}
+                Hm{"HH:mm 'ч'."}
+                Hms{"HH:mm:ss 'ч'."}
                 Hmsv{"HH:mm:ss 'ч'. v"}
                 Hmv{"HH:mm 'ч'. v"}
                 M{"L"}
@@ -459,8 +505,8 @@ bg{
                 MMMM{"LLLL"}
                 MMMMEd{"E, d MMMM"}
                 MMMMW{
-                    one{"'седмица' W 'от' MMM"}
-                    other{"'седмица' W 'от' MMM"}
+                    one{"'седмица' W 'от' MMMM"}
+                    other{"'седмица' W 'от' MMMM"}
                 }
                 MMMMd{"d MMMM"}
                 MMMMdd{"d MMMM"}
@@ -647,6 +693,51 @@ bg{
                 }
             }
             intervalFormats{
+                Bh{
+                    h{"h – h B"}
+                }
+                Bhm{
+                    h{"h:mm – h:mm B"}
+                    m{"h:mm – h:mm B"}
+                }
+                Gy{
+                    G{"y G – y G"}
+                    y{"y – y G"}
+                }
+                GyM{
+                    G{"MM.y GGGGG – MM.y GGGGG"}
+                    M{"MM.y – MM.y GGGGG"}
+                    y{"MM.y – MM.y GGGGG"}
+                }
+                GyMEd{
+                    G{"E, dd.MM.y GGGGG – E, dd.MM.y GGGGG"}
+                    M{"E, dd.MM.y – E, dd.MM.y GGGGG"}
+                    d{"E, dd.MM.y – E, dd.MM.y GGGGG"}
+                    y{"E, dd.MM.y – E, dd.MM.y GGGGG"}
+                }
+                GyMMM{
+                    G{"MMM y G – MMM y G"}
+                    M{"MMM – MMM y G"}
+                    y{"MMM y – MMM y G"}
+                }
+                GyMMMEd{
+                    G{"E, d MMM y G – E, d MMM y G"}
+                    M{"E, d MMM – E, d MMM y G"}
+                    d{"E, d MMM – E, d MMM y G"}
+                    y{"E, d MMM y – E, d MMM y G"}
+                }
+                GyMMMd{
+                    G{"d MMM y G – d MMM y G"}
+                    M{"d MMM – d MMM y G"}
+                    d{"d – d MMM y G"}
+                    y{"d MMM y – d MMM y G"}
+                }
+                GyMd{
+                    G{"dd.MM.y GGGGG – dd.MM.y GGGGG"}
+                    M{"dd.MM.y – dd.MM.y GGGGG"}
+                    d{"dd.MM.y – dd.MM.y GGGGG"}
+                    y{"dd.MM.y – dd.MM.y GGGGG"}
+                }
                 H{
                     H{"H – H 'ч'."}
                 }
@@ -700,7 +791,7 @@ bg{
                 fallback{"{0} – {1}"}
                 h{
                     a{"h 'ч'. a – h 'ч'. a"}
-                    h{"h – h 'ч'. a"}
+                    h{"h 'ч'. – h 'ч'. a"}
                 }
                 hm{
                     a{"h:mm 'ч'. a – h:mm 'ч'. a"}
@@ -714,7 +805,7 @@ bg{
                 }
                 hv{
                     a{"h 'ч'. a – h 'ч'. a v"}
-                    h{"h – h 'ч'. a v"}
+                    h{"h 'ч'. – h 'ч'. a v"}
                 }
                 y{
                     y{"y – y 'г'."}
@@ -1654,12 +1745,12 @@ bg{
             }
             relativeTime{
                 future{
-                    one{"сл. {0} вт."}
-                    other{"сл. {0} вт."}
+                    one{"сл. {0} вт"}
+                    other{"сл. {0} вт"}
                 }
                 past{
-                    one{"пр. {0} вт."}
-                    other{"пр. {0} вт."}
+                    one{"пр. {0} вт"}
+                    other{"пр. {0} вт"}
                 }
             }
         }
@@ -1772,7 +1863,7 @@ bg{
         week-short{
             dn{"седм."}
             relative{
-                "-1"{"миналата седмица"}
+                "-1"{"мин. седм."}
                 "0"{"тази седм."}
                 "1"{"следв. седм."}
             }
@@ -1892,8 +1983,10 @@ bg{
             middle{"{0}, {1}"}
             start{"{0}, {1}"}
         }
+        standard-narrow{
+            2{"{0}, {1}"}
+        }
         standard-short{
-            2{"{0} и{1}"}
             end{"{0} и {1}"}
             middle{"{0}, {1}"}
             start{"{0}, {1}"}

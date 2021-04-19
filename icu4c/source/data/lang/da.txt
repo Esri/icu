@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 da{
     Keys{
         calendar{"kalender"}
@@ -92,6 +93,7 @@ da{
         car{"caribisk"}
         cay{"cayuga"}
         cch{"atsam"}
+        ccp{"chakma"}
         ce{"tjetjensk"}
         ceb{"cebuano"}
         cgg{"chiga"}
@@ -159,6 +161,7 @@ da{
         eu{"baskisk"}
         ewo{"ewondo"}
         fa{"persisk"}
+        fa_AF{"dari"}
         fan{"fang"}
         fat{"fanti"}
         ff{"fulah"}
@@ -175,7 +178,7 @@ da{
         fro{"oldfransk"}
         frr{"nordfrisisk"}
         frs{"østfrisisk"}
-        fur{"friulian"}
+        fur{"friulisk"}
         fy{"vestfrisisk"}
         ga{"irsk"}
         gaa{"ga"}
@@ -353,7 +356,7 @@ da{
         nan{"min-kinesisk"}
         nap{"napolitansk"}
         naq{"nama"}
-        nb{"norsk bokmål"}
+        nb{"bokmål"}
         nd{"nordndebele"}
         nds{"nedertysk"}
         ne{"nepalesisk"}
@@ -423,7 +426,7 @@ da{
         rwk{"rwa"}
         sa{"sanskrit"}
         sad{"sandawe"}
-        sah{"yakut"}
+        sah{"jakutisk"}
         sam{"samaritansk aramæisk"}
         saq{"samburu"}
         sas{"sasak"}
@@ -532,7 +535,7 @@ da{
         wo{"wolof"}
         wuu{"wu-kinesisk"}
         xal{"kalmyk"}
-        xh{"isiXhosa"}
+        xh{"xhosa"}
         xog{"soga"}
         yao{"yao"}
         yap{"yapese"}
@@ -554,17 +557,26 @@ da{
         zxx{"intet sprogligt indhold"}
         zza{"zaza"}
     }
+    Languages%menu{
+        ars{"arabisk, najdi"}
+        ckb{"kurdisk, sorani"}
+        yue{"kantonesisk (Kina)"}
+        zh{"mandarin (Kina)"}
+    }
     Languages%short{
         az{"azeri"}
-        en_GB{"engelsk (UK)"}
+        en_GB{"britisk engelsk"}
+        en_US{"amerikansk engelsk"}
     }
     Languages%variant{
+        ckb{"centralkurdisk"}
         ps{"pushto"}
         ug{"uighurisk"}
     }
     Scripts{
         Afak{"afaka"}
         Arab{"arabisk"}
+        Aran{"nastaliq"}
         Armi{"armi"}
         Armn{"armensk"}
         Avst{"avestansk"}
@@ -675,6 +687,7 @@ da{
         Phnx{"fønikisk"}
         Plrd{"pollardtegn"}
         Prti{"prti"}
+        Qaag{"zawgyi"}
         Rjng{"rejang"}
         Roro{"rongo-rongo"}
         Runr{"runer"}
@@ -928,7 +941,6 @@ da{
         KSCOR{"standardortografi"}
         LAUKIKA{"laukika"}
         LIPAW{"lipovaz"}
-        LUNA1918{"LUNA1918"}
         METELKO{"Metelko-alfabet"}
         MONOTON{"monotonisk"}
         NDYUKA{"Ndyuka-dialekt"}
@@ -937,19 +949,15 @@ da{
         NULIK{"moderne volapük"}
         OSOJS{"Oseacco-/Osojane-dialekt"}
         PAMAKA{"Pamaka-dialekt"}
-        PETR1708{"PETR1708"}
         PINYIN{"pinyin"}
         POLYTON{"polytonisk"}
         POSIX{"computer"}
-        PUTER{"PUTER"}
         REVISED{"revideret retskrivning"}
         RIGIK{"klassisk volapük"}
         ROZAJ{"Resi"}
-        RUMGR{"RUMGR"}
         SAAHO{"saho"}
         SCOTLAND{"skotsk standardengelsk"}
         SCOUSE{"scouse"}
-        SOLBA{"SOLBA"}
         SURMIRAN{"surmiran"}
         SURSILV{"sursilv"}
         SUTSILV{"sutsilv"}
@@ -962,7 +970,6 @@ da{
         VALLADER{"vallader"}
         WADEGILE{"Wade-Giles"}
     }
-    Version{"2.1.43.65"}
     characterLabelPattern{
         all{"{0} – alle"}
         category-list{"{0}: {1}"}
@@ -977,6 +984,8 @@ da{
             one{"{0} streg"}
             other{"{0} streger"}
         }
+        subscript{"sænket skrift {0}"}
+        superscript{"hævet skrift {0}"}
     }
     codePatterns{
         language{"Sprog: {0}"}

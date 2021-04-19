@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 ka{
     Keys{
         calendar{"კალენდარი"}
@@ -48,7 +49,7 @@ ka{
         ban{"ბალინური"}
         bas{"ბასა"}
         bax{"ბამუნი"}
-        be{"ბელორუსული"}
+        be{"ბელარუსული"}
         bej{"ბეჯა"}
         bem{"ბემბა"}
         bez{"ბენა"}
@@ -70,6 +71,7 @@ ka{
         byn{"ბილინი"}
         ca{"კატალანური"}
         cay{"კაიუგა"}
+        ccp{"ჩაკმა"}
         ce{"ჩეჩნური"}
         ceb{"სებუანო"}
         cgg{"ჩიგა"}
@@ -135,6 +137,7 @@ ka{
         eu{"ბასკური"}
         ewo{"ევონდო"}
         fa{"სპარსული"}
+        fa_AF{"დარი"}
         ff{"ფულა"}
         fi{"ფინური"}
         fil{"ფილიპინური"}
@@ -490,9 +493,16 @@ ka{
         zxx{"ლინგვისტური შიგთავსი არ არის"}
         zza{"ზაზაკი"}
     }
+    Languages%long{
+        zh_Hans{"გამარტივებული ჩინური მანდარინი"}
+        zh_Hant{"ტრადიციული ჩინური მანდარინი"}
+    }
+    Languages%menu{
+        yue{"ჩინური, კანტონური"}
+        zh{"ჩინური, მანდარინი"}
+    }
     Languages%short{
-        az{"აზერბაიჯანული"}
-        en_GB{"გართ. სამ. ინგლისური"}
+        en_GB{"ინგლისური (გაერთ. სამეფო)"}
         en_US{"აშშ ინგლისური"}
     }
     Scripts{
@@ -734,7 +744,6 @@ ka{
             tibt{"ტიბეტური ციფრები"}
         }
     }
-    Version{"2.1.43.50"}
     characterLabelPattern{
         all{"{0} — ყველა"}
         category-list{"{0}: {1}"}
@@ -749,6 +758,8 @@ ka{
             one{"{0} შტრიხი"}
             other{"{0} შტრიხი"}
         }
+        subscript{"ქვედა ინდექსი {0}"}
+        superscript{"ზედა ინდექსი {0}"}
     }
     codePatterns{
         language{"ენა: {0}"}

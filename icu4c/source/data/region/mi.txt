@@ -1,5 +1,6 @@
 ﻿// © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
+// Generated using tools/cldr/cldr-to-icu/build-icu-data.xml
 mi{
     Countries{
         BR{"Parahi"}
@@ -10,10 +11,10 @@ mi{
         IN{"Inia"}
         IT{"Itāria"}
         JP{"Hapani"}
+        MK{"Makerōnia ki te Raki"}
         NZ{"Aotearoa"}
         RU{"Rūhia"}
         US{"Hononga o Amerika"}
         ZZ{"Rohe Tē Mōhiotia"}
     }
-    Version{"2.1.44.15"}
 }

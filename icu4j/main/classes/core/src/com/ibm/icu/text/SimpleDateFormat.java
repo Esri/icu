@@ -1,5 +1,5 @@
 // © 2016 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 /*
  *******************************************************************************
  * Copyright (C) 1996-2016, International Business Machines Corporation and
@@ -925,7 +925,7 @@ public class SimpleDateFormat extends DateFormat {
     private volatile TimeZoneFormat tzFormat;
 
     /**
-     * BreakIterator to use for capitalization
+     * BreakIterator to use for capitalization (will be cloned for actual use)
      */
     private transient BreakIterator capitalizationBrkIter = null;
 
@@ -938,6 +938,11 @@ public class SimpleDateFormat extends DateFormat {
      * DateFormat pattern contains the second field.
      */
     private transient boolean hasSecond;
+
+    /**
+     * DateFormat pattern contains the Han year character \u5E74=年, => non-numeric E Asian format.
+     */
+    private transient boolean hasHanYearChar;
 
     /*
      *  Capitalization setting, introduced in ICU 50
@@ -1136,11 +1141,20 @@ public class SimpleDateFormat extends DateFormat {
         setLocale(calendar.getLocale(ULocale.VALID_LOCALE ), calendar.getLocale(ULocale.ACTUAL_LOCALE));
         initLocalZeroPaddingNumberFormat();
 
+        parsePattern(); // Need this before initNumberFormatters(), to set hasHanYearChar
+
+        // Simple-minded hack to force Gannen year numbering for ja@calendar=japanese
+        // if format is non-numeric (includes 年) and overrides are not already specified.
+        // Now this does get updated if applyPattern subsequently changes the pattern type.
+        if (override == null && hasHanYearChar &&
+                calendar != null && calendar.getType().equals("japanese") &&
+                locale != null && locale.getLanguage().equals("ja")) {
+            override = "y=jpanyear";
+        }
+
         if (override != null) {
            initNumberFormatters(locale);
         }
-
-        parsePattern();
     }
 
     /**
@@ -1333,6 +1347,11 @@ public class SimpleDateFormat extends DateFormat {
     @Override
     public StringBuffer format(Calendar cal, StringBuffer toAppendTo,
                                FieldPosition pos) {
+        return format(cal, toAppendTo, pos, null);
+    }
+
+    /** Internal formatting method that accepts an attributes list. */
+    StringBuffer format(Calendar cal, StringBuffer toAppendTo, FieldPosition pos, List<FieldPosition> attributes) {
         TimeZone backupTZ = null;
         if (cal != calendar && !cal.getType().equals(calendar.getType())) {
             // Different calendar type
@@ -1343,7 +1362,7 @@ public class SimpleDateFormat extends DateFormat {
             calendar.setTimeZone(cal.getTimeZone());
             cal = calendar;
         }
-        StringBuffer result = format(cal, getContext(DisplayContext.Type.CAPITALIZATION), toAppendTo, pos, null);
+        StringBuffer result = format(cal, getContext(DisplayContext.Type.CAPITALIZATION), toAppendTo, pos, attributes);
         if (backupTZ != null) {
             // Restore the original time zone
             calendar.setTimeZone(backupTZ);
@@ -1376,10 +1395,10 @@ public class SimpleDateFormat extends DateFormat {
                 }
                 if (useFastFormat) {
                     subFormat(toAppendTo, item.type, item.length, toAppendTo.length(),
-                              i, capitalizationContext, pos, cal);
+                              i, capitalizationContext, pos, item.type, cal);
                 } else {
                     toAppendTo.append(subFormat(item.type, item.length, toAppendTo.length(),
-                                                i, capitalizationContext, pos, cal));
+                                                i, capitalizationContext, pos, item.type, cal));
                 }
                 if (attributes != null) {
                     // Check the sub format length
@@ -1528,7 +1547,7 @@ public class SimpleDateFormat extends DateFormat {
         throws IllegalArgumentException
     {
         // Note: formatData is ignored
-        return subFormat(ch, count, beginOffset, 0, DisplayContext.CAPITALIZATION_NONE, pos, cal);
+        return subFormat(ch, count, beginOffset, 0, DisplayContext.CAPITALIZATION_NONE, pos, ch, cal);
     }
 
      /**
@@ -1542,10 +1561,11 @@ public class SimpleDateFormat extends DateFormat {
     protected String subFormat(char ch, int count, int beginOffset,
                                int fieldNum, DisplayContext capitalizationContext,
                                FieldPosition pos,
+                               char patternCharToOutput,
                                Calendar cal)
     {
         StringBuffer buf = new StringBuffer();
-        subFormat(buf, ch, count, beginOffset, fieldNum, capitalizationContext, pos, cal);
+        subFormat(buf, ch, count, beginOffset, fieldNum, capitalizationContext, pos, patternCharToOutput, cal);
         return buf.toString();
     }
 
@@ -1567,6 +1587,7 @@ public class SimpleDateFormat extends DateFormat {
                              char ch, int count, int beginOffset,
                              int fieldNum, DisplayContext capitalizationContext,
                              FieldPosition pos,
+                             char patternCharToOutput,
                              Calendar cal) {
 
         final int maxIntCount = Integer.MAX_VALUE;
@@ -1925,7 +1946,10 @@ public class SimpleDateFormat extends DateFormat {
             if (toAppend == null) {
                 // Time isn't exactly midnight or noon (as displayed) or localized string doesn't
                 // exist for requested period. Fall back to am/pm instead.
-                subFormat(buf, 'a', count, beginOffset, fieldNum, capitalizationContext, pos, cal);
+                // We are passing a different patternCharToOutput because we want to add
+                // 'b' to field position. This makes this fallback stable when
+                // there is a data change on locales.
+                subFormat(buf, 'a', count, beginOffset, fieldNum, capitalizationContext, pos, 'b', cal);
             } else {
                 buf.append(toAppend);
             }
@@ -1940,8 +1964,11 @@ public class SimpleDateFormat extends DateFormat {
             if (ruleSet == null) {
                 // Data doesn't exist for the locale we're looking for.
                 // Fall back to am/pm.
-                subFormat(buf, 'a', count, beginOffset, fieldNum, capitalizationContext, pos, cal);
-                break;
+                // We are passing a different patternCharToOutput because we want to add
+                // 'B' to field position. This makes this fallback stable when
+                // there is a data change on locales.
+                subFormat(buf, 'a', count, beginOffset, fieldNum, capitalizationContext, pos, 'B', cal);
+                return;
             }
 
             // Get current display time.
@@ -2006,7 +2033,11 @@ public class SimpleDateFormat extends DateFormat {
             if (periodType == DayPeriodRules.DayPeriod.AM ||
                     periodType == DayPeriodRules.DayPeriod.PM ||
                     toAppend == null) {
-                subFormat(buf, 'a', count, beginOffset, fieldNum, capitalizationContext, pos, cal);
+                // We are passing a different patternCharToOutput because we want to add
+                // 'B' to field position. This makes this fallback stable when
+                // there is a data change on locales.
+                subFormat(buf, 'a', count, beginOffset, fieldNum, capitalizationContext, pos, 'B', cal);
+                return;
             }
             else {
                 buf.append(toAppend);
@@ -2036,7 +2067,8 @@ public class SimpleDateFormat extends DateFormat {
             break;
         } // switch (patternCharIndex)
 
-        if (fieldNum == 0 && capitalizationContext != null && UCharacter.isLowerCase(buf.codePointAt(bufstart))) {
+        if (fieldNum == 0 && capitalizationContext != null && buf.length() > bufstart &&
+                UCharacter.isLowerCase(buf.codePointAt(bufstart))) {
             boolean titlecase = false;
             switch (capitalizationContext) {
                 case CAPITALIZATION_FOR_BEGINNING_OF_SENTENCE:
@@ -2058,20 +2090,24 @@ public class SimpleDateFormat extends DateFormat {
                     // should only happen when deserializing, etc.
                     capitalizationBrkIter = BreakIterator.getSentenceInstance(locale);
                 }
+                // Note, the call to UCharacter.toTitleCase below is the only place that
+                // (the clone of) capitalizationBrkIter is actually used.
+                BreakIterator mutableCapitalizationBrkIter = (BreakIterator)capitalizationBrkIter.clone();
                 String firstField = buf.substring(bufstart); // bufstart or beginOffset, should be the same
-                String firstFieldTitleCase = UCharacter.toTitleCase(locale, firstField, capitalizationBrkIter,
+                String firstFieldTitleCase = UCharacter.toTitleCase(locale, firstField, mutableCapitalizationBrkIter,
                                                      UCharacter.TITLECASE_NO_LOWERCASE | UCharacter.TITLECASE_NO_BREAK_ADJUSTMENT);
                 buf.replace(bufstart, buf.length(), firstFieldTitleCase);
             }
         }
 
         // Set the FieldPosition (for the first occurrence only)
+        int outputCharIndex = getIndexFromChar(patternCharToOutput);
         if (pos.getBeginIndex() == pos.getEndIndex()) {
-            if (pos.getField() == PATTERN_INDEX_TO_DATE_FORMAT_FIELD[patternCharIndex]) {
+            if (pos.getField() == PATTERN_INDEX_TO_DATE_FORMAT_FIELD[outputCharIndex]) {
                 pos.setBeginIndex(beginOffset);
                 pos.setEndIndex(beginOffset + buf.length() - bufstart);
             } else if (pos.getFieldAttribute() ==
-                       PATTERN_INDEX_TO_DATE_FORMAT_ATTRIBUTE[patternCharIndex]) {
+                       PATTERN_INDEX_TO_DATE_FORMAT_ATTRIBUTE[outputCharIndex]) {
                 pos.setBeginIndex(beginOffset);
                 pos.setEndIndex(beginOffset + buf.length() - bufstart);
             }
@@ -2111,7 +2147,7 @@ public class SimpleDateFormat extends DateFormat {
     }
 
     private static ICUCache<String, Object[]> PARSED_PATTERN_CACHE =
-        new SimpleCache<String, Object[]>();
+        new SimpleCache<>();
     private transient Object[] patternItems;
 
     /*
@@ -2134,7 +2170,7 @@ public class SimpleDateFormat extends DateFormat {
         char itemType = 0;  // 0 for string literal, otherwise date/time pattern character
         int itemLength = 1;
 
-        List<Object> items = new ArrayList<Object>();
+        List<Object> items = new ArrayList<>();
 
         for (int i = 0; i < pattern.length(); i++) {
             char ch = pattern.charAt(i);
@@ -2375,9 +2411,9 @@ public class SimpleDateFormat extends DateFormat {
         // Hold the day period until everything else is parsed, because we need
         // the hour to interpret time correctly.
         // Using an one-element array for output parameter.
-        Output<DayPeriodRules.DayPeriod> dayPeriod = new Output<DayPeriodRules.DayPeriod>(null);
+        Output<DayPeriodRules.DayPeriod> dayPeriod = new Output<>(null);
 
-        Output<TimeType> tzTimeType = new Output<TimeType>(TimeType.UNKNOWN);
+        Output<TimeType> tzTimeType = new Output<>(TimeType.UNKNOWN);
         boolean[] ambiguousYear = { false };
 
         // item index for the first numeric field within a contiguous numeric run
@@ -3620,7 +3656,7 @@ public class SimpleDateFormat extends DateFormat {
                      // not get here but leave support in for future definition.
             {
                 // Try matching a time separator.
-                ArrayList<String> data = new ArrayList<String>(3);
+                ArrayList<String> data = new ArrayList<>(3);
                 data.add(formatData.getTimeSeparatorString());
 
                 // Add the default, if different from the locale.
@@ -3896,6 +3932,31 @@ public class SimpleDateFormat extends DateFormat {
         setLocale(null, null);
         // reset parsed pattern items
         patternItems = null;
+
+        // Hack to update use of Gannen year numbering for ja@calendar=japanese -
+        // use only if format is non-numeric (includes 年) and no other fDateOverride.
+        if (calendar != null && calendar.getType().equals("japanese") &&
+                locale != null && locale.getLanguage().equals("ja")) {
+            if (override != null && override.equals("y=jpanyear") && !hasHanYearChar) {
+                // Gannen numbering is set but new pattern should not use it, unset;
+                // use procedure from setNumberFormat(NUmberFormat) to clear overrides
+                numberFormatters = null;
+                overrideMap = null;
+                override = null; // record status
+            } else if (override == null && hasHanYearChar) {
+                // No current override (=> no Gannen numbering) but new pattern needs it;
+                // use procedures from initNumberFormatters / setNumberFormat(String,NumberFormat)
+                numberFormatters = new HashMap<>();
+                overrideMap = new HashMap<>();
+                overrideMap.put('y',"jpanyear");
+                ULocale ovrLoc = new ULocale(locale.getBaseName()+"@numbers=jpanyear");
+                NumberFormat nf = NumberFormat.createInstance(ovrLoc,NumberFormat.NUMBERSTYLE);
+                nf.setGroupingUsed(false);
+                useLocalZeroPaddingNumberFormat = false;
+                numberFormatters.put("jpanyear",nf);
+                override = "y=jpanyear"; // record status
+            }
+        }
     }
 
     /**
@@ -4093,7 +4154,7 @@ public class SimpleDateFormat extends DateFormat {
         }
         StringBuffer toAppendTo = new StringBuffer();
         FieldPosition pos = new FieldPosition(0);
-        List<FieldPosition> attributes = new ArrayList<FieldPosition>();
+        List<FieldPosition> attributes = new ArrayList<>();
         format(cal, getContext(DisplayContext.Type.CAPITALIZATION), toAppendTo, pos, attributes);
 
         AttributedString as = new AttributedString(toAppendTo.toString());
@@ -4320,10 +4381,10 @@ public class SimpleDateFormat extends DateFormat {
                 PatternItem item = (PatternItem)items[i];
                 if (useFastFormat) {
                     subFormat(appendTo, item.type, item.length, appendTo.length(),
-                              i, capSetting, pos, fromCalendar);
+                              i, capSetting, pos, item.type, fromCalendar);
                 } else {
                     appendTo.append(subFormat(item.type, item.length, appendTo.length(),
-                                              i, capSetting, pos, fromCalendar));
+                                              i, capSetting, pos, item.type, fromCalendar));
                 }
             }
         }
@@ -4338,10 +4399,10 @@ public class SimpleDateFormat extends DateFormat {
                 PatternItem item = (PatternItem)items[i];
                 if (useFastFormat) {
                     subFormat(appendTo, item.type, item.length, appendTo.length(),
-                              i, capSetting, pos, toCalendar);
+                              i, capSetting, pos, item.type, toCalendar);
                 } else {
                     appendTo.append(subFormat(item.type, item.length, appendTo.length(),
-                                              i, capSetting, pos, toCalendar));
+                                              i, capSetting, pos, item.type, toCalendar));
                 }
             }
         }
@@ -4445,10 +4506,10 @@ public class SimpleDateFormat extends DateFormat {
 
         // initialize mapping if not there
         if (numberFormatters == null) {
-            numberFormatters = new HashMap<String, NumberFormat>();
+            numberFormatters = new HashMap<>();
         }
         if (overrideMap == null) {
-            overrideMap = new HashMap<Character, String>();
+            overrideMap = new HashMap<>();
         }
 
         // separate string into char and add to maps
@@ -4487,8 +4548,8 @@ public class SimpleDateFormat extends DateFormat {
 
     private void initNumberFormatters(ULocale loc) {
 
-       numberFormatters = new HashMap<String, NumberFormat>();
-       overrideMap = new HashMap<Character, String>();
+       numberFormatters = new HashMap<>();
+       overrideMap = new HashMap<>();
        processOverrideString(loc,override);
 
     }
@@ -4549,12 +4610,16 @@ public class SimpleDateFormat extends DateFormat {
     private void parsePattern() {
         hasMinute = false;
         hasSecond = false;
+        hasHanYearChar = false;
 
         boolean inQuote = false;
         for (int i = 0; i < pattern.length(); ++i) {
             char ch = pattern.charAt(i);
             if (ch == '\'') {
                 inQuote = !inQuote;
+            }
+            if (ch == '\u5E74') { // don't care whether this is inside quotes
+                hasHanYearChar = true;
             }
             if (!inQuote) {
                 if (ch == 'm') {

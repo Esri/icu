@@ -45,10 +45,32 @@
  * @stable ICU 2.4
  */
 
-// RTC defines
-#define U_COMMON_IMPLEMENTATION // build the icu common library
-#define U_STATIC_IMPLEMENTATION // build icu as a static library
-// end RTC defines
+ //RTC defines
+#ifndef U_COMMON_IMPLEMENTATION
+#define U_COMMON_IMPLEMENTATION 1// build the icu common library
+#endif
+#ifndef U_STATIC_IMPLEMENTATION
+#define U_STATIC_IMPLEMENTATION 1// build icu as a static library
+#endif 
+#ifndef UCONFIG_NO_LEGACY_CONVERSION
+#define UCONFIG_NO_LEGACY_CONVERSION 1
+#endif
+#ifndef UCONFIG_ONLY_HTML_CONVERSION
+#define UCONFIG_ONLY_HTML_CONVERSION 1
+#endif
+#ifndef UCONFIG_NO_SERVICE
+#define UCONFIG_NO_SERVICE 1
+#endif
+#ifndef U_I18N_IMPLEMENTATION
+#define U_I18N_IMPLEMENTATION 1// build the icu i18n library
+#endif
+#ifndef U_SHOW_CPLUSPLUS_API
+#define U_SHOW_CPLUSPLUS_API 1
+#endif
+#ifndef UCONFIG_NO_COLLATION
+#define UCONFIG_NO_COLLATION 1// remove collation as we dont require it.
+#endif
+ //end RTC defines
 
 /**
  * If this switch is defined, ICU will attempt to load a header file named "uconfig_local.h"
@@ -374,6 +396,18 @@
 #   define UCONFIG_MSGPAT_DEFAULT_APOSTROPHE_MODE UMSGPAT_APOS_DOUBLE_OPTIONAL
 #endif
 
+/**
+ * \def UCONFIG_USE_WINDOWS_LCID_MAPPING_API
+ * On platforms where U_PLATFORM_HAS_WIN32_API is true, this switch determines
+ * if the Windows platform APIs are used for LCID<->Locale Name conversions.
+ * Otherwise, only the built-in ICU tables are used.
+ * 
+ * @internal ICU 64
+ */
+#ifndef UCONFIG_USE_WINDOWS_LCID_MAPPING_API
+#   define UCONFIG_USE_WINDOWS_LCID_MAPPING_API 1
+#endif
+
 /* i18n library switches ---------------------------------------------------- */
 
 /**
@@ -446,4 +480,4 @@
 #   define UCONFIG_NO_FILTERED_BREAK_ITERATION 0
 #endif
 
-#endif
+#endif  // __UCONFIG_H__

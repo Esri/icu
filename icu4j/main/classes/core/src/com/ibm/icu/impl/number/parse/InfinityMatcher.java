@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.impl.number.parse;
 
 import static com.ibm.icu.impl.number.parse.ParsingUtils.safeContains;
@@ -30,7 +30,7 @@ public class InfinityMatcher extends SymbolMatcher {
     }
 
     private InfinityMatcher() {
-        super(StaticUnicodeSets.Key.INFINITY);
+        super(StaticUnicodeSets.Key.INFINITY_SIGN);
     }
 
     @Override

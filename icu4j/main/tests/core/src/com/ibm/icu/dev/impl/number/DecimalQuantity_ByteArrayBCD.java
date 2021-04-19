@@ -1,5 +1,5 @@
 // © 2017 and later: Unicode, Inc. and others.
-// License & terms of use: http://www.unicode.org/copyright.html#License
+// License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.dev.impl.number;
 
 import java.math.BigDecimal;
@@ -94,6 +94,15 @@ public final class DecimalQuantity_ByteArrayBCD extends DecimalQuantity_Abstract
   }
 
   @Override
+  protected void popFromLeft(int numDigits) {
+    int i = precision - 1;
+    for (; i >= precision - numDigits; i--) {
+      bcd[i] = 0;
+    }
+    precision -= numDigits;
+  }
+
+  @Override
   protected void setBcdToZero() {
     for (int i = 0; i < precision; i++) {
       bcd[i] = (byte) 0;
@@ -103,6 +112,7 @@ public final class DecimalQuantity_ByteArrayBCD extends DecimalQuantity_Abstract
     isApproximate = false;
     origDouble = 0;
     origDelta = 0;
+    exponent = 0;
   }
 
   @Override
@@ -221,11 +231,9 @@ public final class DecimalQuantity_ByteArrayBCD extends DecimalQuantity_Abstract
       sb.append(bcd[i]);
     }
     return String.format(
-        "<DecimalQuantity3 %s:%d:%d:%s %s%s%d>",
-        (lOptPos > 1000 ? "max" : String.valueOf(lOptPos)),
+        "<DecimalQuantity3 %d:%d %s%s%d>",
         lReqPos,
         rReqPos,
-        (rOptPos < -1000 ? "min" : String.valueOf(rOptPos)),
         sb,
         "E",
         scale);
