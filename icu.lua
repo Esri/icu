@@ -6,21 +6,21 @@ configuration { "*" }
 
 uuid "6AD43549-999F-4CC9-9B46-072DA27244AC"
 defines {
-    -- Limit the number of conversions supported to only those necessary: ASCII, Latin-1, and
-    -- UTF-8/UTF-16.  See ucnv_bld.cpp for a list of encodings available with each #define
-    "UCONFIG_NO_LEGACY_CONVERSION",
-    "UCONFIG_ONLY_HTML_CONVERSION",
-	"UCONFIG_NO_SERVICE",
-	"U_I18N_IMPLEMENTATION",
-	"U_SHOW_CPLUSPLUS_API",
-	"UCONFIG_NO_COLLATION",
+  -- Limit the number of conversions supported to only those necessary: ASCII, Latin-1, and
+  -- UTF-8/UTF-16.  See ucnv_bld.cpp for a list of encodings available with each #define
+  "UCONFIG_NO_LEGACY_CONVERSION",
+  "UCONFIG_ONLY_HTML_CONVERSION",
+  "UCONFIG_NO_SERVICE",
+  "U_I18N_IMPLEMENTATION",
+  "U_SHOW_CPLUSPLUS_API",
+  "UCONFIG_NO_COLLATION",
 }
 includedirs {
-    "icu4c/source/common",
-    "icu4c/source/i18n",
+  "icu4c/source/common",
+  "icu4c/source/i18n",
 }
 files {
-     "icu4c/source/common/**.h",
+  "icu4c/source/common/**.h",
   "icu4c/source/extra/scrptrun/scrptrun.h",
 
   "icu4c/source/common/appendable.cpp",
@@ -125,7 +125,7 @@ end
 
 if (_PLATFORM_WINDOWS) then
   buildoptions {
-  "/utf-8",
+    "/utf-8",
   }
 end
 
@@ -135,6 +135,6 @@ if (_PLATFORM_WINUWP) then
     "_CRT_SECURE_NO_WARNINGS",
   }
   buildoptions {
-  "/utf-8",
+    "/utf-8",
   }
 end
