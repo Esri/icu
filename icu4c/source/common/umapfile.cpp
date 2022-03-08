@@ -158,13 +158,7 @@ typedef HANDLE MemoryMap;
             return FALSE;
         }
 
-        CREATEFILE2_EXTENDED_PARAMETERS extParams = { 0 };
-        extParams.dwSize = sizeof(CREATEFILE2_EXTENDED_PARAMETERS);
-        extParams.lpSecurityAttributes = nullptr;
-        extParams.dwFileAttributes = dwFlagsAndAttributes & 0x0003FFFF;
-        extParams.dwFileFlags = dwFlagsAndAttributes & 0xFFFC0000;
-
-        file = CreateFile2(utf16Path, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, &extParams);
+        file = CreateFile2(utf16Path, GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr);
 #endif
         if (file == INVALID_HANDLE_VALUE) {
             // If we failed to open the file due to an out-of-memory error, then we want
@@ -181,7 +175,7 @@ typedef HANDLE MemoryMap;
         /* create an unnamed Windows file-mapping object for the specified file */
         map = CreateFileMappingW(file, nullptr, PAGE_READONLY, 0, 0, nullptr);
 #else
-        map = CreateFileMapping2(file, nullptr, FILE_MAP_READ, PAGE_READONLY, 0, 0, nullptr, 0);
+        map = CreateFileMapping2(file, nullptr, FILE_MAP_READ, PAGE_READONLY, 0, 0, nullptr, nullptr, 0);
 #endif
         CloseHandle(file);
         if (map == nullptr) {
