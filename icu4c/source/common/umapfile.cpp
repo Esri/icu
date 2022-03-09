@@ -186,9 +186,12 @@ typedef HANDLE MemoryMap;
             }
             return FALSE;
         }
-
+#if U_PLATFORM_HAS_WINUWP_API == 0
         /* map a view of the file into our address space */
         pData->pHeader = reinterpret_cast<const DataHeader *>(MapViewOfFile(map, FILE_MAP_READ, 0, 0, 0));
+#else
+        pData->pHeader = reinterpret_cast<const DataHeader *>(MapViewOfFile2(map, GetCurrentProcess(), 0, nullptr, 0, 0, PAGE_READONLY));
+#endif
         if (pData->pHeader == nullptr) {
             CloseHandle(map);
             return FALSE;
