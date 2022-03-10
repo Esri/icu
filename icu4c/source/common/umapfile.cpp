@@ -38,24 +38,24 @@
 #   define NOIME
 #   define NOMCX
 
-#   if U_PLATFORM_HAS_WINUWP_API == 1
-        // Some previous versions of the Windows 10 SDK don't expose various APIs for UWP applications
-        // to use, even though UWP apps are allowed to call and use them.  Temporarily change the
-        // WINAPI family partition below to Desktop, so that function declarations are visible for UWP.
-#       include <winapifamily.h>
-#       if !(WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP | WINAPI_PARTITION_SYSTEM))
-#           pragma push_macro("WINAPI_PARTITION_DESKTOP")
-#           undef WINAPI_PARTITION_DESKTOP
-#           define WINAPI_PARTITION_DESKTOP 1
-#           define CHANGED_WINAPI_PARTITION_DESKTOP_VALUE
-#       endif
-#   endif
+//#   if U_PLATFORM_HAS_WINUWP_API == 1
+//        // Some previous versions of the Windows 10 SDK don't expose various APIs for UWP applications
+//        // to use, even though UWP apps are allowed to call and use them.  Temporarily change the
+//        // WINAPI family partition below to Desktop, so that function declarations are visible for UWP.
+//#       include <winapifamily.h>
+//#       if !(WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP | WINAPI_PARTITION_SYSTEM))
+//#           pragma push_macro("WINAPI_PARTITION_DESKTOP")
+//#           undef WINAPI_PARTITION_DESKTOP
+//#           define WINAPI_PARTITION_DESKTOP 1
+//#           define CHANGED_WINAPI_PARTITION_DESKTOP_VALUE
+//#       endif
+//#   endif
 
 #   include <windows.h>
 
-#   if U_PLATFORM_HAS_WINUWP_API == 1 && defined(CHANGED_WINAPI_PARTITION_DESKTOP_VALUE)
-#       pragma pop_macro("WINAPI_PARTITION_DESKTOP")
-#   endif
+//#   if U_PLATFORM_HAS_WINUWP_API == 1 && defined(CHANGED_WINAPI_PARTITION_DESKTOP_VALUE)
+//#       pragma pop_macro("WINAPI_PARTITION_DESKTOP")
+//#   endif
 
 #   include "cmemory.h"
 
