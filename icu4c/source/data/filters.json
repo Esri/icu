@@ -7,7 +7,10 @@
     },
     "conversion_mappings": "exclude",
     "coll_tree": {
-      "filterType": "exclude"
+	   "filterType": "locale",
+		"includelist": [
+		"en_US_POSIX"
+		]
     },
     "coll_ucadata": "exclude",
     "confusables": "exclude",
