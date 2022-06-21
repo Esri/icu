@@ -68,7 +68,7 @@
 #define U_SHOW_CPLUSPLUS_API 1
 #endif
 #ifndef UCONFIG_NO_COLLATION
-#define UCONFIG_NO_COLLATION 0// remove collation as we dont require it.
+#define UCONFIG_NO_COLLATION 0// collation explicitly requested https://devtopia.esri.com/runtime/arcade/issues/940
 #endif
  //end RTC defines
 
