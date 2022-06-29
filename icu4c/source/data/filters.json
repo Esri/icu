@@ -1,5 +1,4 @@
 {
-  "collationUCAData": "implicithan",
   "featureFilters": {
     "brkitr_rules": "exclude",
     "brkitr_dictionaries": "exclude",
@@ -8,11 +7,9 @@
     },
     "conversion_mappings": "exclude",
     "coll_tree": {
-	   "filterType": "locale",
-		"includelist": [
-		"en_US_POSIX"
-		]
+      "filterType": "exclude"
     },
+    "coll_ucadata": "exclude",
     "confusables": "exclude",
     "curr_supplemental": "exclude",
     "curr_tree": {
