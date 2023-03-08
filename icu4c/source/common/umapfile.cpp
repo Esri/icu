@@ -295,7 +295,7 @@
         UDataMemory_init(pData); /* Clear the output struct.        */
         /* open the input file */
         file=fopen(path, "rb");
-        if(file==nullptr) {
+        if(file==NULL) {
             return false;
         }
 
