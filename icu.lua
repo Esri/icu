@@ -174,7 +174,7 @@ files {
   "icu4c/source/i18n/uitercollationiterator.cpp",
   "icu4c/source/i18n/utf16collationiterator.cpp",
   "icu4c/source/i18n/utf8collationiterator.cpp",
-  "icu4c/source/data/icudt70_dat.c",
+  "icu4c/source/data/icudt72_dat.c",
   "icu4c/source/extra/scrptrun/scrptrun.cpp",
 }
 
