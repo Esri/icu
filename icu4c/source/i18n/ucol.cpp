@@ -105,7 +105,7 @@ ucol_safeClone(const UCollator *coll, void * /*stackBuffer*/, int32_t * pBufferS
 U_CAPI UCollator* U_EXPORT2
 ucol_clone(const UCollator *coll, UErrorCode *status)
 {
-    return ucol_safeClone(coll, nullptr, nullptr, status);
+    return ucol_clone(coll, status);
 }
 
 U_CAPI void U_EXPORT2

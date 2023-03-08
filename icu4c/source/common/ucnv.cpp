@@ -323,7 +323,7 @@ ucnv_safeClone(const UConverter* cnv, void *stackBuffer, int32_t *pBufferSize, U
 U_CAPI UConverter* U_EXPORT2
 ucnv_clone(const UConverter* cnv, UErrorCode *status)
 {
-    return ucnv_safeClone(cnv, nullptr, nullptr, status);
+    return ucnv_clone(cnv, status);
 }
 
 /*Decreases the reference counter in the shared immutable section of the object
@@ -482,16 +482,15 @@ ucnv_setSubstString(UConverter *cnv,
                     const UChar *s,
                     int32_t length,
                     UErrorCode *err) {
-    alignas(UConverter) char cloneBuffer[U_CNV_SAFECLONE_BUFFERSIZE];
     char chars[UCNV_ERROR_BUFFER_LENGTH];
 
     UConverter *clone;
     uint8_t *subChars;
-    int32_t cloneSize, length8;
+    int32_t length8;
 
     /* Let the following functions check all arguments. */
-    cloneSize = sizeof(cloneBuffer);
-    clone = ucnv_safeClone(cnv, cloneBuffer, &cloneSize, err);
+    clone = ucnv_clone(cnv, err);
+
     ucnv_setFromUCallBack(clone, UCNV_FROM_U_CALLBACK_STOP, NULL, NULL, NULL, err);
     length8 = ucnv_fromUChars(clone, chars, (int32_t)sizeof(chars), s, length, err);
     ucnv_close(clone);
