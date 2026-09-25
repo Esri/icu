@@ -112,10 +112,7 @@ U_CFUNC UBool uprv_mapFile(UDataMemory *pData, /* Fill in with info on the resul
 
     HANDLE map = nullptr;
     HANDLE file = INVALID_HANDLE_VALUE;
-
-        HANDLE map = nullptr;
-        HANDLE file = INVALID_HANDLE_VALUE;
-        DWORD fileLength = 0;
+    DWORD fileLength = 0;
 
     /* open the input file */
 #if U_PLATFORM_HAS_WINUWP_API == 0
