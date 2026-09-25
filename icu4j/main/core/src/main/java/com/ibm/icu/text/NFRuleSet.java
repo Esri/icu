@@ -118,6 +118,9 @@ final class NFRuleSet {
             if (pos == -1) {
                 throw new IllegalArgumentException("Rule set name doesn't end in colon");
             }
+            if (pos < 2) {
+                throw new IllegalArgumentException("Rule set name is '%'");
+            }
             else {
                 String ruleName = description.substring(0, pos);
                 this.isParseable = !ruleName.endsWith("@noparse");
@@ -641,7 +644,7 @@ final class NFRuleSet {
         int winner = 0;
         for (int i = 0; i < rules.length; i++) {
             // "numerator" is the numerator of the fraction is the
-            // denominator is the LCD.  The numerator if the the rule's
+            // denominator is the LCD.  The numerator if the rule's
             // base value is the denominator is "numerator" times the
             // base value divided by the LCD.  Here we check to see if
             // that's an integer, and if not, how close it is to being

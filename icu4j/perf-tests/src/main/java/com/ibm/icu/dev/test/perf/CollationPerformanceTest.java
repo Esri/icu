@@ -13,6 +13,9 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -59,36 +62,36 @@ public class CollationPerformanceTest {
         + "-java                      Run test using java.text.Collator.\n";
     
     //enum {FLAG, NUM, STRING} type;
-    static StringBuffer temp_opt_fName      = new StringBuffer("");
-    static StringBuffer temp_opt_locale     = new StringBuffer("en_US");
-    //static StringBuffer temp_opt_langid     = new StringBuffer("0");         // Defaults to value corresponding to opt_locale.
-    static StringBuffer temp_opt_rules      = new StringBuffer("");
-    static StringBuffer temp_opt_help       = new StringBuffer("");
-    static StringBuffer temp_opt_loopCount  = new StringBuffer("1");
-    static StringBuffer temp_opt_iLoopCount = new StringBuffer("1");
-    static StringBuffer temp_opt_terse      = new StringBuffer("false");
-    static StringBuffer temp_opt_qsort      = new StringBuffer("");
-    static StringBuffer temp_opt_binsearch  = new StringBuffer("");
-    static StringBuffer temp_opt_icu        = new StringBuffer("true");
-    //static StringBuffer opt_win        = new StringBuffer("");      // Run with Windows native functions.
-    //static StringBuffer opt_unix       = new StringBuffer("");      // Run with UNIX strcoll, strxfrm functions.
-    //static StringBuffer opt_uselen     = new StringBuffer("");
-    static StringBuffer temp_opt_usekeys    = new StringBuffer("");
-    static StringBuffer temp_opt_strcmp     = new StringBuffer("");
-    static StringBuffer temp_opt_strcmpCPO  = new StringBuffer("");
-    static StringBuffer temp_opt_norm       = new StringBuffer("");
-    static StringBuffer temp_opt_keygen     = new StringBuffer("");
-    static StringBuffer temp_opt_french     = new StringBuffer("");
-    static StringBuffer temp_opt_frenchoff  = new StringBuffer("");
-    static StringBuffer temp_opt_shifted    = new StringBuffer("");
-    static StringBuffer temp_opt_lower      = new StringBuffer("");
-    static StringBuffer temp_opt_upper      = new StringBuffer("");
-    static StringBuffer temp_opt_case       = new StringBuffer("");
-    static StringBuffer temp_opt_level      = new StringBuffer("0");
-    static StringBuffer temp_opt_keyhist    = new StringBuffer("");
-    static StringBuffer temp_opt_itertest   = new StringBuffer("");
-    static StringBuffer temp_opt_dump       = new StringBuffer("");
-    static StringBuffer temp_opt_java       = new StringBuffer("");
+    static StringBuilder temp_opt_fName      = new StringBuilder("");
+    static StringBuilder temp_opt_locale     = new StringBuilder("en_US");
+    //static StringBuilder temp_opt_langid     = new StringBuilder("0");         // Defaults to value corresponding to opt_locale.
+    static StringBuilder temp_opt_rules      = new StringBuilder("");
+    static StringBuilder temp_opt_help       = new StringBuilder("");
+    static StringBuilder temp_opt_loopCount  = new StringBuilder("1");
+    static StringBuilder temp_opt_iLoopCount = new StringBuilder("1");
+    static StringBuilder temp_opt_terse      = new StringBuilder("false");
+    static StringBuilder temp_opt_qsort      = new StringBuilder("");
+    static StringBuilder temp_opt_binsearch  = new StringBuilder("");
+    static StringBuilder temp_opt_icu        = new StringBuilder("true");
+    //static StringBuilder opt_win        = new StringBuilder("");      // Run with Windows native functions.
+    //static StringBuilder opt_unix       = new StringBuilder("");      // Run with UNIX strcoll, strxfrm functions.
+    //static StringBuilder opt_uselen     = new StringBuilder("");
+    static StringBuilder temp_opt_usekeys    = new StringBuilder("");
+    static StringBuilder temp_opt_strcmp     = new StringBuilder("");
+    static StringBuilder temp_opt_strcmpCPO  = new StringBuilder("");
+    static StringBuilder temp_opt_norm       = new StringBuilder("");
+    static StringBuilder temp_opt_keygen     = new StringBuilder("");
+    static StringBuilder temp_opt_french     = new StringBuilder("");
+    static StringBuilder temp_opt_frenchoff  = new StringBuilder("");
+    static StringBuilder temp_opt_shifted    = new StringBuilder("");
+    static StringBuilder temp_opt_lower      = new StringBuilder("");
+    static StringBuilder temp_opt_upper      = new StringBuilder("");
+    static StringBuilder temp_opt_case       = new StringBuilder("");
+    static StringBuilder temp_opt_level      = new StringBuilder("0");
+    static StringBuilder temp_opt_keyhist    = new StringBuilder("");
+    static StringBuilder temp_opt_itertest   = new StringBuilder("");
+    static StringBuilder temp_opt_dump       = new StringBuilder("");
+    static StringBuilder temp_opt_java       = new StringBuilder("");
     
     
     static String   opt_fName      = "";
@@ -831,7 +834,7 @@ public class CollationPerformanceTest {
             opt_icu = false;
         }
         
-        if (opt_rules.length() != 0) {
+        if (!opt_rules.isEmpty()) {
             try {
                 icuCol = new com.ibm.icu.text.RuleBasedCollator(getCollationRules(opt_rules));
             } catch (Exception e) {
@@ -1119,37 +1122,20 @@ public class CollationPerformanceTest {
      * 3. File encoding is ISO-8859-1
      */
     String getCollationRules(String ruleFileName) {
-        FileInputStream fis = null;
-        InputStreamReader isr = null;
-        BufferedReader br = null;
-        try {
-            fis = new FileInputStream(opt_rules);
-            isr = new InputStreamReader(fis,"ISO-8859-1");
-            br= new BufferedReader(isr);
-        } catch (Exception e) {
+        StringBuilder rules = new StringBuilder();
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(ruleFileName), StandardCharsets.ISO_8859_1)) {
+            br.lines().forEach(line -> {
+                int commentPos = line.indexOf('#');
+                if (commentPos >= 0) line = line.substring(0, commentPos);
+                rules.append(line.trim());
+            });
+        } catch (IOException e) {
             System.err.println("Error: File access exception: " + e.getMessage() + "!");
             System.exit(2);
         }
-        String rules = "";
-        String line = "";
-        while (true) {
-            try {
-                line = br.readLine();
-            } catch (IOException e) {
-                System.err.println("Read File Error" + e.getMessage() + "!");
-                System.exit(1);
-            }
-            if (line == null) {
-                break;
-            }
-            int commentPos = line.indexOf('#');
-            if (commentPos >= 0) line = line.substring(0, commentPos);
-            line = line.trim();
-            rules = rules + line;
-        }
-        return rules;
+        return rules.toString();
     }
-    
+
     //Implementing qsort
     void qSortImpl_java_usekeys(String src[], int fromIndex, int toIndex, java.text.Collator c) {
         int low = fromIndex;
@@ -1263,8 +1249,8 @@ public class CollationPerformanceTest {
     static class OptionSpec {
         String name;
         int type;
-        StringBuffer value;
-        public OptionSpec(String name, int type, StringBuffer value) {
+        StringBuilder value;
+        public OptionSpec(String name, int type, StringBuilder value) {
             this.name = name;
             this.type = type;
             this.value = value;

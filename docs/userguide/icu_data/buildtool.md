@@ -55,7 +55,7 @@ The ICU Data Build Tool enables you to write a configuration file that
 specifies what features and locales to include in a custom data bundle.
 
 The configuration file may be written in either [JSON](http://json.org/) or
-[Hjson](https://hjson.org/).  To build ICU4C with custom data, set the
+[Hjson](https://hjson.github.io/).  To build ICU4C with custom data, set the
 `ICU_DATA_FILTER_FILE` environment variable when running `runConfigureICU` on
 Unix or when building the data package on Windows.  For example:
 
@@ -170,6 +170,10 @@ only the default script (e.g., Simplified Han for Chinese):
     }
 
 *If using ICU 67 or earlier, see note above regarding allowed keywords.*
+
+Note: filterType "locale" does not support an excludelist. If you wish to
+exclude certain regional variants, consider intersecting a locale filter
+with an exclusion filter with filterType "intersection".
 
 #### Adding Script Variants (includeScripts = true)
 
@@ -398,11 +402,16 @@ regular expression operators.
 As above, do not include directories or file extensions, and you can use
 either a whitelist or a blacklist.
 
-##### Union Filter
+##### Union, Intersection, and Complement Filters
 
-You can combine the results of multiple filters with *filterType* "union".
-This filter matches files that match *at least one* of the provided filters.
-The syntax is:
+You can combine the results of multiple filters with *filterType* "union",
+"intersection", and "complement":
+
+- "union" matches files that match *at least one* of the provided filters
+- "intersection" matches files that match *all* of the provided filters
+- "complement" matches files that does *not* match the provided filter
+
+Syntax for "union":
 
     {
       filterType: union
@@ -413,8 +422,26 @@ The syntax is:
       ]
     }
 
-This filter type is useful for combining "locale" filters with different
-includeScripts or includeChildren options.
+and "intersection":
+
+    {
+      filterType: intersection
+      intersectionOf: [
+        { /* filter 1 */ },
+        { /* filter 2 */ },
+        // ...
+      ]
+    }
+
+and "complement":
+
+    {
+      filterType: complement
+      complementOf: { /* filter */ }
+    }
+
+These constructions are useful for combining "locale" filters
+with different includeScripts or includeChildren options.
 
 #### Locale-Tree Categories
 

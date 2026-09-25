@@ -128,7 +128,7 @@ public final class EthiopicCalendar extends CECalendar
     // Julian Days relative to the
     // \u12d3\u1218\u1270\u1361\u121d\u1215\u1228\u1275 epoch
     // Note: we no longer use this constant
-    //private static final int JD_EPOCH_OFFSET_AMETE_ALEM = -285019;
+    private static final int JD_EPOCH_OFFSET_AMETE_ALEM = -285019;
 
     // Julian Days relative to the
     // \u12d3\u1218\u1270\u1361\u12d3\u1208\u121d epoch
@@ -306,8 +306,7 @@ public final class EthiopicCalendar extends CECalendar
         if (newerField(EXTENDED_YEAR, YEAR) == EXTENDED_YEAR) {
             eyear = internalGet(EXTENDED_YEAR, 1); // Default to year 1
         } else if (isAmeteAlemEra()){
-            eyear = internalGet(YEAR, 1 + AMETE_MIHRET_DELTA)
-                    - AMETE_MIHRET_DELTA; // Default to year 1 of Amelete Mihret
+            eyear = internalGet(YEAR, 1); // Default to year 1
         } else {
             // The year defaults to the epoch start, the era to AMETE_MIHRET
             int era = internalGet(ERA, AMETE_MIHRET);
@@ -325,37 +324,29 @@ public final class EthiopicCalendar extends CECalendar
      * @internal
      * @deprecated This API is ICU internal only.
      */
-    @Override
     @Deprecated
-    protected void handleComputeFields(int julianDay) {
-        int era, year;
-        int[] fields = new int[3];
-        jdToCE(julianDay, getJDEpochOffset(), fields);
-
-        // fields[0] eyear
-        // fields[1] month
-        // fields[2] day
-
+    @Override
+    protected int extendedYearToEra(int eyear) {
         if (isAmeteAlemEra()) {
-            era = AMETE_ALEM;
-            year = fields[0] + AMETE_MIHRET_DELTA;
+            return AMETE_ALEM;
         } else {
-            if (fields[0] > 0) {
-                era = AMETE_MIHRET;
-                year = fields[0];
-            } else {
-                era = AMETE_ALEM;
-                year = fields[0] + AMETE_MIHRET_DELTA;
-            }
+            return (eyear <= 0) ? AMETE_ALEM : AMETE_MIHRET;
         }
+    }
 
-        internalSet(EXTENDED_YEAR, fields[0]);
-        internalSet(ERA, era);
-        internalSet(YEAR, year);
-        internalSet(MONTH, fields[1]);
-        internalSet(ORDINAL_MONTH, fields[1]);
-        internalSet(DAY_OF_MONTH, fields[2]);
-        internalSet(DAY_OF_YEAR, (30 * fields[1]) + fields[2]);
+    /**
+     * {@inheritDoc}
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    @Override
+    protected int extendedYearToYear(int eyear) {
+        if (isAmeteAlemEra()) {
+            return eyear;
+        } else {
+            return (eyear <= 0) ? eyear + AMETE_MIHRET_DELTA : eyear;
+        }
     }
 
     /**
@@ -380,7 +371,7 @@ public final class EthiopicCalendar extends CECalendar
     @Override
     @Deprecated
     protected int getJDEpochOffset() {
-        return JD_EPOCH_OFFSET_AMETE_MIHRET;
+        return isAmeteAlemEra() ? JD_EPOCH_OFFSET_AMETE_ALEM : JD_EPOCH_OFFSET_AMETE_MIHRET;
     }
 
     /**
@@ -398,6 +389,18 @@ public final class EthiopicCalendar extends CECalendar
     // removed in future.  2008-03-21 yoshito
     public static int EthiopicToJD(long year, int month, int date) {
         return ceToJD(year, month, date, JD_EPOCH_OFFSET_AMETE_MIHRET);
+    }
+
+
+    private static final int ETHIOPIC_CALENDAR_RELATED_YEAR_DIFFERENCE = 8;
+
+    /**
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    protected final int getRelatedYearDifference() {
+        return ETHIOPIC_CALENDAR_RELATED_YEAR_DIFFERENCE;
     }
 
     /**

@@ -28,7 +28,7 @@ ICU4J source layout was changed after 4.2. There are several ways to set up the
 ICU4J development environment.
 
 Get the source code by following the [Quick Start
-instruction](http://site.icu-project.org/repository). Go into the icu4j/
+instruction](https://unicode-org.github.io/icu/devsetup/source/). Go into the icu4j/
 directory to see the build.xml file. You can run targets displayed by `ant -p`.
 
 Main targets:
@@ -243,4 +243,4 @@ ICU4J plugin test - Note: This is currently broken
 
 ## Building ICU4J Release Files
 
-See [Release Build](../../../processes/release/tasks/release-build.md)
+See [Release Build](../../../processes/release/tasks/publish/release.md)

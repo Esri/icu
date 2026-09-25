@@ -525,12 +525,12 @@ public class TimeZoneTest extends CoreTestFmwk
         SimpleTimeZone zone = new SimpleTimeZone(offset, id);
         if (zone.useDaylightTime()) errln("FAIL: useDaylightTime should return false");
 
-        TimeZone zoneclone = (TimeZone)zone.clone();
+        TimeZone zoneclone = zone.clone();
         if (!zoneclone.equals(zone)) errln("FAIL: clone or operator== failed");
         zoneclone.setID("abc");
         if (zoneclone.equals(zone)) errln("FAIL: clone or operator!= failed");
 
-        zoneclone = (TimeZone)zone.clone();
+        zoneclone = zone.clone();
         if (!zoneclone.equals(zone)) errln("FAIL: clone or operator== failed");
         zoneclone.setRawOffset(45678);
         if (zoneclone.equals(zone)) errln("FAIL: clone or operator!= failed");
@@ -1358,7 +1358,7 @@ public class TimeZoneTest extends CoreTestFmwk
 
     @Test
     public void TestCoverage(){
-        class StubTimeZone extends TimeZone{
+        class StubTimeZone extends TimeZone implements Cloneable {
             /**
              * For serialization
              */
@@ -1373,15 +1373,16 @@ public class TimeZoneTest extends CoreTestFmwk
             public boolean useDaylightTime() {return false;}
             @Override
             public boolean inDaylightTime(Date date) {return false;}
+            @Override
+            public StubTimeZone clone() {return (StubTimeZone) super.clone();}
         }
         StubTimeZone stub = new StubTimeZone();
-        StubTimeZone stub2 = (StubTimeZone) stub.clone();
+        StubTimeZone stub2 = stub.clone();
         if (stub.getDSTSavings() != 0){
             errln("TimeZone.getDSTSavings() should return 0");
         }
         if (!stub.hasSameRules(stub2)){
             errln("TimeZone.clone() object should hasSameRules");
-
         }
     }
     @Test
@@ -1843,8 +1844,8 @@ public class TimeZoneTest extends CoreTestFmwk
             // No Summer Time, but had it before 1983.
             {"Pacific/Honolulu",    "en",   Boolean.FALSE,  TZSHORT,    "HST"},
             {"Pacific/Honolulu",    "en",   Boolean.FALSE,  TZLONG,     "Hawaii-Aleutian Standard Time"},
-            {"Pacific/Honolulu",    "en",   Boolean.TRUE,   TZSHORT,    "HDT"},
-            {"Pacific/Honolulu",    "en",   Boolean.TRUE,   TZLONG,     "Hawaii-Aleutian Daylight Time"},
+            {"Pacific/Honolulu",    "en",   Boolean.TRUE,   TZSHORT,    "GMT-10"},
+            {"Pacific/Honolulu",    "en",   Boolean.TRUE,   TZLONG,     "GMT-10:00"},
 
             // Northern, has Summer, not commonly used.
             {"Europe/Helsinki",     "en",   Boolean.FALSE,  TZSHORT,    "GMT+2"/*"EET"*/},
@@ -2021,7 +2022,7 @@ public class TimeZoneTest extends CoreTestFmwk
             }
 
             // clone
-            TimeZone copy = (TimeZone)thawedZones[i].clone();
+            TimeZone copy = thawedZones[i].clone();
             if (thawedZones[i] == copy || !thawedZones[i].equals(copy)) {
                 errln("Fail: " + zaName + "[" + i + "] - clone does not work.");
             }
@@ -2128,7 +2129,7 @@ public class TimeZoneTest extends CoreTestFmwk
             }
 
             // clone
-            TimeZone copy = (TimeZone)frozenZones[i].clone();
+            TimeZone copy = frozenZones[i].clone();
             if (frozenZones[i] != copy) {
                 errln("Fail: " + zaName + "[" + i + "] - clone does not return the object itself.");
             }

@@ -26,39 +26,9 @@
     {
       "src": [".local $dateStr = {$date :datetime}\n",
                "{{Testing date formatting: {$dateStr :datetime}.}}"],
-      "exp": "Testing date formatting: 23.11.2022, 19:42.",
+      "exp": "Testing date formatting: mie., 23 nov. 2022, 19:42.",
       "locale": "ro",
       "params": [{ "name": "date", "value": { "date": 1669261357000 }}]
-    },
-    {
-      "src": "Testing date formatting: {$date :date style=long}.",
-      "exp": "Testing date formatting: November 23, 2022.",
-      "params": [{ "name": "date", "value": { "date": 1669261357000 } }]
-    },
-    {
-      "src": "Testing date formatting: {$date :date style=medium}.",
-      "exp": "Testing date formatting: Nov 23, 2022.",
-      "params": [{ "name": "date", "value": { "date": 1669261357000 } }]
-    },
-    {
-      "src": "Testing date formatting: {$date :date style=short}.",
-      "exp": "Testing date formatting: 11/23/22.",
-      "params": [{ "name": "date", "value": { "date": 1669261357000 } }]
-    },
-    {
-      "src": "Testing date formatting: {$date :time style=long}.",
-      "exp": "Testing date formatting: 7:42:37\u202FPM PST.",
-      "params": [{ "name": "date", "value": { "date": 1669261357000 } }]
-    },
-    {
-      "src": "Testing date formatting: {$date :time style=medium}.",
-      "exp": "Testing date formatting: 7:42:37\u202FPM.",
-      "params": [{ "name": "date", "value": { "date": 1669261357000 } }]
-    },
-    {
-      "src": "Testing date formatting: {$date :time style=short}.",
-      "exp": "Testing date formatting: 7:42\u202FPM.",
-      "params": [{ "name": "date", "value": { "date": 1669261357000 } }]
     },
     {
       "src": [".local $num = {|42| :number}\n",
@@ -112,6 +82,30 @@
       "exp": "Default number: 1.234.567.890.123.456.789,987654!",
       "locale": "ro",
       "params": [{ "name": "val", "value": {"decimal": "1234567890123456789.987654321"} }]
+    }
+  ],
+    "datetime_extra": [
+    {
+      "srcs": [".local $d = {|2024-07-02T19:23:45Z| :datetime timeStyle=long}\n",
+               "{{Expires at {$d} or {$d :datetime timeStyle=full}}}"],
+      "exp": "Expires at 7:23:45\u202FPM GMT or 7:23:45\u202FPM Greenwich Mean Time",
+      "comment": "This checks that the return value of :datetime preserves the time zone offset if specified"
+    },
+    {
+      "srcs": [".local $d = {|2024-07-02T19:23:45+03:30| :datetime timeStyle=long}\n",
+               "{{Expires at {$d} or {$d :datetime timeStyle=full}}}"],
+      "exp": "Expires at 7:23:45\u202FPM GMT+3:30 or 7:23:45\u202FPM GMT+03:30",
+      "comment": "This checks that the return value of :datetime preserves the time zone offset if specified"
+    },
+    {
+      "src": "{$d :datetime timeStyle=full}",
+      "exp": "7:23:45\u202FPM GMT+03:30",
+      "params": {"d": "2024-07-02T19:23:45+03:30"},
+      "comment": "This checks that an argument can be a date literal string."
+    },
+    {
+      "src": "{|2006-01-02T15:04:06| :datetime dateStyle=long} / {|2006-01-03| :datetime dateStyle=medium}",
+      "exp": "January 2, 2006 / Jan 3, 2006"
     }
   ]
 }

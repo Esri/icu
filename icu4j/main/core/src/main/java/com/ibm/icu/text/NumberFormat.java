@@ -176,7 +176,7 @@ import com.ibm.icu.util.UResourceBundle;
  * @author       Alan Liu
  * @stable ICU 2.0
  */
-public abstract class NumberFormat extends UFormat {
+public abstract class NumberFormat extends UFormat implements Cloneable {
 
     /**
      * {@icu} Constant to specify normal number style of format.
@@ -1171,9 +1171,8 @@ public abstract class NumberFormat extends UFormat {
      * @stable ICU 2.0
      */
     @Override
-    public Object clone() {
-        NumberFormat other = (NumberFormat) super.clone();
-        return other;
+    public NumberFormat clone() {
+        return (NumberFormat) super.clone();
     }
 
     /**
@@ -1334,7 +1333,7 @@ public abstract class NumberFormat extends UFormat {
     }
 
     /**
-     * Sets the <tt>Currency</tt> object used to display currency
+     * Sets the {@code Currency} object used to display currency
      * amounts.  This takes effect immediately, if this format is a
      * currency format.  If this format is not a currency format, then
      * the currency object is used if and when this object becomes a
@@ -1348,7 +1347,7 @@ public abstract class NumberFormat extends UFormat {
     }
 
     /**
-     * Returns the <tt>Currency</tt> object used to display currency
+     * Returns the {@code Currency} object used to display currency
      * amounts.  This may be null.
      * @stable ICU 2.6
      */
@@ -1705,7 +1704,7 @@ public abstract class NumberFormat extends UFormat {
 
 
     /**
-     * True if the the grouping (i.e. thousands) separator is used when
+     * True if the grouping (i.e. thousands) separator is used when
      * formatting and parsing numbers.
      *
      * @serial

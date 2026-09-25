@@ -5,6 +5,7 @@ package com.ibm.icu.dev.test.format;
 
 import java.text.FieldPosition;
 import java.time.Clock;
+import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ import org.junit.runners.JUnit4;
 import com.ibm.icu.dev.test.CoreTestFmwk;
 import com.ibm.icu.message2.MessageFormatter;
 import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.text.DateFormatSymbols;
 import com.ibm.icu.text.DateIntervalFormat;
 import com.ibm.icu.text.MessageFormat;
 import com.ibm.icu.util.TimeZone;
@@ -64,6 +66,75 @@ public class JavaTimeFormatTest extends CoreTestFmwk {
 
         DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.US);
         assertEquals("", "7:43\u202FPM", timeFormat.format(LDT));
+    }
+
+    @Test
+    public void testDayOfWeekFormatting() {
+        // Quick sampling
+        DateFormat df = DateFormat.getInstanceForSkeleton("EEEE", Locale.FRANCE);
+        assertEquals("", "lundi", df.format(DayOfWeek.MONDAY));
+        assertEquals("", "mardi", df.format(DayOfWeek.TUESDAY));
+        assertEquals("", "jeudi", df.format(DayOfWeek.THURSDAY));
+        assertEquals("", "samedi", df.format(DayOfWeek.SATURDAY));
+        assertEquals("", "dimanche", df.format(DayOfWeek.SUNDAY));
+
+        // Comprehensive, testing all day-of-week at all widths
+        int[] widths = {
+                DateFormatSymbols.NARROW,
+                DateFormatSymbols.SHORT,
+                DateFormatSymbols.ABBREVIATED,
+                DateFormatSymbols.WIDE
+        };
+        String[] widthSkeletons = { "EEEEE", "EEEEEE", "EEE", "EEEE" };
+        assertEquals("same size", widths.length, widthSkeletons.length);
+
+        Locale locale = Locale.US;
+        DateFormatSymbols dfs = DateFormatSymbols.getInstance(locale);
+        for (int i = 0; i < widths.length; i++) {
+            String[] expected = dfs.getWeekdays(DateFormatSymbols.FORMAT, widths[i]);
+            df = DateFormat.getInstanceForSkeleton(widthSkeletons[i], locale);
+            for (DayOfWeek dow : DayOfWeek.values()) {
+                int index = dow.getValue();
+                // DayOfWeek is 1 based and starting on Monday.
+                // DateFormatSymbols day of week starts on Sunday,
+                // and the first element in the array empty: [ "", "Su", "Mo", ... "Sa" ]
+                index = index % 7 + 1; // convert the index
+                assertEquals("java.time.DayOfWeek", expected[index], df.format(dow));
+            }
+        }
+    }
+
+    @Test
+    public void testMonthFormatting() {
+        // Quick sampling
+        DateFormat df = DateFormat.getInstanceForSkeleton("MMMM", Locale.FRANCE);
+        assertEquals("", "janvier", df.format(Month.JANUARY));
+        assertEquals("", "mars", df.format(Month.MARCH));
+        assertEquals("", "mai", df.format(Month.MAY));
+        assertEquals("", "juillet", df.format(Month.JULY));
+        assertEquals("", "septembre", df.format(Month.SEPTEMBER));
+        assertEquals("", "novembre", df.format(Month.NOVEMBER));
+        assertEquals("", "décembre", df.format(Month.DECEMBER));
+
+        // Comprehensive, testing all months at all widths
+        int[] widths = {
+                DateFormatSymbols.NARROW,
+                DateFormatSymbols.ABBREVIATED,
+                DateFormatSymbols.WIDE
+        };
+        String[] widthSkeletons = { "MMMMM", "MMM", "MMMM" };
+        assertEquals("same size", widths.length, widthSkeletons.length);
+
+        Locale locale = Locale.US;
+        DateFormatSymbols dfs = DateFormatSymbols.getInstance(locale);
+        for (int i = 0; i < widths.length; i++) {
+            String[] expected = dfs.getMonths(DateFormatSymbols.FORMAT, widths[i]);
+            df = DateFormat.getInstanceForSkeleton(widthSkeletons[i], locale);
+            for (Month month : Month.values()) {
+                int index = month.getValue() - 1;// java.time.Month is 1 based
+                assertEquals("java.time.Month", expected[index], df.format(month));
+            }
+        }
     }
 
     @Test
@@ -128,8 +199,8 @@ public class JavaTimeFormatTest extends CoreTestFmwk {
                 "buddhist", "September 27, 2556 BE",
                 "chinese",  "Eighth Month 23, 2013(gui-si)",
                 "hebrew",   "23 Tishri 5774 AM",
-                "indian",   "Asvina 5, 1935 Saka",
-                "islamic",  "Dhuʻl-Qiʻdah 22, 1434 AH",
+                "indian",   "Asvina 5, 1935 Śaka",
+                "islamic",  "Dhuʻl-Qiʻdah 22, 1434 Anno Hegirae",
                 "japanese", "September 27, 25 Heisei",
                 "persian",  "Mehr 5, 1392 AP",
                 "roc",      "September 27, 102 Minguo",
@@ -175,12 +246,12 @@ public class JavaTimeFormatTest extends CoreTestFmwk {
                 .setLocale(locale);
 
         MessageFormatter mf2 = mf2Builder.setPattern("(mf2) Your card expires on {$expDate}").build();
-        assertEquals("", "(mf2) Your card expires on 27/09/2013 19:43", mf2.formatToString(arguments));
+        assertEquals("", "(mf2) Your card expires on ven. 27 sept. 2013, 19:43", mf2.formatToString(arguments));
 
         mf2 = mf2Builder.setPattern("(mf2) Your card expires on {$expDate :date}").build();
-        assertEquals("", "(mf2) Your card expires on 27/09/2013", mf2.formatToString(arguments));
+        assertEquals("", "(mf2) Your card expires on ven. 27 sept. 2013", mf2.formatToString(arguments));
 
-        mf2 = mf2Builder.setPattern("(mf2) Your card expires on {$expDate :datetime dateStyle=long}").build();
+        mf2 = mf2Builder.setPattern("(mf2) Your card expires on {$expDate :date fields=year-month-day length=long}").build();
         assertEquals("", "(mf2) Your card expires on 27 septembre 2013", mf2.formatToString(arguments));
 
         mf2 = mf2Builder.setPattern("(mf2) Your card expires on {$expDate :date icu:skeleton=EEEyMMMd}").build();
@@ -207,12 +278,9 @@ public class JavaTimeFormatTest extends CoreTestFmwk {
 
         // Test that both JDK and ICU Calendar are recognized as types.
         arguments.put("expDate", new java.util.GregorianCalendar(2013, 8, 27));
-        // We don't test MessageFormat (MF1) with a java.util.Calendar
-        // because it throws. The ICU DateFormat does not support it.
-        // I filed https://unicode-org.atlassian.net/browse/ICU-22852
-        // MF2 converts the JDK Calendar to an ICU Calendar, so it works.
+        assertEquals("", expectedMf1Result, mf.format(arguments));
         assertEquals("", expectedMf2Result, mf2.formatToString(arguments));
-        
+
         // Make sure that Instant and Clock are not formatted
 
         // Instant
@@ -237,6 +305,47 @@ public class JavaTimeFormatTest extends CoreTestFmwk {
             mf2.formatToString(arguments);
             fail("Should not be able to format java.time.Clock");
         } catch (IllegalArgumentException ex) { /* expected to throw */ }
+    }
+
+    @Test
+    public void testDateMessageFormatDow() {
+        Locale locale = Locale.FRANCE;
+        String expected = "wide:lundi abbr:lun. short:lu narrow:L";
+        Map<String, Object> arguments = Map.of("dow", DayOfWeek.MONDAY);
+
+        MessageFormat mf = new MessageFormat(
+                "wide:{dow,date,::EEEE} abbr:{dow,date,::EEE} short:{dow,date,::EEEEEE} narrow:{dow,date,::EEEEE}",
+                locale);
+        assertEquals("", expected, mf.format(arguments));
+
+        MessageFormatter mf2 = MessageFormatter.builder()
+                .setPattern("wide:{$dow :date icu:skeleton=EEEE}"
+                        + " abbr:{$dow :date icu:skeleton=EEE}"
+                        + " short:{$dow :date icu:skeleton=EEEEEE}"
+                        + " narrow:{$dow :date icu:skeleton=EEEEE}")
+                .setLocale(locale)
+                .build();
+        assertEquals("", expected, mf2.formatToString(arguments));
+    }
+
+    @Test
+    public void testDateMessageFormatMonth() {
+        Locale locale = Locale.FRANCE;
+        String expected = "wide:septembre abbr:sept. narrow:S";
+        Map<String, Object> arguments = Map.of("mon", Month.SEPTEMBER);
+
+        MessageFormat mf = new MessageFormat(
+                "wide:{mon,date,::MMMM} abbr:{mon,date,::MMM} narrow:{mon,date,::MMMMM}",
+                locale);
+        assertEquals("", expected, mf.format(arguments));
+
+        MessageFormatter mf2 = MessageFormatter.builder()
+                .setPattern("wide:{$mon :date icu:skeleton=MMMM}"
+                        + " abbr:{$mon :date icu:skeleton=MMM}"
+                        + " narrow:{$mon :date icu:skeleton=MMMMM}")
+                .setLocale(locale)
+                .build();
+        assertEquals("", expected, mf2.formatToString(arguments));
     }
 
     @Test

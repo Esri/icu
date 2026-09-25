@@ -48,16 +48,14 @@ jobs:
     steps:
 
     - name: Checkout repo files
-      uses: actions/checkout@v4.1.7
-      with:
-        lfs: true
+      uses: actions/checkout@v5
 
     - name: Set up JDK
-      uses: actions/setup-java@v4.2.2
+      uses: actions/setup-java@v5
       with:
-        java-version: '8' # The custom Taglets for javadoc (tools/build) are still Java 8. They need updating to use a different JDK version.
+        java-version: '11'
         distribution: 'temurin'
-        server-id: icu4j-maven-repo # Value of the distributionManagement/repository/id field of the pom.xml
+        server-id: central # Value of the distributionManagement/repository/id field of the pom.xml
         server-username: MAVEN_USERNAME # env variable for username in deploy
         server-password: MAVEN_CENTRAL_TOKEN # env variable for token in deploy
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value of the GPG private key to import
@@ -89,7 +87,7 @@ jobs:
           --settings $GITHUB_WORKSPACE/settings.xml \
           --errors --fail-at-end -DdeployAtEnd=true \
           -DskipTests -DskipITs \
-          -P with_sources,with_javadoc,with_signature
+          -P with_sources,with_javadoc,with_signature,to_sonatype
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
@@ -100,20 +98,31 @@ jobs:
     - name: Prepare release folder
       run: |
         pushd icu4j
-        ICU_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        # Get the ICU release version in github_rel_version
+        source releases_tools/shared.sh
         # Copy the artifacts (with sources and javdoc .jar files) to the release folder
         mvn dependency:copy \
           ${SHARED_MVN_ARGS} \
           -DskipTests -DskipITs \
           -Drelease.directory=${RELEASE_FOLDER} \
+          -Dmdep.stripVersion=true \
           -P release_files
+
+        # Rename the artifacts if needed
+        mv ${RELEASE_FOLDER}/icu4j.jar                 ${RELEASE_FOLDER}/icu4j-${github_rel_version}.jar
+        mv ${RELEASE_FOLDER}/icu4j-javadoc.jar         ${RELEASE_FOLDER}/icu4j-${github_rel_version}-javadoc.jar
+        mv ${RELEASE_FOLDER}/icu4j-sources.jar         ${RELEASE_FOLDER}/icu4j-${github_rel_version}-sources.jar
+        mv ${RELEASE_FOLDER}/icu4j-charset.jar         ${RELEASE_FOLDER}/icu4j-charset-${github_rel_version}.jar
+        mv ${RELEASE_FOLDER}/icu4j-charset-javadoc.jar ${RELEASE_FOLDER}/icu4j-charset-${github_rel_version}-javadoc.jar
+        mv ${RELEASE_FOLDER}/icu4j-charset-sources.jar ${RELEASE_FOLDER}/icu4j-charset-${github_rel_version}-sources.jar
+
         # Build the full javadoc to be posted on the public site
         mvn site \
           ${SHARED_MVN_ARGS} \
           -DskipITs -DskipTests \
           -P with_full_javadoc
         # Archive the full doc in a jar. Should also be posted to the web as official doc.
-        jar -Mcf ${RELEASE_FOLDER}/icu4j-${ICU_VERSION}-fulljavadoc.jar \
+        jar -Mcf ${RELEASE_FOLDER}/icu4j-${github_rel_version}-fulljavadoc.jar \
           -C target/site/apidocs/ .
         popd # out of icu4j
 

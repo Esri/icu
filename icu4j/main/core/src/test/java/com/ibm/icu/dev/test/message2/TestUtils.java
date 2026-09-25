@@ -40,11 +40,9 @@ public class TestUtils {
         .create();
 
     private static final MFFunctionRegistry TEST_REGISTRY = MFFunctionRegistry.builder()
-            .setFormatter("test:function", new TestFunctionFactory("function"))
-            .setFormatter("test:format", new TestFunctionFactory("format"))
-            .setFormatter("test:select", new TestFunctionFactory("select"))
-            .setSelector("test:function", new TestFunctionFactory("function"))
-            .setSelector("test:select", new TestFunctionFactory("select"))
+            .setFunction("test:function", new TestFunctionFactory("function"))
+            .setFunction("test:format", new TestFunctionFactory("format"))
+            .setFunction("test:select", new TestFunctionFactory("select"))
             .build();
 
     // ======= Legacy TestCase utilities, no json-compatible ========
@@ -120,7 +118,7 @@ public class TestUtils {
                 @SuppressWarnings("unchecked")
                 Map<String, Object> innerMap = (Map<String, Object>) pair.value;
                 if (innerMap.size() == 1 && innerMap.containsKey("decimal")
-                    && innerMap.get("decimal") instanceof String) {
+                        && innerMap.get("decimal") instanceof String) {
                     String decimalValue = (String) innerMap.get("decimal");
                     params[i] = new Param(pair.name, new com.ibm.icu.math.BigDecimal(decimalValue));
                 }

@@ -57,8 +57,8 @@ public class OrdinalMonthTest extends CoreTestFmwk {
             if (calendar == "hebrew") continue; // work around ICU-22444
             Calendar cc1 = Calendar.getInstance(
                 ULocale.ROOT.setKeywordValue("calendar", calendar));
-            Calendar cc2 = (Calendar)cc1.clone();
-            Calendar cc3 = (Calendar)cc1.clone();
+            Calendar cc2 = cc1.clone();
+            Calendar cc3 = cc1.clone();
 
             cc1.set(Calendar.EXTENDED_YEAR, 2134);
             cc2.set(Calendar.EXTENDED_YEAR, 2134);
@@ -126,8 +126,8 @@ public class OrdinalMonthTest extends CoreTestFmwk {
         GregorianCalendar gc = new GregorianCalendar();
         gc.set(2022, Calendar.DECEMBER, 16);
         Calendar cc1 = Calendar.getInstance(ULocale.ROOT.setKeywordValue("calendar", calendar));
-        Calendar cc2 = (Calendar)cc1.clone();
-        Calendar cc3 = (Calendar)cc1.clone();
+        Calendar cc2 = cc1.clone();
+        Calendar cc3 = cc1.clone();
         cc1.set(Calendar.EXTENDED_YEAR, leapMarchYear);
         cc2.set(Calendar.EXTENDED_YEAR, leapMarchYear);
         cc3.set(Calendar.EXTENDED_YEAR, leapMarchYear);
@@ -198,12 +198,12 @@ public class OrdinalMonthTest extends CoreTestFmwk {
 
     @Test
     public void TestChineseCalendarSet() {
-        RunTestChineseCalendarSet("chinese", 4591, 4592);
+        RunTestChineseCalendarSet("chinese", 1954, 1955);
     }
 
     @Test
     public void TestDangiCalendarSet() {
-        RunTestChineseCalendarSet("dangi", 4287, 4288);
+        RunTestChineseCalendarSet("dangi", 1954, 1955);
     }
 
     @Test
@@ -211,8 +211,8 @@ public class OrdinalMonthTest extends CoreTestFmwk {
         GregorianCalendar gc = new GregorianCalendar();
         gc.set(2022, Calendar.DECEMBER, 16);
         Calendar cc1 = Calendar.getInstance(ULocale.ROOT.setKeywordValue("calendar", "hebrew"));
-        Calendar cc2 = (Calendar)cc1.clone();
-        Calendar cc3 = (Calendar)cc1.clone();
+        Calendar cc2 = cc1.clone();
+        Calendar cc3 = cc1.clone();
         // 5782 is leap year, 5781 is NOT.
         int leapYear = 5782;
         int notLeapYear = 5781;
@@ -302,7 +302,7 @@ public class OrdinalMonthTest extends CoreTestFmwk {
             Calendar cc1 = Calendar.getInstance(
                 ULocale.ROOT.setKeywordValue("calendar", calendar));
             cc1.setTime(gc.getTime());
-            Calendar cc2 = (Calendar)cc1.clone();
+            Calendar cc2 = cc1.clone();
             for (int i = 0; i < 8; i++) {
                 for (int j = 1; j < 8; j++) {
                     cc1.add(Calendar.MONTH, j);
@@ -328,7 +328,7 @@ public class OrdinalMonthTest extends CoreTestFmwk {
             Calendar cc1 = Calendar.getInstance(
                 ULocale.ROOT.setKeywordValue("calendar", calendar));
             cc1.setTime(gc.getTime());
-            Calendar cc2 = (Calendar)cc1.clone();
+            Calendar cc2 = cc1.clone();
             for (int i = 0; i < 8; i++) {
                 for (int j = 1; j < 8; j++) {
                     cc1.roll(Calendar.MONTH, j);

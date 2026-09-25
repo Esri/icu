@@ -1083,6 +1083,17 @@ public final class UScript {
     /** @stable ICU 76 */
     public static final int TULU_TIGALARI = 207; /* Tutg */
 
+    /** @stable ICU 78 */
+    public static final int BERIA_ERFE = 208; /* Berf */
+    /** @stable ICU 78 */
+    public static final int SIDETIC = 209; /* Sidt */
+    /** @stable ICU 78 */
+    public static final int TAI_YO = 210; /* Tayo */
+    /** @stable ICU 78 */
+    public static final int TOLONG_SIKI = 211; /* Tols */
+    /** @stable ICU 78 */
+    public static final int TRADITIONAL_HAN_WITH_LATIN = 212; /* Hntl */
+
     /**
      * One more than the highest normal UScript code.
      * The highest value is available via UCharacter.getIntPropertyMaxValue(UProperty.SCRIPT).
@@ -1090,7 +1101,7 @@ public final class UScript {
      * @deprecated ICU 58 The numeric value may change over time, see ICU ticket #12420.
      */
     @Deprecated
-    public static final int CODE_LIMIT   = 208;
+    public static final int CODE_LIMIT   = 213;
 
     private static int[] getCodesFromLocale(ULocale locale) {
         // Multi-script languages, equivalent to the LocaleScript data
@@ -1137,7 +1148,7 @@ public final class UScript {
      * Returns MALAYAM given "Malayam" OR "Mlym".
      * Returns LATIN given "en" OR "en_US"
      * @param locale Locale
-     * @return The script codes array. null if the the code cannot be found.
+     * @return The script codes array. null if the code cannot be found.
      * @stable ICU 2.4
      */
     public static final int[] getCode(Locale locale){
@@ -1148,7 +1159,7 @@ public final class UScript {
      * Returns MALAYAM given "Malayam" OR "Mlym".
      * Returns LATIN given "en" OR "en_US"
      * @param locale ULocale
-     * @return The script codes array. null if the the code cannot be found.
+     * @return The script codes array. null if the code cannot be found.
      * @stable ICU 3.0
      */
     public static final int[] getCode(ULocale locale){
@@ -1164,7 +1175,7 @@ public final class UScript {
      * That does a fast lookup with no access of the locale data.
      *
      * @param nameOrAbbrOrLocale name of the script or ISO 15924 code or locale
-     * @return The script codes array. null if the the code cannot be found.
+     * @return The script codes array. null if the code cannot be found.
      * @stable ICU 2.4
      */
     public static final int[] getCode(String nameOrAbbrOrLocale) {
@@ -1386,11 +1397,11 @@ public final class UScript {
             // tools/trunk/unicode/py/parsescriptmetadata.py
             // or from icu/trunk/source/common/uscript_props.cpp
             0x0040 | RECOMMENDED,  // Zyyy
-            0x0308 | RECOMMENDED,  // Zinh
+            0x030F | RECOMMENDED,  // Zinh
             0x0628 | RECOMMENDED | RTL,  // Arab
             0x0531 | RECOMMENDED | CASED,  // Armn
             0x0995 | RECOMMENDED,  // Beng
-            0x3105 | RECOMMENDED | LB_LETTERS,  // Bopo
+            0x3105 | LIMITED_USE | LB_LETTERS,  // Bopo
             0x13C4 | LIMITED_USE | CASED,  // Cher
             0x03E2 | EXCLUSION | CASED,  // Copt
             0x042F | RECOMMENDED | CASED,  // Cyrl
@@ -1564,7 +1575,7 @@ public final class UScript {
             0x11A5C | EXCLUSION,  // Soyo
             0x11A0B | EXCLUSION,  // Zanb
             0x1180B | EXCLUSION,  // Dogr
-            0x11D71 | LIMITED_USE,  // Gong
+            0x11D71 | EXCLUSION,  // Gong
             0x11EE5 | EXCLUSION,  // Maka
             0x16E40 | EXCLUSION | CASED,  // Medf
             0x10D12 | LIMITED_USE | RTL,  // Rohg
@@ -1593,6 +1604,10 @@ public final class UScript {
             0x11BC4 | EXCLUSION,  // Sunu
             0x105C2 | EXCLUSION,  // Todr
             0x11392 | EXCLUSION,  // Tutg
+            0x16EA1 | EXCLUSION | CASED,  // Berf
+            0x10950 | EXCLUSION | RTL,  // Sidt
+            0x1E6D5 | EXCLUSION | LB_LETTERS,  // Tayo
+            0x11DC6 | EXCLUSION,  // Tols
             // End copy-paste from parsescriptmetadata.py
         };
 

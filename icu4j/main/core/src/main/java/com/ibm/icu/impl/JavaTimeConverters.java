@@ -5,10 +5,12 @@ package com.ibm.icu.impl;
 
 import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
 
+import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.ZoneId;
@@ -19,8 +21,10 @@ import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.Temporal;
 import java.util.Date;
 
+import com.ibm.icu.util.BuddhistCalendar;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.GregorianCalendar;
+import com.ibm.icu.util.JapaneseCalendar;
 import com.ibm.icu.util.SimpleTimeZone;
 import com.ibm.icu.util.TimeZone;
 import com.ibm.icu.util.ULocale;
@@ -40,12 +44,15 @@ import com.ibm.icu.util.ULocale;
  * Additionally, it provides methods to convert between {@link ZoneId} and {@link TimeZone}, and
  * {@link ZoneOffset} and {@link TimeZone}.
  *
+ * @internal
  * @deprecated This API is ICU internal only.
  */
 @Deprecated
 public class JavaTimeConverters {
+    // Milliseconds per hour
+    private static final long MILLIS_PER_HOUR = 60 * 60 * 1_000;
     // Milliseconds per day
-    private static final long MILLIS_PER_DAY = 24 * 60 * 60 * 1_000;
+    private static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
 
     private JavaTimeConverters() {
         // Prevent instantiation, making this an utility class
@@ -64,6 +71,7 @@ public class JavaTimeConverters {
      *         the specified {@link ZonedDateTime}, with the time zone set
      *         accordingly.
      *
+     * @internal
      * @deprecated This API is ICU internal only.
      */
     @Deprecated
@@ -88,9 +96,11 @@ public class JavaTimeConverters {
      *         specified {@link OffsetTime}, with the time zone set accordingly and
      *         date components set to the current date in that time zone.
      *
+     * @internal
      * @deprecated This API is ICU internal only.
      */
     @Deprecated
+    @SuppressWarnings("JavaTimeDefaultTimeZone")
     public static Calendar temporalToCalendar(OffsetTime time) {
         return temporalToCalendar(time.atDate(LocalDate.now()));
     }
@@ -108,6 +118,7 @@ public class JavaTimeConverters {
      *         the specified {@link OffsetDateTime}, with the time zone set
      *         accordingly.
      *
+     * @internal
      * @deprecated This API is ICU internal only.
      */
     @Deprecated
@@ -150,6 +161,7 @@ public class JavaTimeConverters {
      *         specified {@link LocalTime}, with date components set to the current
      *         date in the default time zone.
      *
+     * @internal
      * @deprecated This API is ICU internal only.
      */
     @Deprecated
@@ -170,6 +182,7 @@ public class JavaTimeConverters {
      * @return A {@link Calendar} instance representing the same date and time as
      *         the specified {@link ChronoLocalDateTime}.
      *
+     * @internal
      * @deprecated This API is ICU internal only.
      */
     @Deprecated
@@ -186,6 +199,7 @@ public class JavaTimeConverters {
      * @return A {@link Calendar} instance representing the same date and time as
      *         the specified {@link Temporal}.
      *
+     * @internal
      * @deprecated This API is ICU internal only.
      */
     @Deprecated
@@ -227,6 +241,7 @@ public class JavaTimeConverters {
      * @return A {@link TimeZone} representing the time zone rules associated with
      *         the given {@link ZoneId}.
      *
+     * @internal
      * @deprecated This API is ICU internal only.
      */
     @Deprecated
@@ -245,11 +260,77 @@ public class JavaTimeConverters {
      * @return A {@link TimeZone} that has a fixed offset from UTC, represented by
      *         the given {@link ZoneOffset}.
      *
+     * @internal
      * @deprecated This API is ICU internal only.
      */
     @Deprecated
     public static TimeZone zoneOffsetToTimeZone(ZoneOffset zoneOffset) {
         return new SimpleTimeZone(zoneOffset.getTotalSeconds() * 1_000, zoneOffset.getId());
+    }
+
+    /**
+     * Converts a {@link DayOfWeek} to a {@link Calendar}.
+     *
+     * <p>
+     * This method creates a {@link Calendar} instance that represents
+     * a day that is the same day of week as specified by {@link DayOfWeek}.
+     * It is set somewhere close to epoch time.
+     *
+     * <p>
+     * <b>Note:</b> this should only be used to format if using a pattern or skeleton
+     * with a day of week field only.
+     * That means that {@code c}-{@code cccccc} patterns are recommended, {@code E}-{@code EEEEEE}
+     * and {@code e}-{@code eeeeee} are likely wrong (because they are not stand-alone).
+     * Anything else is clearly wrong.
+     * It does not make sense to format a {@code DayOfWeek} as {@code "MMMM d, y"}.
+     * See {@link https://unicode.org/reports/tr35/tr35-dates.html#dfst-weekday}.
+     *
+     * @param dow The {@link DayOfWeek} to convert.
+     * @return A {@link Calendar} instance representing the same day of week
+     *         as the one specified by the input.
+     *
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    @SuppressWarnings("JavaTimeDefaultTimeZone")
+    public static Calendar dayOfWeekToCalendar(DayOfWeek dow) {
+        return millisToCalendar(dayOfWeekToMillis(dow));
+    }
+
+    /**
+     * Converts a {@link Month} to a {@link Calendar}.
+     *
+     * <p>
+     * This method creates a {@link Calendar} instance that represents
+     * the same month as specified by {@link Month}.
+     * It is set somewhere close to epoch time.
+     *
+     * <p>
+     * <b>Note:</b> this should only be used to format if using a pattern or skeleton
+     * with a day of month field only.
+     * That means that {@code L}-{@code LLLLL} patterns are recommended, {@code E}-{@code MMMMM}
+     * is likely wrong (because it is not stand-alone). Anything else is clearly wrong.
+     * It does not make sense to format a {@code Month} as {@code "MMMM d, y"}.
+     * See {@link https://unicode.org/reports/tr35/tr35-dates.html#dfst-month}.
+     *
+     * <p>
+     * <b>Note:</b> only use this method for the Gregorian calendar and related calendars,
+     * given that the {@link Month} documentation, states that the {@link Month} enum
+     * "... may be used by any calendar system that has the month-of-year concept defined
+     * equivalent to the ISO-8601 calendar system".</i>
+     *
+     * @param month The {@link Month} to convert.
+     * @return A {@link Calendar} instance representing the same month
+     *         as the one specified by the input.
+     *
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    @SuppressWarnings("JavaTimeDefaultTimeZone")
+    public static Calendar monthToCalendar(Month month) {
+        return millisToCalendar(monthToMilli(month));
     }
 
     private static Calendar millisToCalendar(long epochMillis) {
@@ -263,4 +344,74 @@ public class JavaTimeConverters {
         calendar.setTimeInMillis(epochMillis);
         return calendar;
     }
+
+    private static long dayOfWeekToMillis(DayOfWeek dow) {
+        // Epoch time was 1970-01-01 00:00:00, and was a Thursday.
+        // Add 12 hours, so we are in the middle of the day and have no surprises.
+        // Then add 3 days to get a Monday (in fact 4, but DayOfWeek value is 1 based).
+        return MILLIS_PER_HOUR * 12 + (3 + dow.getValue()) * MILLIS_PER_DAY;
+    }
+
+    /* Fails for non-Gregoran calendars. */
+    private static long monthToMilli(Month month) {
+        // Epoch time was 1970-01-01 00:00:00, and was a Thursday.
+        // Add 12 hours, so we are in the middle of the day and have no surprises.
+        // Then add 31 for each month. 31 days is safe, even if some months are shorter.
+        // We start from Jan 1, Feb 1, Mar 4, Apr 4, May 5, ..., Dec 8.
+        return MILLIS_PER_HOUR * 12 + (month.getValue() - 1) * MILLIS_PER_DAY * 31;
+    }
+
+    /**
+     * Converts a {@link java.util.Calendar} to a {@link com.ibm.icu.util.Calendar}.
+     *
+     * @param inputCalendar The JDK Calendar to convert.
+     * @return An ICU Calendar that has the same properties as the Java one.
+     *
+     * @internal
+     * @deprecated This API is ICU internal only.
+     */
+    @Deprecated
+    public static com.ibm.icu.util.Calendar convertCalendar(java.util.Calendar inputCalendar) {
+
+        java.util.TimeZone tz = inputCalendar.getTimeZone();
+        TimeZone zone = TimeZone.getTimeZone(tz.getID());
+
+        /*
+         * It would be even better to create these calendars with TimeZone and Locale.
+         * But although the java.util.Calendar can be constructed with a Locale
+         * or uses getDefaultLocale(), it stores it into a private field and there is no getter.
+         * The documentation says (and the code seems to confirm) that the locale is used for
+         * 2 things: "Calendar defines a locale-specific seven day week using two parameters:
+         * the first day of the week and the minimal days in first week (from 1 to 7). These
+         * numbers are taken from the locale resource data when a Calendar is constructed".
+         *
+         * So after we create the calendar we will copy this info from the original calendar.
+         */
+        Calendar result;
+        switch (inputCalendar.getCalendarType()) {
+            case "iso8601":
+                result = new GregorianCalendar(zone);
+                // make gcal a proleptic Gregorian
+                ((GregorianCalendar) result).setGregorianChange(new Date(Long.MIN_VALUE));
+                break;
+            case "buddhist":
+                result = new BuddhistCalendar(zone);
+                break;
+            case "japanese":
+                result = new JapaneseCalendar(zone);
+                break;
+            case "gregory": // Fallthrough
+            default:
+                // Fallback to Gregorian
+                result = new GregorianCalendar(zone);
+        }
+
+        result.setLenient(inputCalendar.isLenient());
+        result.setFirstDayOfWeek(inputCalendar.getFirstDayOfWeek());
+        result.setMinimalDaysInFirstWeek(inputCalendar.getMinimalDaysInFirstWeek());
+        result.setTimeInMillis(inputCalendar.getTimeInMillis());
+
+        return result;
+    }
+
 }

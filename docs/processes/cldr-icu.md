@@ -166,9 +166,10 @@ export CLDR_DATA_DIR=$HOME/cldr-staging/production
 
 1c. ICU variables
 ```sh
-export ICU4C_DIR=$HOME/icu-myfork/icu4c
-export ICU4J_ROOT=$HOME/icu-myfork/icu4j
-export TOOLS_ROOT=$HOME/icu-myfork/tools
+export ICU_DIR=$HOME/icu-myfork
+export ICU4C_DIR=$ICU_DIR/icu4c
+export ICU4J_ROOT=$ICU_DIR/icu4j
+export TOOLS_ROOT=$ICU_DIR/tools
 ```
 
 1d. Directory for logs/notes (create if does not exist)
@@ -196,13 +197,13 @@ make clean
 make check 2>&1 | tee $NOTES/icu4c-oldData-makeCheck.txt
 ```
 
-2b. Now with ICU4J, build and test without new data first, to verify that
-there are no pre-existing errors (or at least to have the pre-existing errors
-as a base for comparison):
+2b. Build, test, and install ICU4J without new data first. This is to verify that
+there are no pre-existing errors, or at least to have the pre-existing errors
+as a base for comparison:
 ```sh
 cd $ICU4J_ROOT
 mvn clean
-mvn verify 2>&1 | tee $NOTES/icu4j-oldData-mvnCheck.txt
+mvn install 2>&1 | tee $NOTES/icu4j-oldData-mvnCheck.txt
 ```
 
 ## 3 Make pre-adjustments
@@ -217,7 +218,7 @@ cp -p $CLDR_DIR/common/dtd/ldmlICU.dtd $ICU4C_DIR/source/data/dtd/cldr/common/dt
 ```sh
 open $ICU_DIR/tools/cldr/cldr-to-icu/pom.xml
 ```
-(search for `icu4j-for-cldr` and update to the latest tagged version per instructions)
+(search for `<icu4j.version>` and update to the latest tagged version per instructions)
 
 3c. Update the build for any new icu version, added locales, etc.
 ```sh
@@ -265,6 +266,16 @@ ant proddata 2>&1 | tee $NOTES/cldr-newData-proddataLog.txt
    production data, see
    [BRS: Run tests on production data](https://cldr.unicode.org/development/cldr-big-red-switch/brs-run-tests-on-production-data)
 
+> Note, also for CLDR development, periodically at this point the CompareResolved
+  tool should be run to compare the fully-resolved data generated from `$CLDR_DIR/common/main`
+  with the fully-resolved data generated from the just-updated production data
+  `$CLDR_DATA_DIR/common/main`; any discrepancies should be investigated. The tool
+  can be run for example as follows:
+```sh
+cd $CLDR_DIR
+java -DCLDR_DIR=$(pwd) -jar tools/cldr-code/target/cldr-code.jar CompareResolved -s $CLDR_DIR/common/main -c $CLDR_DATA_DIR/common/main > $NOTES/CompareResolved-result.txt
+```
+
 5b. Build the new ICU4C data files.
 
 These include .txt files and .py files. These new files will replace whatever was
@@ -272,17 +283,17 @@ already present in the ICU4C sources. This process uses the `LdmlConverter` in
 `$ICU_DIR/tools/cldr/cldr-to-icu/`; see `$ICU_DIR/tools/cldr/cldr-to-icu/README.md`.
 
 * This process will take several minutes, during most of which there will be no log
-  output (so do not assume nothing is happening). Keep a log so you can investigate
+  output (so do not assume that nothing is happening). Keep a log so you can investigate
   anything that looks suspicious.
-* The conversion tool
-  will automatically run its own "clean" step to delete files it cannot determine to
-  be ones that it would generate, except for pasts listed in `<retain>` elements such as
-  `coll/de__PHONEBOOK.txt`, `coll/de_.txt`, etc.
+* The conversion tool will automatically run its own "clean" step to delete files it
+  cannot determine to be ones that it would generate, except for pasts listed in
+  `<retain>` elements such as `coll/de__PHONEBOOK.txt`, `coll/de_.txt`, etc.
 * Before running the tool to regenerate the data, make any necessary changes to the
   `config.xml` file, such as adding new locales etc.
 
 ```sh
-cd $ICU_DIR/tools/cldr/cldr-to-icu
+cd $TOOLS_ROOT/cldr/cldr-to-icu
+mvn clean package -DskipTests -DskipITs
 java -jar target/cldr-to-icu-1.0-SNAPSHOT-jar-with-dependencies.jar --cldrDataDir="$CLDR_TMP_DIR/production" | tee $NOTES/cldr-newData-builddataLog.txt
 ```
 
@@ -296,17 +307,8 @@ ant copy-cldr-testdata
 5d. NOP
 (This step has been subsumed into 5c above)
 
-5e. For now, manually re-add the `lstm` entries in `data/brkitr/root.txt`
-```sh
-open $ICU4C_DIR/source/data/brkitr/root.txt
-```
-Paste the following block after the dictionaries block and before the final closing '}':
-```
-    lstm{
-        Thai{"Thai_graphclust_model4_heavy.res"}
-        Mymr{"Burmese_graphclust_model5_heavy.res"}
-    }
-```
+5e. NOP
+(This step is no longer necessary, see [ICU-23215](https://unicode-org.atlassian.net/browse/ICU-23215) for details.)
 
 5f. Update hard-coded lists in ICU
 
@@ -498,7 +500,7 @@ rebuilding of other kinds of data and/or code. For example:
 
 If you see a failure such as
 ```
-MeasureUnitTest	testCLDRUnitAvailability	Failure	(MeasureUnitTest.java:3410) : Unit present in CLDR but not available via constant in MeasureUnit: speed-beaufort 
+MeasureUnitTest	testCLDRUnitAvailability	Failure	(MeasureUnitTest.java:3410) : Unit present in CLDR but not available via constant in MeasureUnit: speed-beaufort
 ```
 then you will need to update the C and J library and test code for new measurement
 units, see the procedure at

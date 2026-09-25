@@ -61,11 +61,28 @@ public class DecimalMatcher implements NumberParseMatcher {
             decimalSeparator = symbols.getDecimalSeparatorString();
         }
         boolean strictSeparators = 0 != (parseFlags & ParsingUtils.PARSE_FLAG_STRICT_SEPARATORS);
-        Key groupingKey = strictSeparators ? Key.STRICT_ALL_SEPARATORS : Key.ALL_SEPARATORS;
 
-        // Attempt to find separators in the static cache
+        // Parsing is very lenient even in strict mode, almost any dot or comma is a
+        // grouping separator. Parsing strings like "1.234" in French was treating '.'
+        // like an ignorable grouping separator, and we want it to be excluded.
+        // We keep the public behavior when strictParse is false, but when it is true
+        // we restrict grouping separators to the smaller set of equivalents.
+        Key groupingKey = StaticUnicodeSets.chooseFrom(groupingSeparator,
+                strictSeparators ? Key.STRICT_COMMA : Key.ALL_SEPARATORS,
+                strictSeparators ? Key.STRICT_PERIOD : Key.ALL_SEPARATORS);
+        if (groupingKey == null) {
+            groupingKey = StaticUnicodeSets.chooseFrom(
+                groupingSeparator, Key.OTHER_GROUPING_SEPARATORS);
+        }
+        if (groupingKey != null) {
+            // Attempt to find separators in the static cache
+            groupingUniSet = StaticUnicodeSets.get(groupingKey);
+        } else if (!groupingSeparator.isEmpty()) {
+            groupingUniSet = new UnicodeSet().add(groupingSeparator.codePointAt(0)).freeze();
+        } else {
+            groupingUniSet = UnicodeSet.EMPTY;
+        }
 
-        groupingUniSet = StaticUnicodeSets.get(groupingKey);
         Key decimalKey = StaticUnicodeSets.chooseFrom(decimalSeparator,
                 strictSeparators ? Key.STRICT_COMMA : Key.COMMA,
                 strictSeparators ? Key.STRICT_PERIOD : Key.PERIOD);

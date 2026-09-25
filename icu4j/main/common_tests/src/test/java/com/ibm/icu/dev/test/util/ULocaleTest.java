@@ -152,8 +152,7 @@ public class ULocaleTest extends CoreTestFmwk {
             }
             @Override
             public NumberFormat createFormat(ULocale loc, int formatType) {
-                return (NumberFormat) (locale.equals(loc) ?
-                        proto.clone() : null);
+                return locale.equals(loc) ? proto.clone() : (NumberFormat) null;
             }
         }
 
@@ -1455,7 +1454,7 @@ public class ULocaleTest extends CoreTestFmwk {
             errln("ULocale.ULocale(String a, String b)");
         }
 
-        ULocale loc5 = (ULocale) loc4.clone();
+        ULocale loc5 = loc4.clone();
         if (!loc5.equals(loc4)){
             errln("ULocale.clone should get the same ULocale");
         }
@@ -2713,8 +2712,8 @@ public class ULocaleTest extends CoreTestFmwk {
                     "dz"
                 }, {
                     "und_BY",
-                    "be_Cyrl_BY",
-                    "be"
+                    "ru_Cyrl_BY",
+                    "ru_BY"
                 }, {
                     "und_Beng",
                     "bn_Beng_BD",
@@ -5544,7 +5543,7 @@ public class ULocaleTest extends CoreTestFmwk {
 
     @Test
     public void TestLocaleCanonicalizationFromFile() throws IOException {
-        BufferedReader testFile = TestUtil.getDataReader("cldr/localeIdentifiers/localeCanonicalization.txt");
+        BufferedReader testFile = TestUtil.getUtf8DataReader("cldr/localeIdentifiers/localeCanonicalization.txt");
         try {
             String line;
             while ((line = testFile.readLine()) != null) {
@@ -5598,7 +5597,7 @@ public class ULocaleTest extends CoreTestFmwk {
     static List<TestCase> readLikelySubtagsTestCases() throws Exception {
         List<TestCase> tests = new ArrayList<>();
         TestCase test = new TestCase();
-        BufferedReader testFile = TestUtil.getDataReader("cldr/localeIdentifiers/likelySubtags.txt");
+        BufferedReader testFile = TestUtil.getUtf8DataReader("cldr/localeIdentifiers/likelySubtags.txt");
         try {
             String line;
             while ((line = testFile.readLine()) != null) {

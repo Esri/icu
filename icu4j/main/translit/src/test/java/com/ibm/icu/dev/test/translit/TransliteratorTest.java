@@ -374,14 +374,14 @@ public class TransliteratorTest extends TestFmwk {
         Transliterator.Position index = new Transliterator.Position();
         ReplaceableString s = new ReplaceableString();
         for (int i=0; i<DATA.length; i+=2) {
-            StringBuffer log;
+            StringBuilder log;
             if (DATA[i] != null) {
-                log = new StringBuffer(s.toString() + " + "
+                log = new StringBuilder(s.toString() + " + "
                         + DATA[i]
                                + " -> ");
                 t.transliterate(s, index, DATA[i]);
             } else {
-                log = new StringBuffer(s.toString() + " => ");
+                log = new StringBuilder(s.toString() + " => ");
                 t.finishTransliteration(s, index);
             }
             UtilityExtensions.formatInput(log, s, index);
@@ -557,7 +557,7 @@ public class TransliteratorTest extends TestFmwk {
         // not used char epsilon = (char)0x3B5;
 
         // sigma upsilon nu -> syn
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(sigma).append(upsilon).append(nu);
         String syn = buf.toString();
         expect(gl, syn, "syn");
@@ -994,7 +994,7 @@ public class TransliteratorTest extends TestFmwk {
 
         for (int i=0; DATA[i]!=null; i+=3) {
             String id=DATA[i];
-            int dir = (DATA[i+1]==FORWARD)?
+            int dir = (DATA[i+1].equals(FORWARD))?
                     Transliterator.FORWARD:Transliterator.REVERSE;
             String expID=DATA[i+2];
             Exception e = null;
@@ -1301,7 +1301,7 @@ public class TransliteratorTest extends TestFmwk {
         };
 
         for (int d=0; d < DATA.length; d+=3) {
-            if (DATA[d] == RBT) {
+            if (DATA[d].equals(RBT)) {
                 // Transliterator test
                 Transliterator t = Transliterator.createFromRules("ID",
                         DATA[d+1], Transliterator.FORWARD);
@@ -2178,8 +2178,8 @@ public class TransliteratorTest extends TestFmwk {
         UnicodeSetIterator vIter = new UnicodeSetIterator(vowel);
         UnicodeSetIterator nvIter = new UnicodeSetIterator(non_vowel);
         Transliterator trans = Transliterator.getInstance("Devanagari-Gurmukhi");
-        StringBuffer src = new StringBuffer(" \u0902");
-        StringBuffer expect = new StringBuffer(" \u0A02");
+        StringBuilder src = new StringBuilder(" \u0902");
+        StringBuilder expect = new StringBuilder(" \u0A02");
         while(vIter.next()){
             src.setCharAt(0,(char) vIter.codepoint);
             expect.setCharAt(0,(char) (vIter.codepoint+0x0100));
@@ -2937,7 +2937,7 @@ public class TransliteratorTest extends TestFmwk {
     @Test
     public void TestAny() {
         UnicodeSet alphabetic = new UnicodeSet("[:alphabetic:]").freeze();
-        StringBuffer testString = new StringBuffer();
+        StringBuilder testString = new StringBuilder();
         for (int i = 0; i < UScript.CODE_LIMIT; ++i) {
             UnicodeSet sample = new UnicodeSet().applyPropertyAlias("script", UScript.getShortName(i)).retainAll(alphabetic);
             int count = 5;
@@ -3735,8 +3735,8 @@ the ::BEGIN/::END stuff)
         @Override
         public void run() {
             errorMsg = null;
-            StringBuffer inBuf = new StringBuffer(testData);
-            StringBuffer expectedBuf = new StringBuffer(expectedData);
+            StringBuilder inBuf = new StringBuilder(testData);
+            StringBuilder expectedBuf = new StringBuilder(expectedData);
 
             for(int i = 0; i < 1000; i++) {
                 String in = inBuf.toString();

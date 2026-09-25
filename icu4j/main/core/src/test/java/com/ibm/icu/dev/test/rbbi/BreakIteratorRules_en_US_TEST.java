@@ -21,6 +21,7 @@ public class BreakIteratorRules_en_US_TEST extends ListResourceBundle {
 
     // calling code will handle case where dictionary does not exist
 
+    @Override
     public Object[][] getContents() {
         return new Object[][] {
             // names of classes to instantiate for the different kinds of break
@@ -46,7 +47,7 @@ public class BreakIteratorRules_en_US_TEST extends ListResourceBundle {
                 // all of which should not influence the algorithm
                 "$_ignore_=[[:Mn:][:Me:][:Cf:]];"
 
-                // lower and upper case Roman letters, apostrophy and dash are
+                // lower and upper case Roman letters, apostrophe and dash are
                 // in the English dictionary
                 +"$_dictionary_=[a-zA-Z\\'\\-];"
 
@@ -64,7 +65,7 @@ public class BreakIteratorRules_en_US_TEST extends ListResourceBundle {
                 +"$mid_word=[[:Pd:]\u00ad\u2027\\\"\\\'];"
 
                 // punctuation that can occur in the middle of a number: currently
-                // apostrophes, qoutation marks, periods, commas, and the Arabic
+                // apostrophes, quotation marks, periods, commas, and the Arabic
                 // decimal point
                 +"$mid_num=[\\\"\\\'\\,\u066b\\.];"
 
@@ -214,7 +215,7 @@ public class BreakIteratorRules_en_US_TEST extends ListResourceBundle {
             // plus a few other words thrown in to show more interesting cases).
             // { "WordBreakDictionary", "com\\ibm\\text\\resources\\english.dict" },
             // { "LineBreakDictionary", "com\\ibm\\text\\resources\\english.dict" }
-            {   "WordBreakDictionary", DATA_NAME }, 
+            {   "WordBreakDictionary", DATA_NAME },
             {   "LineBreakDictionary", DATA_NAME }
         };
     }

@@ -24,6 +24,8 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.time.DayOfWeek;
+import java.time.Month;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -101,7 +103,7 @@ import com.ibm.icu.util.ULocale.Category;
  * A numbered pattern argument is matched with a map key that contains that number
  * as an ASCII-decimal-digit string (without leading zero).
  *
- * <h3><a name="patterns">Patterns and Their Interpretation</a></h3>
+ * <h3><a id="patterns">Patterns and Their Interpretation</a></h3>
  *
  * <code>MessageFormat</code> uses patterns of the following form:
  * <blockquote><pre>
@@ -242,7 +244,7 @@ import com.ibm.icu.util.ULocale.Category;
  *           <br>&nbsp;&nbsp;&nbsp;&nbsp;.setDefaultRuleset(argStyleText);</code>
  * </table>
  *
- * <h4><a name="diffsjdk">Differences from java.text.MessageFormat</a></h4>
+ * <h4><a id="diffsjdk">Differences from java.text.MessageFormat</a></h4>
  *
  * <p>The ICU MessageFormat supports both named and numbered arguments,
  * while the JDK MessageFormat only supports numbered arguments.
@@ -345,7 +347,7 @@ import com.ibm.icu.util.ULocale.Category;
  * </pre>
  * See {@link PluralFormat} and {@link PluralRules} for details.
  *
- * <h4><a name="synchronization">Synchronization</a></h4>
+ * <h4><a id="synchronization">Synchronization</a></h4>
  *
  * <p>MessageFormats are not synchronized.
  * It is recommended to create separate format instances for each thread.
@@ -363,7 +365,7 @@ import com.ibm.icu.util.ULocale.Category;
  * @author       Markus Scherer
  * @stable ICU 3.0
  */
-public class MessageFormat extends UFormat {
+public class MessageFormat extends UFormat implements Cloneable {
 
     // Incremented by 1 for ICU 4.8's new format.
     static final long serialVersionUID = 7136212545847378652L;
@@ -1452,7 +1454,7 @@ public class MessageFormat extends UFormat {
      * @stable ICU 3.0
      */
     @Override
-    public Object clone() {
+    public MessageFormat clone() {
         MessageFormat other = (MessageFormat) super.clone();
 
         if (customFormatArgStarts != null) {
@@ -1475,11 +1477,11 @@ public class MessageFormat extends UFormat {
             other.cachedFormatters = null;
         }
 
-        other.msgPattern = msgPattern == null ? null : (MessagePattern)msgPattern.clone();
+        other.msgPattern = msgPattern == null ? null : msgPattern.clone();
         other.stockDateFormatter =
-                stockDateFormatter == null ? null : (DateFormat) stockDateFormatter.clone();
+                stockDateFormatter == null ? null : stockDateFormatter.clone();
         other.stockNumberFormatter =
-                stockNumberFormatter == null ? null : (NumberFormat) stockNumberFormatter.clone();
+                stockNumberFormatter == null ? null : stockNumberFormatter.clone();
 
         other.pluralProvider = null;
         other.ordinalProvider = null;
@@ -1745,16 +1747,18 @@ public class MessageFormat extends UFormat {
                 // ArgType.NONE, or
                 // any argument which got reset to null via setFormat() or its siblings.
                 if (arg instanceof Number) {
-                    // format number if can
                     dest.formatAndAppend(getStockNumberFormatter(), arg);
                 } else if (arg instanceof Date) {
-                    // format a Date if can
                     dest.formatAndAppend(getStockDateFormatter(), arg);
                 } else if (arg instanceof Calendar) {
-                    // format a Calendar if can
+                    dest.formatAndAppend(getStockDateFormatter(), arg);
+                } else if (arg instanceof java.util.Calendar) {
                     dest.formatAndAppend(getStockDateFormatter(), arg);
                 } else if (arg instanceof Temporal) {
-                    // format a Temporal if can
+                    dest.formatAndAppend(getStockDateFormatter(), arg);
+                } else if (arg instanceof DayOfWeek) {
+                    dest.formatAndAppend(getStockDateFormatter(), arg);
+                } else if (arg instanceof Month) {
                     dest.formatAndAppend(getStockDateFormatter(), arg);
                 } else {
                     dest.append(arg.toString());

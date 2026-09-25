@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.ibm.icu</groupId>
     <artifactId>icu4j-root</artifactId>
-    <version>77.1</version>
+    <version>78.3</version>
   </parent>
 
   <artifactId>demos</artifactId>
@@ -55,7 +55,7 @@
                  also adding the project build directory -->
             <classpath/>
             <argument>com.ibm.icu.dev.demo.Launcher</argument>
-          </arguments>          
+          </arguments>
         </configuration>
       </plugin>
     </plugins>

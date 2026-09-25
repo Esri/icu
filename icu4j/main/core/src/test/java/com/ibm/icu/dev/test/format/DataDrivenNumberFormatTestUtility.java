@@ -157,9 +157,8 @@ public class DataDrivenNumberFormatTestUtility extends CoreTestFmwk {
 
     private void run(String fileName, RunMode runMode) {
         char codeUnderTestId = (codeUnderTest == null) ? 0 : codeUnderTest.Id();
-        BufferedReader in = null;
-        try {
-            in = TestUtil.getDataReader("numberformattestspecification.txt", "UTF-8");
+
+        try (BufferedReader in = TestUtil.getUtf8DataReader("numberformattestspecification.txt")) {
             // read first line and remove BOM if present
             readLine(in);
             if (fileLine != null && fileLine.charAt(0) == '\uFEFF') {
@@ -274,14 +273,6 @@ public class DataDrivenNumberFormatTestUtility extends CoreTestFmwk {
             e.printStackTrace(ps);
             String stackTrace = os.toString();
             showError("MAJOR ERROR: " + e.toString() + "     Stack trace: " + stackTrace.substring(0,500));
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 

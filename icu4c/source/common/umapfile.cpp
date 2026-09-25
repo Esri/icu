@@ -113,7 +113,9 @@ U_CFUNC UBool uprv_mapFile(UDataMemory *pData, /* Fill in with info on the resul
     HANDLE map = nullptr;
     HANDLE file = INVALID_HANDLE_VALUE;
 
-    UDataMemory_init(pData); /* Clear the output struct.        */
+        HANDLE map = nullptr;
+        HANDLE file = INVALID_HANDLE_VALUE;
+        DWORD fileLength = 0;
 
     /* open the input file */
 #if U_PLATFORM_HAS_WINUWP_API == 0
@@ -148,7 +150,34 @@ U_CFUNC UBool uprv_mapFile(UDataMemory *pData, /* Fill in with info on the resul
         if (HRESULT_FROM_WIN32(GetLastError()) == E_OUTOFMEMORY) {
             *status = U_MEMORY_ALLOCATION_ERROR;
         }
-        return false;
+
+        fileLength = GetFileSize(file, nullptr);
+
+        // Note: We use nullptr/nullptr for lpAttributes parameter below.
+        // This means our handle cannot be inherited and we will get the default security descriptor.
+        /* create an unnamed Windows file-mapping object for the specified file */
+        map = CreateFileMappingW(file, nullptr, PAGE_READONLY, 0, 0, nullptr);
+
+        CloseHandle(file);
+        if (map == nullptr) {
+            // If we failed to create the mapping due to an out-of-memory error, then 
+            // we want to report that error back to the caller.
+            if (HRESULT_FROM_WIN32(GetLastError()) == E_OUTOFMEMORY) {
+                *status = U_MEMORY_ALLOCATION_ERROR;
+            }
+            return false;
+        }
+
+        /* map a view of the file into our address space */
+        pData->pHeader = reinterpret_cast<const DataHeader *>(MapViewOfFile(map, FILE_MAP_READ, 0, 0, 0));
+        if (pData->pHeader == nullptr) {
+            CloseHandle(map);
+            return false;
+        }
+        pData->map = map;
+        pData->length = fileLength;
+
+        return true;
     }
 
     // Note: We use nullptr/nullptr for lpAttributes parameter below.
@@ -222,9 +251,10 @@ U_CFUNC UBool uprv_mapFile(UDataMemory *pData, const char *path, UErrorCode *sta
         return false;
     }
 
-    pData->map = (char *)data + length;
-    pData->pHeader = (const DataHeader *)data;
-    pData->mapAddr = data;
+        pData->map = (char *)data + length;
+        pData->pHeader=(const DataHeader *)data;
+        pData->mapAddr = data;
+        pData->length = length;
 #if U_PLATFORM == U_PF_IPHONE || U_PLATFORM == U_PF_ANDROID
     // Apparently supported from Android 23 and higher:
     //   https://github.com/ggml-org/llama.cpp/pull/3631
@@ -281,7 +311,11 @@ U_CFUNC UBool uprv_mapFile(UDataMemory *pData, const char *path, UErrorCode *sta
     fileLength = umap_fsize(file);
     if (ferror(file) || fileLength <= 20) {
         fclose(file);
-        return false;
+        pData->map=p;
+        pData->pHeader=(const DataHeader *)p;
+        pData->mapAddr=p;
+        pData->length = fileLength;
+        return true;
     }
 
     /* allocate the memory to hold the file data */

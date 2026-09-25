@@ -66,9 +66,10 @@ R_NOTREPRO              = "10024"
 R_FIXED_NON_REPO        = "10025"
 R_FIX_SURVEY_TOOL       = "10022"
 R_OBSOLETE              = "10023"
+R_DONE                  = "10026"
 
 # so we don't miss any
-all_resolutions = [ R_NEEDS_MOREINFO, R_FIXED, R_NO_TIME_TO_DO_THIS, R_DUPLICATE, R_OUTOFSCOPE, R_ASDESIGNED, R_WONTFIX, R_FIXED_BY_OTHER_TICKET, R_NOTREPRO, R_FIX_SURVEY_TOOL, R_OBSOLETE, R_FIXED_NON_REPO, R_INVALID ]
+all_resolutions = [ R_NEEDS_MOREINFO, R_FIXED, R_NO_TIME_TO_DO_THIS, R_DUPLICATE, R_OUTOFSCOPE, R_ASDESIGNED, R_WONTFIX, R_FIXED_BY_OTHER_TICKET, R_NOTREPRO, R_FIX_SURVEY_TOOL, R_OBSOLETE, R_FIXED_NON_REPO, R_INVALID, R_DONE ]
 
 # constants for jira_issue.fields.issuetype.id
 # <https://unicode-org.atlassian.net/rest/api/2/issuetype>
@@ -335,20 +336,21 @@ def get_jira_issues(jira_query, **kwargs):
     Yields an ICUIssue for each issue in the user-specified query.
     """
     jira_url, jira = get_jira_instance(**kwargs)
-    # Jira limits us to query the API using a limited batch size.
-    start = 0
-    batch_size = 100 # https://jira.atlassian.com/browse/JRACLOUD-67570
+    nextPageToken=None
+    start=0
     while True:
-        issues = jira.search_issues(jira_query, startAt=start, maxResults=batch_size)
+        issues = jira.enhanced_search_issues(jira_query, nextPageToken=nextPageToken, maxResults=False)
         if len(issues) > 0:
             print("Loaded issues %d-%d\t of %d" % (start + 1, start + len(issues), issues.total), file=sys.stderr)
         else:
             print(":warning: No issues matched the query.") # leave this as a warning
         for jira_issue in issues:
             yield make_icu_issue(jira_issue)
-        if len(issues) < batch_size:
+        if "nextPageToken" in issues:
+            nextPageToken = issues["nextPageToken"]
+        else:
             break
-        start += batch_size
+        start += len(issues)
 
 jira_issue_map = dict() # loaded in main()
 commit_metadata = None
