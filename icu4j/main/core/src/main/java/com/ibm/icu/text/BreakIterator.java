@@ -231,10 +231,10 @@ public abstract class BreakIterator implements Cloneable
      * @stable ICU 2.0
      */
     @Override
-    public Object clone()
+    public BreakIterator clone()
     {
         try {
-            return super.clone();
+            return (BreakIterator) super.clone();
         }
         catch (CloneNotSupportedException e) {
             ///CLOVER:OFF
@@ -347,6 +347,10 @@ public abstract class BreakIterator implements Cloneable
         // NOTE:  This implementation is here solely because we can't add new
         // abstract methods to an existing class.  There is almost ALWAYS a
         // better, faster way to do this.
+
+        if (offset < 0) {
+            return DONE;
+        }
         int pos = following(offset);
         while (pos >= offset && pos != DONE)
             pos = previous();
@@ -462,7 +466,7 @@ public abstract class BreakIterator implements Cloneable
 
     /**
      * For RuleBasedBreakIterators, get the status (tag) values from the break rule(s)
-     * that determined the the boundary at the current iteration position.
+     * that determined the boundary at the current iteration position.
      * <p>
      * For break iterator types that do not support rule status,
      * no values are returned.
@@ -473,7 +477,7 @@ public abstract class BreakIterator implements Cloneable
      *
      * @param fillInArray an array to be filled in with the status values.
      * @return          The number of rule status values from rules that determined
-     *                  the the boundary at the current iteration position.
+     *                  the boundary at the current iteration position.
      *                  In the event that the array is too small, the return value
      *                  is the total number of status values that were available,
      *                  not the reduced number that were actually returned.
@@ -939,7 +943,7 @@ public abstract class BreakIterator implements Cloneable
 
         BreakIteratorCache(ULocale where, BreakIterator iter) {
             this.where = where;
-            this.iter = (BreakIterator) iter.clone();
+            this.iter = iter.clone();
         }
 
         ULocale getLocale() {
@@ -947,7 +951,7 @@ public abstract class BreakIterator implements Cloneable
         }
 
         BreakIterator createBreakInstance() {
-            return (BreakIterator) iter.clone();
+            return iter.clone();
         }
     }
 
@@ -992,9 +996,9 @@ public abstract class BreakIterator implements Cloneable
      * {@icu} Returns the locale that was used to create this object, or null.
      * This may may differ from the locale requested at the time of
      * this object's creation.  For example, if an object is created
-     * for locale <tt>en_US_CALIFORNIA</tt>, the actual data may be
-     * drawn from <tt>en</tt> (the <i>actual</i> locale), and
-     * <tt>en_US</tt> may be the most specific locale that exists (the
+     * for locale {@code en_US_CALIFORNIA}, the actual data may be
+     * drawn from {@code en} (the <i>actual</i> locale), and
+     * {@code en_US} may be the most specific locale that exists (the
      * <i>valid</i> locale).
      *
      * <p>Note: The <i>actual</i> locale is returned correctly, but the <i>valid</i>

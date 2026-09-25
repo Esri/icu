@@ -8,7 +8,7 @@
 
   <groupId>com.ibm.icu</groupId>
   <artifactId>icu4j-root</artifactId>
-  <version>77.1</version>
+  <version>78.3</version>
   <packaging>pom</packaging>
 
   <name>${proj-title} (${project.artifactId})</name>
@@ -36,33 +36,38 @@
     <module>main/common_tests</module>
     <!-- Shaded jar for publishing to Maven Central -->
     <module>main/icu4j</module>
-    <!-- For publishing to Maven Central. Not shaded, but depends on the shaded artifacts above.
-         Also contains all the project properties (developers, scm, etc) needed for maven publishing.
-    -->
-    <module>main/localespi</module>
 
     <module>demos</module>
     <module>samples</module>
+    <module>tools/build</module>
     <module>tools/misc</module>
+    <module>tools/taglets</module>
+    <module>tools/pmd</module>
     <module>perf-tests</module>
   </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.release>11</maven.compiler.release>
 
-    <maven-central-repo-url>https://oss.sonatype.org</maven-central-repo-url>
-    <maven-central-releases-repo-url>${maven-central-repo-url}/service/local/staging/deploy/maven2</maven-central-releases-repo-url>
-    <maven-central-snapshots-repo-url>${maven-central-repo-url}/content/repositories/snapshots</maven-central-snapshots-repo-url>
+    <maven-central-repo-url>https://central.sonatype.com</maven-central-repo-url>
+    <maven-central-releases-repo-url>${maven-central-repo-url}</maven-central-releases-repo-url>
+    <maven-central-snapshots-repo-url>${maven-central-repo-url}/repository/maven-snapshots/</maven-central-snapshots-repo-url>
 
     <!-- This is the folder where we gather the files to be posted in the Github Release-->
     <release.directory>${project.build.directory}/release_directory</release.directory>
 
+    <jmh.version>1.37</jmh.version>
     <junit.version>4.13.2</junit.version>
     <junitparams.version>1.1.1</junitparams.version>
     <gson.version>2.11.0</gson.version>
     <commons-cli.version>1.9.0</commons-cli.version>
+    <!-- We need at least 3.5.1 to avoid https://github.com/codehaus-plexus/plexus-io/issues/109.
+        Once we upgrade maven-source-plugin and maven-jar-plugin to versions new enough to depend
+        on 3.5.1 or higher, we can remove this override.
+    -->
+    <plexus-io.version>3.5.1</plexus-io.version>
 
     <proj-title>International Components for Unicode for Java</proj-title>
     <proj.displayname>${project.artifactId}</proj.displayname>
@@ -72,7 +77,9 @@
     <proj.scm.url>https://github.com/unicode-org/icu</proj.scm.url>
 
     <!-- Version update! -->
-    <icu.major.version>77</icu.major.version>
+    <icu.major.version>78</icu.major.version>
+
+    <maven-pmd-plugin.version>3.27.0</maven-pmd-plugin.version>
 
     <!-- Variables used to generate the javadoc -->
     <!-- Version update! -->
@@ -140,24 +147,24 @@
   <mailingLists>
     <mailingList>
       <name>icu-support</name>
-      <subscribe>https://lists.sourceforge.net/lists/listinfo/icu-support</subscribe>
-      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/icu-support</unsubscribe>
-      <post>icu-support@lists.sourceforge.net</post>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=icu-support</archive>
+      <subscribe>https://groups.google.com/a/unicode.org/g/icu-support</subscribe>
+      <unsubscribe>https://groups.google.com/a/unicode.org/g/icu-support</unsubscribe>
+      <post>icu-support@unicode.org</post>
+      <archive>https://groups.google.com/a/unicode.org/g/icu-support</archive>
     </mailingList>
     <mailingList>
       <name>icu-announce</name>
-      <subscribe>https://lists.sourceforge.net/lists/listinfo/icu-announce</subscribe>
-      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/icu-announce</unsubscribe>
-      <post>icu-announce@lists.sourceforge.net</post>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=icu-announce</archive>
+      <subscribe>https://groups.google.com/a/unicode.org/g/icu-announce</subscribe>
+      <unsubscribe>https://groups.google.com/a/unicode.org/g/icu-announce</unsubscribe>
+      <post>icu-announce@unicode.org</post>
+      <archive>https://groups.google.com/a/unicode.org/g/icu-announce</archive>
     </mailingList>
     <mailingList>
       <name>icu-design</name>
-      <subscribe>https://lists.sourceforge.net/lists/listinfo/icu-design</subscribe>
-      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/icu-design</unsubscribe>
-      <post>icu-design@lists.sourceforge.net</post>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=icu-design</archive>
+      <subscribe>https://groups.google.com/a/unicode.org/g/icu-design</subscribe>
+      <unsubscribe>https://groups.google.com/a/unicode.org/g/icu-design</unsubscribe>
+      <post>icu-design@unicode.org</post>
+      <archive>https://groups.google.com/a/unicode.org/g/icu-design</archive>
     </mailingList>
   </mailingLists>
 
@@ -173,13 +180,21 @@
   </issueManagement>
 
   <distributionManagement>
+    <site>
+      <!-- We don't deploy here, but without it generating reports fails.
+        If we really try to deploy here (`site:deploy`) it will fail,
+        but `site:stage` works.
+      -->
+      <id>unicode-org.github.io</id>
+      <url>scp://https://unicode-org.github.io/</url>
+    </site>
     <repository>
-      <id>icu4j-maven-repo</id>
+      <id>central</id>
       <name>ICU4J Central Repository</name>
       <url>${maven-central-releases-repo-url}</url>
     </repository>
     <snapshotRepository>
-      <id>icu4j-maven-repo</id>
+      <id>central</id>
       <name>ICU4J Central Development Repository</name>
       <url>${maven-central-snapshots-repo-url}</url>
     </snapshotRepository>
@@ -198,14 +213,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.13.0</version>
-          <!-- Plugin bug, maven.compiler.* properties are not honored, see
-            https://issues.apache.org/jira/browse/MCOMPILER-545
-          -->
-          <configuration>
-            <source>${maven.compiler.source}</source>
-            <target>${maven.compiler.target}</target>
-          </configuration>
+          <version>3.14.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -240,12 +248,30 @@
           </configuration>
         </plugin>
         <plugin>
+          <!-- https://central.sonatype.org/publish/publish-portal-maven/ -->
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>0.8.0</version>
+          <extensions>true</extensions>
+          <configuration>
+            <checksums>required</checksums>
+          </configuration>
+        </plugin>
+        <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <version>4.0.0-M16</version>
         </plugin>
         <plugin>
           <artifactId>maven-source-plugin</artifactId>
           <version>3.3.1</version>
+          <dependencies>
+            <!-- Do not remove, see the plexus-io.version comment in the properties section -->
+            <dependency>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-io</artifactId>
+              <version>${plexus-io.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <artifactId>maven-gpg-plugin</artifactId>
@@ -272,36 +298,6 @@
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>3.6.0</version>
           <executions>
-            <execution>
-              <!-- Workaround for Windows symlink issue:
-                 https://issues.apache.org/jira/browse/MRESOURCES-237
-                 Note: The recommended fix there is to filter out the symlink files, which
-                 would result in no license files in the .jar. That is not what we want.
-                 Instead, this `<execution>` config copies the LICENSE file to `target` at build time.
-              -->
-              <id>add-resource</id>
-              <goals>
-                <goal>add-resource</goal>
-              </goals>
-              <configuration>
-                <resources>
-                  <resource>
-                    <directory>${rootlocation}/../testdata/</directory>
-                    <includes>
-                      <!-- Do not "repair" this to use ${rootlocation}/../ and LICENSE.
-                        This is a workaround for Eclipse, which fails to import the projects because
-                        ${rootlocation}/../ overlaps with the location of the sub-projects (for example main/core).
-                        True, because {rootlocation} is resolved to $icu_root/icu4j.
-                        So ${rootlocation}/../ points to $icu_root, which overlaps with $icu_root/icu4j/main/core.
-                        But $icu_root/testdata/ does not overlap with $icu_root/icu4j/ so all is good.
-                        We then go up one step for the LICENSE, because Eclipse does not validate for files overlapping, only folders.
-                      -->
-                      <include>../LICENSE</include>
-                    </includes>
-                  </resource>
-                </resources>
-              </configuration>
-            </execution>
             <execution>
               <id>root-location</id>
               <phase>initialize</phase>
@@ -353,6 +349,9 @@
                   <requireMavenVersion>
                     <version>3.6.3</version>
                   </requireMavenVersion>
+                  <requireJavaVersion>
+                    <version>[11,)</version>
+                  </requireJavaVersion>
                 </rules>
               </configuration>
             </execution>
@@ -360,7 +359,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.11.2</version>
           <configuration>
             <excludePackageNames>com.ibm.icu.impl,com.ibm.icu.impl.*,com.ibm.icu.dev.*,com.ibm.icu.samples,com.ibm.icu.samples.*</excludePackageNames>
             <!--
@@ -379,35 +378,66 @@
             <doctitle>${icu4j.api.doc.window.title}</doctitle>
             <header>${icu4j.api.doc.header}</header>
             <bottom>${icu4j.api.doc.copyright.footer}</bottom>
-            <stylesheetfile>${icu4j.api.doc.root.dir}/stylesheet8.css</stylesheetfile>
             <encoding>UTF-8</encoding>
             <docencoding>UTF-8</docencoding>
             <charset>UTF-8</charset>
             <breakiterator>true</breakiterator>
             <use>true</use>
-            <maxmemory>256m</maxmemory>
-            <minmemory>256m</minmemory>
             <!-- <verbose>true</verbose> -->
+            <additionalJOptions>
+              <additionalJOption>-J-Dfile.encoding=UTF-8</additionalJOption>
+            </additionalJOptions>
+            <!--
+              Although the Maven Javadoc plugin claims that taglets are auto-detected,
+              it does not seem to work. But listing them explicitly does.
+            -->
             <taglets>
               <taglet>
-                <tagletClass>com.ibm.icu.dev.tool.docs.ICUTaglet</tagletClass>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUBugTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUCategoryTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUDiscouragedTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUDraftTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUEnhancedTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUInternalTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUNewTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUNoteTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUObsoleteTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUProvisionalTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUStableTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUSummaryTaglet</tagletClass>
+              </taglet>
+              <taglet>
+                <tagletClass>com.ibm.icu.dev.tool.docs.ICUTestTaglet</tagletClass>
               </taglet>
             </taglets>
-            <tagletArtifacts>
-              <!-- To handle the ICU custom taglets (@icu, @draft, @stable, etc -->
-              <tagletArtifact>
-                <groupId>com.ibm.icu</groupId>
-                <artifactId>tools_build</artifactId>
-                <version>${project.version}</version>
-              </tagletArtifact>
-            </tagletArtifacts>
-            <tags>
-              <tag>
-                <name>category</name>
-                <placement>a</placement>
-                <head>Category:</head>
-              </tag>
-            </tags>
+            <!-- To handle the ICU custom taglets (@icu, @draft, @stable, etc -->
+            <tagletArtifact>
+              <groupId>com.ibm.icu</groupId>
+              <artifactId>tools_taglets</artifactId>
+              <version>${project.version}</version>
+            </tagletArtifact>
           </configuration>
         </plugin>
         <plugin>
@@ -440,11 +470,41 @@
               </manifestEntries>
             </archive>
           </configuration>
+          <dependencies>
+            <!-- Do not remove, see the plexus-io.version comment in the properties section -->
+            <dependency>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-io</artifactId>
+              <version>${plexus-io.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <version>3.4.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${maven-pmd-plugin.version}</version>
+          <configuration>
+            <rulesets>
+              <!-- Hand-picked rules -->
+              <ruleset>tools/pmd/src/main/resources/icu4j/pmd-ruleset.xml</ruleset>
+              <!-- Uncomment the block below to enable all known checks.
+                All of these rulesets can be specified in pmd-ruleset.xml instead.
+              -->
+              <!--
+              <ruleset>/category/java/bestpractices.xml</ruleset>
+              <ruleset>/category/java/codestyle.xml</ruleset>
+              <ruleset>/category/java/design.xml</ruleset>
+              <ruleset>/category/java/errorprone.xml</ruleset>
+              <ruleset>/category/java/multithreading.xml</ruleset>
+              <ruleset>/category/java/performance.xml</ruleset>
+              -->
+            </rulesets>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -543,7 +603,7 @@
     </profile>
 
     <!-- This is used to create "merged" javadoc for all modules combined.
-      Matches what is posted on a website (where icu4j / charset / localespi are all in one).
+      Matches what is posted on a website (where icu4j / charset are all in one).
       That's why you need to run this with `site`, but build the artifacts first (for the taglets):
         mvn install -DskipTests -DskipITs
         mvn site -DskipTests -DskipITs -P with_full_javadoc
@@ -621,39 +681,36 @@
       </build>
     </profile>
 
-    <!-- The tools/build module depends on the old tools.jar (jdk 1.8)
-      The com.sun.javadoc package was deprecated in Java 11, and has been removed for Java 17.
-      JDK 11 does not include tools.jar anymore. The code must be updated, see migration guide at
-        https://docs.oracle.com/en/java/javase/11/docs/api/jdk.javadoc/jdk/javadoc/doclet/package-summary.html#migration
+    <!-- This is used to check that all API are properly tagged
+      (regular, draft, deprecated, status consistency, etc.)
+      To run it:
+        mvn install -DskipITs -DskipTests
+        mvn site -DskipITs -DskipTests -P checktags
     -->
     <profile>
-      <id>old_jdk_taglet</id>
-      <activation>
-        <jdk>[1.7,1.8]</jdk>
-      </activation>
-      <modules>
-         <module>tools/build</module>
-      </modules>
-    </profile>
-
-    <!-- Starting with JDK 9, the Java compiler supports the −−release version.
-      Unlike source (checking the language features) and target (the version of the classes generated),
-      this option also checks that newer APIs are not used.
-        https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-release.html
-      Would be nice if the maven-compiler-plugin would filter this out below JDK 9, but it does not.
-      So we must use an auto-activated profile for this option.
-    -->
-    <profile>
-      <id>newer_jdk</id>
-      <activation>
-        <jdk>[9,)</jdk>
-      </activation>
+      <id>checktags</id>
       <build>
         <plugins>
           <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>aggregate</id>
+                <phase>site</phase>
+                <goals>
+                  <goal>aggregate</goal>
+                </goals>
+              </execution>
+            </executions>
             <configuration>
-              <release>8</release>
+              <failOnError>false</failOnError>
+              <useStandardDocletOptions>false</useStandardDocletOptions>
+              <doclet>com.ibm.icu.dev.tool.docs.CheckTags</doclet>
+              <docletArtifact>
+                <groupId>com.ibm.icu</groupId>
+                <artifactId>tools_build</artifactId>
+                <version>${project.version}</version>
+              </docletArtifact>
             </configuration>
           </plugin>
         </plugins>
@@ -661,7 +718,12 @@
     </profile>
 
     <profile>
-      <!-- mvn test -ntp -DskipTests -DskipITs -P errorprone -->
+      <!-- Run
+           mvn clean test -ntp -DskipTests -DskipITs -l /tmp/errorprone.log -P errorprone
+           mvn exec:java -f tools/build/ -P errorprone_report -DlogFile=/tmp/errorprone.log
+        On Windows you can use %TEMP%\errorprone.log for the temporary folder.
+        You can then inspect the content of the errorprone.log file, or the reports in
+        the target folder (errorprone*.html, errorprone.md, errorprone.tsv) -->
       <id>errorprone</id>
       <build>
         <plugins>
@@ -669,11 +731,11 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <source>${maven.compiler.source}</source>
-              <target>${maven.compiler.target}</target>
+              <showWarnings>true</showWarnings>
+              <failOnError>false</failOnError>
+              <fork>true</fork>
               <encoding>UTF-8</encoding>
               <!-- Use <compilerArg> to pass flags to errorprone. See https://errorprone.info/docs/flags -->
-              <showWarnings>true</showWarnings>
               <compilerArgs>
                 <arg>-XDcompilePolicy=simple</arg>
                 <!--
@@ -681,8 +743,24 @@
                     If we let errors be errors they fail and stop the build, so we don't get a full report.
                     So we force them all to be reported as warning.
                     The drawback is that there are not errors now, they get mixed with the real warnings.
+                    The proper severity level is then restored by the tool generating the reports.
                 -->
-                <arg>-Xplugin:ErrorProne -XepAllErrorsAsWarnings</arg>
+                <arg>-Xplugin:ErrorProne -XepAllErrorsAsWarnings -Xep:UnicodeEscape:OFF</arg>
+                <arg>-Xmaxerrs</arg>
+                <arg>10000</arg>
+                <arg>-Xmaxwarns</arg>
+                <arg>10000</arg>
+                <arg>-J-Dfile.encoding=UTF-8</arg>
+                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
+                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
+                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+                <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+                <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
               </compilerArgs>
               <annotationProcessorPaths>
                 <path>
@@ -698,76 +776,139 @@
     </profile>
 
     <profile>
-        <id>release_files</id>
-        <build>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <configuration>
-                        <outputDirectory>${release.directory}</outputDirectory>
-                        <overWriteReleases>true</overWriteReleases>
-                        <overWriteSnapshots>true</overWriteSnapshots>
-                        <artifactItems>
-                        <!-- icu4j -->
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j</artifactId>
-                            <version>${project.version}</version>
-                            <classifier>sources</classifier>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j</artifactId>
-                            <version>${project.version}</version>
-                            <classifier>javadoc</classifier>
-                        </artifactItem>
-                        <!-- icu4j-charset -->
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j-charset</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j-charset</artifactId>
-                            <version>${project.version}</version>
-                            <classifier>sources</classifier>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j-charset</artifactId>
-                            <version>${project.version}</version>
-                            <classifier>javadoc</classifier>
-                        </artifactItem>
-                        <!-- icu4j-localespi -->
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j-localespi</artifactId>
-                            <version>${project.version}</version>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j-localespi</artifactId>
-                            <version>${project.version}</version>
-                            <classifier>sources</classifier>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>com.ibm.icu</groupId>
-                            <artifactId>icu4j-localespi</artifactId>
-                            <version>${project.version}</version>
-                            <classifier>javadoc</classifier>
-                        </artifactItem>
-                        </artifactItems>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
+    <!-- This is used to generate a PMD report.
+      PMD is a code checker, similar to errorprone,
+      but there are non-overlapping checks between the two.
+
+      To generate a report run this in the icu4j folder:
+        mvn clean site site:stage -DskipTests -DskipITs -P pmd
+
+      The report can be seen at {icu_root}/icu4j/target/staging/index.html
+      Then Bottom-left => Project Reports => PMD.
+      Or access directly at {icu_root}/icu4j/target/staging/pmd.html
+
+      Generating the report (above) does not result in a build failure.
+      To cause a build failure when issues are found (in CI) run this `verify`
+      command after the report was generated (the previous step):
+        mvn verify -DskipTests -DskipITs -P pmd
+      -->
+      <id>pmd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>aggregate-pmd-check</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>com.ibm.icu</groupId>
+                <artifactId>tools_pmd</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <reportSets>
+              <reportSet>
+                <reports>
+                  <report>aggregate-pmd</report>
+                </reports>
+              </reportSet>
+            </reportSets>
+          </plugin>
+        </plugins>
+      </reporting>
+    </profile>
+
+    <profile>
+      <id>release_files</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <configuration>
+              <outputDirectory>${release.directory}</outputDirectory>
+              <overWriteReleases>true</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <artifactItems>
+                <!-- icu4j -->
+                <artifactItem>
+                  <groupId>com.ibm.icu</groupId>
+                  <artifactId>icu4j</artifactId>
+                  <version>${project.version}</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>com.ibm.icu</groupId>
+                  <artifactId>icu4j</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>sources</classifier>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>com.ibm.icu</groupId>
+                  <artifactId>icu4j</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>javadoc</classifier>
+                </artifactItem>
+                <!-- icu4j-charset -->
+                <artifactItem>
+                  <groupId>com.ibm.icu</groupId>
+                  <artifactId>icu4j-charset</artifactId>
+                  <version>${project.version}</version>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>com.ibm.icu</groupId>
+                  <artifactId>icu4j-charset</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>sources</classifier>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>com.ibm.icu</groupId>
+                  <artifactId>icu4j-charset</artifactId>
+                  <version>${project.version}</version>
+                  <classifier>javadoc</classifier>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>aggregate</id>
+            <inherited>false</inherited>
+            <reports>
+              <report>aggregate</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>default</id>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>

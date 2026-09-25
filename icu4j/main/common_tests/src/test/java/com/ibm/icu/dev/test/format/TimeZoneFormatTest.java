@@ -146,8 +146,6 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
         for (int locidx = 0; locidx < LOCALES.length; locidx++) {
             logln("Locale: " + LOCALES[locidx].toString());
 
-            String localGMTString = TimeZoneFormat.getInstance(LOCALES[locidx]).formatOffsetLocalizedGMT(0);
-
             for (int patidx = 0; patidx < PATTERNS.length; patidx++) {
                 logln("    pattern: " + PATTERNS[patidx]);
                 SimpleDateFormat sdf = new SimpleDateFormat(PATTERNS[patidx], LOCALES[locidx]);
@@ -258,7 +256,7 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
                                 isOffsetFormat = (numDigits > 0);
                             }
 
-                            if (isOffsetFormat || tzstr.equals(localGMTString)) {
+                            if (isOffsetFormat) {
                                 // Localized GMT or ISO: total offset (raw + dst) must be preserved.
                                 int inOffset = inOffsets[0] + inOffsets[1];
                                 int outOffset = outOffsets[0] + outOffsets[1];
@@ -402,7 +400,14 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
                 }
 
                 for (String id : ids) {
-                    if (PATTERNS[patidx].equals("V")) {
+					// NOTE: This test only fails in the exhaustive tests.  If you take out this check,
+					// make sure you run the exhaustive tests!
+                    if (logKnownIssue("CLDR-18924", "Time round trip issues for Pacific/Apia in various locales")
+                            && id.equals("Pacific/Apia")) {
+                        continue;
+                    }
+
+                 	if (PATTERNS[patidx].equals("V")) {
                         // Some zones do not have short ID assigned, such as Asia/Riyadh87.
                         // The time roundtrip will fail for such zones with pattern "V" (short zone ID).
                         // This is expected behavior.
@@ -417,12 +422,6 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
                         if (id.indexOf('/') < 0 || LOC_EXCLUSION_PATTERN.matcher(id).matches()) {
                             continue;
                         }
-                    }
-
-                    if ((id.equals("Pacific/Apia") || id.equals("Pacific/Midway") || id.equals("Pacific/Pago_Pago"))
-                            && PATTERNS[patidx].equals("vvvv")
-                            && logKnownIssue("11052", "Ambiguous zone name - Samoa Time")) {
-                        continue;
                     }
 
                     BasicTimeZone btz = (BasicTimeZone)TimeZone.getTimeZone(id, TimeZone.TIMEZONE_ICU);
@@ -947,6 +946,15 @@ public class TimeZoneFormatTest extends CoreTestFmwk {
                 "\u65E5\u672C\u6A19\u6E96\u6642",   // "日本標準時"
                 TimeType.UNKNOWN
             },
+            // Regression test for ICU-23278
+            {
+                "en",
+                "Europe/Dublin",
+                dateJan,
+                Style.SPECIFIC_LONG,
+                "Greenwich Mean Time",
+                TimeType.STANDARD
+            }
         };
 
         for (Object[] testCase : TESTDATA) {

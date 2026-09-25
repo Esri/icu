@@ -160,7 +160,7 @@ import com.ibm.icu.util.ULocale.Category;
  *        + (calendar.get(Calendar.DST_OFFSET)/(60*60*1000))); // in hours</pre>
  * </blockquote>
  * <p>
- * GregorianCalendar usually should be instantiated using 
+ * GregorianCalendar usually should be instantiated using
  * {@link com.ibm.icu.util.Calendar#getInstance(ULocale)} passing in a <code>ULocale</code>
  * with the tag <code>"@calendar=gregorian"</code>.</p>
 
@@ -169,7 +169,7 @@ import com.ibm.icu.util.ULocale.Category;
  * @author Deborah Goldsmith, Mark Davis, Chen-Lieh Huang, Alan Liu
  * @stable ICU 2.0
  */
-public class GregorianCalendar extends Calendar {
+public class GregorianCalendar extends Calendar implements Cloneable {
     // jdk1.4.2 serialver
     private static final long serialVersionUID = 9199388694351062137L;
 
@@ -250,7 +250,7 @@ public class GregorianCalendar extends Calendar {
         // st   days in year before start of month
         // st2  days in year before month in leap year
     };
-    
+
     /**
      * Old year limits were least max 292269054, max 292278994.
      */
@@ -286,6 +286,7 @@ public class GregorianCalendar extends Calendar {
     /**
      * @stable ICU 2.0
      */
+    @Override
     protected int handleGetLimit(int field, int limitType) {
         return LIMITS[field][limitType];
     }
@@ -308,7 +309,7 @@ public class GregorianCalendar extends Calendar {
      * Julian day number of the Gregorian cutover.
      */
     private transient int cutoverJulianDay = 2299161;
-    
+
     /**
      * The year of the gregorianCutover, with 0 representing
      * 1 BC, -1 representing 2 BC, etc.
@@ -498,7 +499,7 @@ public class GregorianCalendar extends Calendar {
             // cutover computations.  These are the Julian day of the cutover
             // and the cutover year.
             cutoverJulianDay = (int) floorDivide(gregorianCutover, ONE_DAY);
-            
+
             // Convert cutover millis to extended year
             GregorianCalendar cal = new GregorianCalendar(getTimeZone());
             cal.setTime(date);
@@ -535,9 +536,10 @@ public class GregorianCalendar extends Calendar {
      * Returns true if the given Calendar object is equivalent to this
      * one.  Calendar override.
      *
-     * @param other the Calendar to be compared with this Calendar   
+     * @param other the Calendar to be compared with this Calendar
      * @stable ICU 2.4
      */
+    @Override
     public boolean isEquivalentTo(Calendar other) {
         return super.isEquivalentTo(other) &&
             gregorianCutover == ((GregorianCalendar)other).gregorianCutover;
@@ -548,6 +550,7 @@ public class GregorianCalendar extends Calendar {
      * Generates the hash code for the GregorianCalendar object
      * @stable ICU 2.0
      */
+    @Override
     public int hashCode() {
         return super.hashCode() ^ (int)gregorianCutover;
     }
@@ -556,6 +559,7 @@ public class GregorianCalendar extends Calendar {
      * Roll a field by a signed amount.
      * @stable ICU 2.0
      */
+    @Override
     public void roll(int field, int amount) {
 
         switch (field) {
@@ -615,6 +619,7 @@ public class GregorianCalendar extends Calendar {
      * For the Gregorian calendar, this is the same as getMinimum() and getGreatestMinimum().
      * @stable ICU 2.0
      */
+    @Override
     public int getActualMinimum(int field) {
         return getMinimum(field);
     }
@@ -626,6 +631,7 @@ public class GregorianCalendar extends Calendar {
      * for some years the actual maximum for MONTH is 12, and for others 13.
      * @stable ICU 2.0
      */
+    @Override
     public int getActualMaximum(int field) {
         /* It is a known limitation that the code here (and in getActualMinimum)
          * won't behave properly at the extreme limits of GregorianCalendar's
@@ -669,9 +675,9 @@ public class GregorianCalendar extends Calendar {
              * Feb 29 must be allowed to shift to Mar 1 when setting the year.
              */
             {
-                Calendar cal = (Calendar) clone();
+                Calendar cal = clone();
                 cal.setLenient(true);
-                
+
                 int era = cal.get(ERA);
                 Date d = cal.getTime();
 
@@ -690,7 +696,7 @@ public class GregorianCalendar extends Calendar {
                         cal.setTime(d); // Restore original fields
                     }
                 }
-                
+
                 return lowGood;
             }
 
@@ -721,6 +727,7 @@ public class GregorianCalendar extends Calendar {
     /**
      * @stable ICU 2.0
      */
+    @Override
     protected int handleGetMonthLength(int extendedYear, int month) {
         // If the month is out of range, adjust it into range, and
         // modify the extended year value accordingly.
@@ -736,6 +743,7 @@ public class GregorianCalendar extends Calendar {
     /**
      * @stable ICU 2.0
      */
+    @Override
     protected int handleGetYearLength(int eyear) {
         return isLeapYear(eyear) ? 366 : 365;
     }
@@ -756,6 +764,7 @@ public class GregorianCalendar extends Calendar {
      * <li>EXTENDED_YEAR</ul>
      * @stable ICU 2.0
      */
+    @Override
     protected void handleComputeFields(int julianDay) {
         int eyear, month, dayOfMonth, dayOfYear;
 
@@ -769,11 +778,11 @@ public class GregorianCalendar extends Calendar {
             // is zero on Saturday December 30, 0 (Gregorian).
             long julianEpochDay = julianDay - (JAN_1_1_JULIAN_DAY - 2);
             eyear = (int) floorDivide(4*julianEpochDay + 1464, 1461);
-            
+
             // Compute the Julian calendar day number for January 1, eyear
             long january1 = 365L*(eyear-1L) + floorDivide(eyear-1L, 4L);
             dayOfYear = (int)(julianEpochDay - january1); // 0-based
-            
+
             // Julian leap years occurred historically every 4 years starting
             // with 8 AD.  Before 8 AD the spacing is irregular; every 3 years
             // from 45 BC to 9 BC, and then none until 8 AD.  However, we don't
@@ -781,7 +790,7 @@ public class GregorianCalendar extends Calendar {
             // computationally cleaner proleptic calendar, which assumes
             // consistent 4-year cycles throughout time.
             boolean isLeap = ((eyear&0x3) == 0); // equiv. to (eyear%4 == 0)
-            
+
             // Common Julian/Gregorian calculation
             int correction = 0;
             int march1 = isLeap ? 60 : 59; // zero-based DOY for March 1
@@ -813,6 +822,7 @@ public class GregorianCalendar extends Calendar {
     /**
      * @stable ICU 2.0
      */
+    @Override
     protected int handleGetExtendedYear() {
         int year;
         if (newerField(EXTENDED_YEAR, YEAR) == EXTENDED_YEAR) {
@@ -832,6 +842,7 @@ public class GregorianCalendar extends Calendar {
     /**
      * @stable ICU 2.0
      */
+    @Override
     protected int handleComputeJulianDay(int bestField) {
 
         invertGregorian = false;
@@ -844,7 +855,7 @@ public class GregorianCalendar extends Calendar {
             invertGregorian = true;
             jd = super.handleComputeJulianDay(bestField);
         }
-        
+
         return jd;
     }
 
@@ -852,6 +863,7 @@ public class GregorianCalendar extends Calendar {
      * Return JD of start of given month/year
      * @stable ICU 2.0
      */
+    @Override
     protected int handleComputeMonthStart(int eyear, int month, boolean useMonth) {
 
         // If the month is out of range, adjust it into range, and
@@ -892,6 +904,7 @@ public class GregorianCalendar extends Calendar {
      * {@inheritDoc}
      * @stable ICU 3.8
      */
+    @Override
     public String getType() {
         return "gregorian";
     }
@@ -924,4 +937,13 @@ public class GregorianCalendar extends Calendar {
         return factory;
     }
     */
+
+    /**
+     * {@inheritDoc}
+     * @stable ICU 2.0
+     */
+    @Override
+    public GregorianCalendar clone() {
+        return (GregorianCalendar) super.clone();
+    }
 }

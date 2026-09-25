@@ -5,13 +5,12 @@ package com.ibm.icu.message2;
 
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 
 import com.ibm.icu.message2.MFDataModel.Attribute;
 import com.ibm.icu.message2.MFDataModel.CatchallKey;
 import com.ibm.icu.message2.MFDataModel.Declaration;
 import com.ibm.icu.message2.MFDataModel.Expression;
-import com.ibm.icu.message2.MFDataModel.Function;
+import com.ibm.icu.message2.MFDataModel.FunctionRef;
 import com.ibm.icu.message2.MFDataModel.FunctionExpression;
 import com.ibm.icu.message2.MFDataModel.InputDeclaration;
 import com.ibm.icu.message2.MFDataModel.Literal;
@@ -42,6 +41,13 @@ public class MFSerializer {
     private boolean shouldDoubleQuotePattern = false;
     private boolean needSpace = false;
     private final StringBuilder result = new StringBuilder();
+
+    /**
+     * @internal ICU 75 technology preview
+     * @deprecated This API is for technology preview only.
+     */
+    @Deprecated
+    public MFSerializer() {}
 
     /**
      * Method converting the {@link MFDataModel.Message} to a string in MessageFormat 2 syntax.
@@ -179,15 +185,15 @@ public class MFSerializer {
         }
     }
 
-    private void functionToString(Function function) {
+    private void functionToString(FunctionRef function) {
         if (function == null) {
             return;
         }
-        if (function instanceof Function) {
+        if (function instanceof FunctionRef) {
             addSpaceIfNeeded();
             result.append(":");
-            result.append(((Function) function).name);
-            optionsToString(((Function) function).options);
+            result.append(((FunctionRef) function).name);
+            optionsToString(((FunctionRef) function).options);
         } else {
             errorType("Function", function);
         }
@@ -216,41 +222,27 @@ public class MFSerializer {
         }
     }
 
-    // abnf: number-literal = ["-"] (%x30 / (%x31-39 *DIGIT)) ["." 1*DIGIT]
-    // [%i"e" ["-" / "+"] 1*DIGIT]
-    // Not identical to the one in the parser. This one has a $ at the end, to
-    // match the whole string
-    // TBD if it can be refactored to reuse.
-    private static final java.util.regex.Pattern RE_NUMBER_LITERAL =
-            java.util.regex.Pattern.compile("^-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][+\\-]?[0-9]+)?$");
-
     private void literalToString(Literal literal) {
         String value = literal.value;
-        Matcher matcher = RE_NUMBER_LITERAL.matcher(value);
-        if (matcher.find()) { // It is a number, output as is
-            result.append(value);
+        StringBuilder literalBuffer = new StringBuilder();
+        boolean wasName = true;
+        for (int i = 0; i < value.length(); ) {
+            int cp = value.codePointAt(i);
+            if (cp == '\\' || cp == '|') {
+                literalBuffer.append('\\');
+            }
+            literalBuffer.append(Character.toString(cp));
+            if (!StringUtils.isNameChar(cp)) {
+                wasName = false;
+            }
+            i += Character.charCount(cp);
+        }
+        if (wasName && literalBuffer.length() != 0) {
+            result.append(literalBuffer);
         } else {
-            StringBuilder literalBuffer = new StringBuilder();
-            boolean wasName = true;
-            for (int i = 0; i < value.length(); i++) {
-                char c = value.charAt(i);
-                if (c == '\\' || c == '|') {
-                    literalBuffer.append('\\');
-                }
-                literalBuffer.append(c);
-                if (i == 0 && !StringUtils.isNameStart(c)) {
-                    wasName = false;
-                } else if (!StringUtils.isNameChar(c)) {
-                    wasName = false;
-                }
-            }
-            if (wasName && literalBuffer.length() != 0) {
-                result.append(literalBuffer);
-            } else {
-                result.append('|');
-                result.append(literalBuffer);
-                result.append('|');
-            }
+            result.append('|');
+            result.append(literalBuffer);
+            result.append('|');
         }
     }
 

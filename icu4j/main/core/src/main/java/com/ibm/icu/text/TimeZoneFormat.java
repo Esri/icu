@@ -66,7 +66,7 @@ import com.ibm.icu.util.ULocale;
  * @see TimeZoneNames
  * @stable ICU 49
  */
-public class TimeZoneFormat extends UFormat implements Freezable<TimeZoneFormat>, Serializable {
+public class TimeZoneFormat extends UFormat implements Freezable<TimeZoneFormat>, Serializable, Cloneable {
 
     private static final long serialVersionUID = 2281246852693575022L;
 
@@ -1634,10 +1634,6 @@ public class TimeZoneFormat extends UFormat implements Freezable<TimeZoneFormat>
      * @return the localized GMT string
      */
     private String formatOffsetLocalizedGMT(int offset, boolean isShort) {
-        if (offset == 0) {
-            return _gmtZeroFormat;
-        }
-
         StringBuilder buf = new StringBuilder();
         boolean positive = true;
         if (offset < 0) {
@@ -3300,6 +3296,15 @@ public class TimeZoneFormat extends UFormat implements Freezable<TimeZoneFormat>
         TimeZoneFormat copy = (TimeZoneFormat)super.clone();
         copy._frozen = false;
         return copy;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @stable ICU 49
+     */
+    @Override
+    public TimeZoneFormat clone() {
+        return (TimeZoneFormat)super.clone();
     }
 }
 

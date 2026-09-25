@@ -861,7 +861,7 @@ public final class MessagePattern implements Cloneable, Freezable<MessagePattern
      * @stable ICU 4.8
      */
     @Override
-    public Object clone() {
+    public MessagePattern clone() {
         if(isFrozen()) {
             return this;
         } else {
@@ -1337,13 +1337,14 @@ public final class MessagePattern implements Cloneable, Freezable<MessagePattern
         } else {
             return ARG_NAME_NOT_NUMBER;
         }
-        while(start<limit) {
-            c=s.charAt(start++);
-            if('0'<=c && c<='9') {
-                if(number>=Integer.MAX_VALUE/10) {
-                    badNumber=true;  // overflow
+        while (start < limit) {
+            c = s.charAt(start++);
+            if ('0' <= c && c <= '9') {
+                if (number >= Integer.MAX_VALUE / 10) {
+                    badNumber = true; // overflow
+                } else {
+                    number = number * 10 + (c - '0');
                 }
-                number=number*10+(c-'0');
             } else {
                 return ARG_NAME_NOT_NUMBER;
             }

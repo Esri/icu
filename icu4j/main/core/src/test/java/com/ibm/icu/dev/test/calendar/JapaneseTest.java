@@ -286,10 +286,10 @@ public class JapaneseTest extends CalendarTestFmwk {
         fmt.applyPattern("G y");
         logln("fmt's locale = " + fmt.getLocale(ULocale.ACTUAL_LOCALE));
         //SimpleDateFormat fmt = new SimpleDateFormat("G y", new ULocale("en_US@calendar=japanese"));
-        long aDateLong = -3197117222000L; // 1868-09-08 00:00 Pacific Time (GMT-07:52:58)
+        long aDateLong = -3193229222000L; // 1868-10-23 00:00 Pacific Time (GMT-07:52:58)
         if (TimeZone.getDefaultTimeZoneType() == TimeZone.TIMEZONE_JDK) {
             // Java time zone implementation does not support LMTs
-            aDateLong = -3197116800000L; // 1868-09-08 00:00 Pacific Time (GMT-08:00)
+            aDateLong = -3193228800000L; // 1868-10-23 00:00 Pacific Time (GMT-08:00)
         }
         Date aDate = new Date(aDateLong);
         logln("aDate: " + aDate.toString() +", from " + aDateLong);
@@ -315,8 +315,6 @@ public class JapaneseTest extends CalendarTestFmwk {
 
                 errln("FAIL: Parse incorrect of " + expected + ":  wanted " + aDate + " ("+aLong+"), but got " +  " " +
                     otherDate + " ("+oLong+") = " + str3 + " not " + dd.toString() );
-
-
             } else {
                 logln("Parsed OK: " + expected);
             }

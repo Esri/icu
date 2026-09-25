@@ -959,7 +959,7 @@ public class DateFormatTest extends CoreTestFmwk {
         { "en", "Australia/Sydney", "2004-07-15T00:00:00Z", "VVVV", "Sydney Time", "Australia/Sydney" },
 
         { "en", "Europe/London", "2004-01-15T00:00:00Z", "Z", "+0000", "+0:00" },
-        { "en", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT", "+0:00" },
+        { "en", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT+00:00", "+0:00" },
         { "en", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT", "+0:00" },
         { "en", "Europe/London", "2004-01-15T00:00:00Z", "zzzz", "Greenwich Mean Time", "+0:00" },
         { "en", "Europe/London", "2004-07-15T00:00:00Z", "Z", "+0100", "+1:00" },
@@ -1070,8 +1070,8 @@ public class DateFormatTest extends CoreTestFmwk {
         { "de", "Australia/Sydney", "2004-07-15T00:00:00Z", "vvvv", "Ostaustralische Zeit", "Australia/Sydney" },
 
         { "de", "Europe/London", "2004-01-15T00:00:00Z", "Z", "+0000", "+0:00" },
-        { "de", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT", "+0:00" },
-        { "de", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT", "+0:00" },
+        { "de", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT+00:00", "+0:00" },
+        { "de", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT+0", "+0:00" },
         { "de", "Europe/London", "2004-01-15T00:00:00Z", "zzzz", "Mittlere Greenwich-Zeit", "+0:00" },
         { "de", "Europe/London", "2004-07-15T00:00:00Z", "Z", "+0100", "+1:00" },
         { "de", "Europe/London", "2004-07-15T00:00:00Z", "ZZZZ", "GMT+01:00", "+1:00" },
@@ -1174,8 +1174,8 @@ public class DateFormatTest extends CoreTestFmwk {
         { "zh", "Australia/Sydney", "2004-07-15T00:00:00Z", "vvvv", "\u6fb3\u5927\u5229\u4e9a\u4e1c\u90e8\u65f6\u95f4", "Australia/Sydney" },
 
         { "zh", "Europe/London", "2004-01-15T00:00:00Z", "Z", "+0000", "+0:00" },
-        { "zh", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", GMT_ZH, "+0:00" },
-        { "zh", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT", "+0:00" },
+        { "zh", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", GMT_ZH+"+00:00", "+0:00" },
+        { "zh", "Europe/London", "2004-01-15T00:00:00Z", "z", GMT_ZH+"+0", "+0:00" },
         { "zh", "Europe/London", "2004-01-15T00:00:00Z", "zzzz", "\u683C\u6797\u5C3C\u6CBB\u6807\u51C6\u65F6\u95F4", "+0:00" },
         { "zh", "Europe/London", "2004-07-15T00:00:00Z", "Z", "+0100", "+1:00" },
         { "zh", "Europe/London", "2004-07-15T00:00:00Z", "ZZZZ", GMT_ZH+"+01:00", "+1:00" },
@@ -1277,8 +1277,8 @@ public class DateFormatTest extends CoreTestFmwk {
         { "hi", "Australia/Sydney", "2004-07-15T00:00:00Z", "vvvv", "\u092a\u0942\u0930\u094d\u0935\u0940 \u0911\u0938\u094d\u091f\u094d\u0930\u0947\u0932\u093f\u092f\u093e \u0938\u092e\u092f", "Australia/Sydney" },
 
         { "hi", "Europe/London", "2004-01-15T00:00:00Z", "Z", "+0000", "+0:00" },
-        { "hi", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT", "+0:00" },
-        { "hi", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT", "+0:00" },
+        { "hi", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT+00:00", "+0:00" },
+        { "hi", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT+0", "+0:00" },
         { "hi", "Europe/London", "2004-01-15T00:00:00Z", "zzzz", "\u0917\u094d\u0930\u0940\u0928\u0935\u093f\u091a \u092e\u0940\u0928 \u091f\u093e\u0907\u092e", "+0:00" },
         { "hi", "Europe/London", "2004-07-15T00:00:00Z", "Z", "+0100", "+1:00" },
         { "hi", "Europe/London", "2004-07-15T00:00:00Z", "ZZZZ", "GMT+01:00", "+1:00" },
@@ -1381,8 +1381,8 @@ public class DateFormatTest extends CoreTestFmwk {
         { "bg", "Australia/Sydney", "2004-07-15T00:00:00Z", "vvvv", "\u0418\u0437\u0442\u043E\u0447\u043D\u043E\u0430\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u0439\u0441\u043A\u043E \u0432\u0440\u0435\u043C\u0435", "Australia/Sydney" },
 
         { "bg", "Europe/London", "2004-01-15T00:00:00Z", "Z", "+0000", "+0:00" },
-        { "bg", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", GMT_BG, "+0:00" },
-        { "bg", "Europe/London", "2004-01-15T00:00:00Z", "z", GMT_BG, "+0:00" },
+        { "bg", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", GMT_BG+"+00:00", "+0:00" },
+        { "bg", "Europe/London", "2004-01-15T00:00:00Z", "z", GMT_BG+"+0", "+0:00" },
         { "bg", "Europe/London", "2004-01-15T00:00:00Z", "zzzz", "\u0421\u0440\u0435\u0434\u043d\u043e \u0433\u0440\u0438\u043d\u0443\u0438\u0447\u043a\u043e \u0432\u0440\u0435\u043c\u0435", "+0:00" },
         { "bg", "Europe/London", "2004-07-15T00:00:00Z", "Z", "+0100", "+1:00" },
         { "bg", "Europe/London", "2004-07-15T00:00:00Z", "ZZZZ", GMT_BG+"+01:00", "+1:00" },
@@ -1419,14 +1419,14 @@ public class DateFormatTest extends CoreTestFmwk {
         { "ja", "America/Los_Angeles", "2004-01-15T00:00:00Z", "Z", "-0800", "-8:00" },
         { "ja", "America/Los_Angeles", "2004-01-15T00:00:00Z", "ZZZZ", "GMT-08:00", "-8:00" },
         { "ja", "America/Los_Angeles", "2004-01-15T00:00:00Z", "z", "GMT-8", "America/Los_Angeles" },
-        { "ja", "America/Los_Angeles", "2004-01-15T00:00:00Z", "zzzz", "\u30a2\u30e1\u30ea\u30ab\u592a\u5e73\u6d0b\u6a19\u6e96\u6642", "America/Los_Angeles" },
+        { "ja", "America/Los_Angeles", "2004-01-15T00:00:00Z", "zzzz", "\u7c73\u56fd\u592a\u5e73\u6d0b\u6a19\u6e96\u6642", "America/Los_Angeles" },
         { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "Z", "-0700", "-7:00" },
         { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "ZZZZ", "GMT-07:00", "-7:00" },
         { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "z", "GMT-7", "America/Los_Angeles" },
-        { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "zzzz", "\u30a2\u30e1\u30ea\u30ab\u592a\u5e73\u6d0b\u590f\u6642\u9593", "America/Los_Angeles" },
+        { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "zzzz", "\u7c73\u56fd\u592a\u5e73\u6d0b\u590f\u6642\u9593", "America/Los_Angeles" },
     // icu ja.txt has exemplar city for this time zone
         { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "v", "\u30ED\u30B5\u30F3\u30BC\u30EB\u30B9\u6642\u9593", "America/Los_Angeles" },
-        { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "vvvv", "\u30A2\u30E1\u30EA\u30AB\u592A\u5E73\u6D0B\u6642\u9593", "America/Los_Angeles" },
+        { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "vvvv", "\u7c73\u56fd\u592a\u5e73\u6d0b\u6642\u9593", "America/Los_Angeles" },
         { "ja", "America/Los_Angeles", "2004-07-15T00:00:00Z", "VVVV", "\u30ED\u30B5\u30F3\u30BC\u30EB\u30B9\u6642\u9593", "America/Los_Angeles" },
 
         { "ja", "America/Argentina/Buenos_Aires", "2004-01-15T00:00:00Z", "Z", "-0300", "-3:00" },
@@ -1488,8 +1488,8 @@ public class DateFormatTest extends CoreTestFmwk {
         { "ja", "Australia/Sydney", "2004-07-15T00:00:00Z", "vvvv", "\u30AA\u30FC\u30B9\u30C8\u30E9\u30EA\u30A2\u6771\u90E8\u6642\u9593", "Australia/Sydney" },
 
         { "ja", "Europe/London", "2004-01-15T00:00:00Z", "Z", "+0000", "+0:00" },
-        { "ja", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT", "+0:00" },
-        { "ja", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT", "+0:00" },
+        { "ja", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT+00:00", "+0:00" },
+        { "ja", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT+0", "+0:00" },
         { "ja", "Europe/London", "2004-01-15T00:00:00Z", "zzzz", "\u30B0\u30EA\u30CB\u30C3\u30B8\u6A19\u6E96\u6642", "+0:00" },
         { "ja", "Europe/London", "2004-07-15T00:00:00Z", "Z", "+0100", "+1:00" },
         { "ja", "Europe/London", "2004-07-15T00:00:00Z", "ZZZZ", "GMT+01:00", "+1:00" },
@@ -1594,8 +1594,8 @@ public class DateFormatTest extends CoreTestFmwk {
         { "ti", "Australia/Sydney", "2004-07-15T00:00:00Z", "vvvv", "\u1293\u12ed \u121d\u1265\u122b\u1253\u12ca \u12a3\u12cd\u1235\u1275\u122b\u120d\u12eb \u130d\u12d8", "Australia/Sydney" },
 
         { "ti", "Europe/London", "2004-01-15T00:00:00Z", "Z", "+0000", "+0:00" },
-        { "ti", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT", "+0:00" },
-        { "ti", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT", "+0:00" },
+        { "ti", "Europe/London", "2004-01-15T00:00:00Z", "ZZZZ", "GMT+00:00", "+0:00" },
+        { "ti", "Europe/London", "2004-01-15T00:00:00Z", "z", "GMT+0", "+0:00" },
         { "ti", "Europe/London", "2004-01-15T00:00:00Z", "zzzz", "GMT", "+0:00" },
         { "ti", "Europe/London", "2004-07-15T00:00:00Z", "Z", "+0100", "+1:00" },
         { "ti", "Europe/London", "2004-07-15T00:00:00Z", "ZZZZ", "GMT+01:00", "+1:00" },
@@ -2451,7 +2451,7 @@ public class DateFormatTest extends CoreTestFmwk {
 
         ICUResourceBundle rb = (ICUResourceBundle)UResourceBundle.getBundleInstance(ICUData.ICU_BASE_NAME,"de_DE");
         DateFormatSymbols sym = new DateFormatSymbols(rb, Locale.GERMANY);
-        DateFormatSymbols sym2 = (DateFormatSymbols)sym.clone();
+        DateFormatSymbols sym2 = sym.clone();
         if (sym.hashCode() != sym2.hashCode()) {
             errln("fail, date format symbols hashcode not equal");
         }
@@ -3118,8 +3118,8 @@ public class DateFormatTest extends CoreTestFmwk {
             String CA_DATA[] = {
                 "yyyy MM dd HH:mm:ss",
 
-                "h:mm a",     "2015 01 01 10:00:00", "10:00 a.\u00A0m.",
-                "h:mm a",     "2015 01 01 22:00:00", "10:00 p.\u00A0m.",
+                "h:mm a",     "2015 01 01 10:00:00", "10:00 a.\u202Fm.",
+                "h:mm a",     "2015 01 01 22:00:00", "10:00 p.\u202Fm.",
                 "h:mm aaaaa", "2015 01 01 10:00:00", "10:00 a.\u202Fm.",
                 "h:mm aaaaa", "2015 01 01 22:00:00", "10:00 p.\u202Fm.",
             };
@@ -3981,7 +3981,7 @@ public class DateFormatTest extends CoreTestFmwk {
     public void TestSimpleDateFormatConstructor_String_String_ULocale() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("", "", null);
-            sdf = (SimpleDateFormat) sdf.clone();
+            sdf = sdf.clone();
         } catch (Exception e) {
             errln("SimpleDateFormat(String pattern, String override, ULocale loc) "
                     + "was not suppose to return an exception when constructing a new " + "SimpleDateFormat object.");
@@ -4634,7 +4634,7 @@ public class DateFormatTest extends CoreTestFmwk {
 
             // now try context & standard format call
             sdfmt.setContext(item.capitalizationContext);
-            SimpleDateFormat sdfmtClone = (SimpleDateFormat)sdfmt.clone();
+            SimpleDateFormat sdfmtClone = sdfmt.clone();
             if (!sdfmtClone.equals(sdfmt)) {
                 errln("FAIL: for locale " + item.locale +  ", capitalizationContext " + item.capitalizationContext +
                         ", sdfmt.clone() != sdfmt (for SimpleDateFormat)");
@@ -5577,6 +5577,17 @@ public class DateFormatTest extends CoreTestFmwk {
     }
 
     @Test
+    public void testExtendedYear() {
+        ULocale locale = new ULocale("en-u-ca-ethiopic-amete-alem");
+        DateFormat fmt = DateFormat.getInstanceForSkeleton("yMd", locale);
+        DateFormat fmt2 = DateFormat.getInstanceForSkeleton("uMd", locale);
+        String result = fmt.format(new Date(98, 5-1, 25));
+        String result2 = fmt2.format(new Date(98, 5-1, 25));
+        assertEquals("Format", "9/17/7490 AA", result);
+        assertEquals("Format", result, result2);
+    }
+
+    @Test
     public void test20741_ABFields() {
         String [] skeletons = {"EEEEEBBBBB", "EEEEEbbbbb"};
         ULocale[] locales = ULocale.getAvailableLocales();
@@ -5727,5 +5738,50 @@ public class DateFormatTest extends CoreTestFmwk {
             String actualResult = df.format(DATE);
             assertEquals("Wrong result for " + locale, testCase[1], actualResult);
         }
+    }
+
+    static private void oneCalendarTest(Locale locale, String expect1, String expect2) {
+        String skeleton = "EyMMMMdjmz";
+        long millis = 1758854856581L; // 2025/09/25 19:47:36
+
+        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT, locale);
+        DateFormat sdf = SimpleDateFormat.getInstanceForSkeleton(skeleton, locale);
+        java.util.Calendar cal = java.util.Calendar.getInstance(locale);
+        cal.setTimeInMillis(millis);
+        assertEquals("", expect1, df.format(cal));
+        assertEquals("", expect2, sdf.format(cal));
+    }
+
+    @Test
+    public void TestJdkCalendarFormatting() {
+        long millis = 1758854856581L; // 2025/09/25 19:47:36
+        String skeleton = "EyMMMMdjmz";
+
+        oneCalendarTest(Locale.US,
+                "September 25, 2025 at 7:47\u202FPM",
+                "Thu, September 25, 2025 at 7:47\u202FPM PDT");
+
+        /*
+         * The JDK does not expose the non-Gregorian calendars,
+         * so we can't create them explicitly.
+         * The only way we can get them is by using the special
+         * locales `ja_JP_JP` and `th_TH_TH`, and by using `-u-ca`
+         */
+
+        // Japanese calendar
+        oneCalendarTest(new Locale("ja", "JP", "JP"),
+                "令和7年9月25日 19:47",
+                "令和7年9月25日(木) 19:47 GMT-7");
+        oneCalendarTest(Locale.forLanguageTag("en-US-u-ca-japanese"),
+                "September 25, 7 Reiwa at 7:47\u202FPM",
+                "Thu, September 25, 7 Reiwa at 7:47\u202FPM PDT");
+
+        // Buddhist calendar
+        oneCalendarTest(new Locale("th", "TH", "TH"),
+                "๒๕ กันยายน ๒๕๖๘ เวลา ๑๙:๔๗",
+                "พฤหัส ๒๕ กันยายน ๒๕๖๘ เวลา ๑๙:๔๗ GMT-๗");
+        oneCalendarTest(Locale.forLanguageTag("en-US-u-ca-buddhist"),
+                "September 25, 2568 BE at 7:47\u202FPM",
+                "Thu, September 25, 2568 BE at 7:47\u202FPM PDT");
     }
 }

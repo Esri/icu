@@ -1027,17 +1027,17 @@ public class RelativeDateTimeFormatterTest extends CoreTestFmwk {
 
         String[] ak_decDef_long_stdAlon_sec = { // falls back to root
         /*  text                    numeric */
-            "nnibuo 5 a atwam",     "nnibuo 5 a atwam",               /* -5   */
-            "nnibuo 2.2 a atwam",   "nnibuo 2.2 a atwam",             /* -2.2 */
-            "nnibuo 2 a atwam",     "nnibuo 2 a atwam",               /* -2   */
-            "anibuo 1 a atwam",     "anibuo 1 a atwam",               /* -1   */
-            "nnibuo 0.7 a atwam",   "nnibuo 0.7 a atwam",             /* -0.7 */
-            "seesei",               "anibuo 0 a atwam",               /*  -0  */
-            "seesei",               "anibuo 0 mu",               /*  0   */
-            "nnibuo 0.7 mu",        "nnibuo 0.7 mu",             /*  0.7 */
-            "anibuo 1 mu",          "anibuo 1 mu",               /*  1   */
-            "nnibuo 2 mu",          "nnibuo 2 mu",               /*  2   */
-            "nnibuo 5 mu",          "nnibuo 5 mu",               /*  5   */
+            "simasin 5 a atwam",     "simasin 5 a atwam",               /* -5   */
+            "simasin 2.2 a atwam",   "simasin 2.2 a atwam",             /* -2.2 */
+            "simasin 2 a atwam",     "simasin 2 a atwam",               /* -2   */
+            "simasin 1 a atwam",     "simasin 1 a atwam",               /* -1   */
+            "simasin 0.7 a atwam",   "simasin 0.7 a atwam",             /* -0.7 */
+            "seesei",                "simasin 0 a atwam",               /*  -0  */
+            "seesei",                "simasin 0 mu",               /*  0   */
+            "simasin 0.7 mu",        "simasin 0.7 mu",             /*  0.7 */
+            "simasin 1 mu",          "simasin 1 mu",               /*  1   */
+            "simasin 2 mu",          "simasin 2 mu",               /*  2   */
+            "simasin 5 mu",          "simasin 5 mu",               /*  5   */
         };
 
         String[] enIN_decDef_short_midSent_sunday = {

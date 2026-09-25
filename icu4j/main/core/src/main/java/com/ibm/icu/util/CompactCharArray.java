@@ -21,7 +21,7 @@ import com.ibm.icu.impl.Utility;
  * Han ideographs have the same value.  However, lookup is much faster than a
  * hash table.
  * A compact array of any primitive data type serves two purposes:
- * <UL type = round>
+ * <UL>
  *     <LI>Fast access of the indexed values.
  *     <LI>Smaller memory footprint.
  * </UL>
@@ -333,7 +333,7 @@ public final class CompactCharArray implements Cloneable {
      */
     @Override
     @Deprecated
-    public Object clone()
+    public CompactCharArray clone()
     {
         try {
             CompactCharArray other = (CompactCharArray) super.clone();

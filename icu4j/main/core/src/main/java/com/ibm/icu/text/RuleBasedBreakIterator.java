@@ -46,7 +46,7 @@ import com.ibm.icu.util.CodePointTrie;
  *
  * @stable ICU 2.0
  */
-public class RuleBasedBreakIterator extends BreakIterator {
+public class RuleBasedBreakIterator extends BreakIterator implements Cloneable {
     //=======================================================================
     // Constructors & Factories
     //=======================================================================
@@ -164,11 +164,11 @@ public class RuleBasedBreakIterator extends BreakIterator {
      * @stable ICU 2.0
      */
     @Override
-    public Object clone()  {
+    public RuleBasedBreakIterator clone()  {
         RuleBasedBreakIterator result;
         result = (RuleBasedBreakIterator)super.clone();
         if (fText != null) {
-            result.fText = (CharacterIterator)(fText.clone());
+            result.fText = (CharacterIterator)fText.clone();
         }
         result.fLookAheadMatches = new int[fRData.fFTable.fLookAheadResultsSize];
         result.fBreakCache = result.new BreakCache(fBreakCache);
@@ -511,7 +511,7 @@ public class RuleBasedBreakIterator extends BreakIterator {
         if (fText == null || offset > fText.getEndIndex()) {
             return last();
         } else if (offset < fText.getBeginIndex()) {
-            return first();
+            return DONE;
         }
 
         // Move requested offset to a code point start. It might be between a lead and trail surrogate.
@@ -524,12 +524,12 @@ public class RuleBasedBreakIterator extends BreakIterator {
 
 
     /**
-     * Throw IllegalArgumentException unless begin &lt;= offset &lt; end.
+     * Throw IndexOutOfBoundsException unless begin &lt;= offset &lt; end.
      * @stable ICU 2.0
      */
     protected static final void checkOffset(int offset, CharacterIterator text) {
         if (offset < text.getBeginIndex() || offset > text.getEndIndex()) {
-            throw new IllegalArgumentException("offset out of bounds");
+            throw new IndexOutOfBoundsException(offset);
         }
     }
 
@@ -1274,7 +1274,7 @@ public class RuleBasedBreakIterator extends BreakIterator {
          */
         DictionaryCache(DictionaryCache src)  {
             try {
-                fBreaks = (DictionaryBreakEngine.DequeI)src.fBreaks.clone();
+                fBreaks = src.fBreaks.clone();
             }
             catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
@@ -1414,7 +1414,7 @@ class BreakCache {
      * If the requested position is a break boundary, leave the iteration
      * position on it.
      * If the requested position is not a boundary, leave the iteration
-     * position on the preceding boundary and include both the the
+     * position on the preceding boundary and include both the
      * preceding and following boundaries in the cache.
      * Additional boundaries, either preceding or following, may be added
      * to the cache as a side effect.

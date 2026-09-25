@@ -2,25 +2,23 @@
 // License & terms of use: http://www.unicode.org/copyright.html
 package com.ibm.icu.dev.test.number;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.math.RoundingMode;
 import java.util.Locale;
 
 import org.junit.Test;
 
+import com.ibm.icu.dev.test.CoreTestFmwk;
 import com.ibm.icu.number.LocalizedNumberFormatter;
 import com.ibm.icu.number.NumberFormatter;
 import com.ibm.icu.number.SkeletonSyntaxException;
+import com.ibm.icu.util.MeasureUnit;
 import com.ibm.icu.util.ULocale;
 
 /**
  * @author sffc
  *
  */
-public class NumberSkeletonTest {
+public class NumberSkeletonTest extends CoreTestFmwk {
 
     @Test
     public void validTokens() {
@@ -431,33 +429,52 @@ public class NumberSkeletonTest {
 
     @Test
     public void perUnitToSkeleton() {
-        String[][] cases = {
-            {"area", "acre"},
-            {"concentr", "percent"},
-            {"concentr", "permille"},
-            {"concentr", "permillion"},
-            {"concentr", "permyriad"},
-            {"digital", "bit"},
-            {"length", "yard"},
+        class TestCase {
+            String type;
+            String subType;
+
+            TestCase(String type, String sub_type) {
+                this.type = type;
+                this.subType = sub_type;
+            }
+        }
+
+        TestCase[] cases = new TestCase[] {
+                new TestCase("area", "acre"),
+                new TestCase("concentr", "percent"),
+                new TestCase("concentr", "permille"),
+                new TestCase("concentr", "permyriad"),
+                new TestCase("digital", "bit"),
+                new TestCase("length", "yard"),
+                new TestCase("concentr", "part-per-1e9"),
         };
 
-        for (String[] cas1 : cases) {
-            for (String[] cas2 : cases) {
-                String skeleton = "measure-unit/" + cas1[0] + "-" + cas1[1] + " per-measure-unit/" +
-                                  cas2[0] + "-" + cas2[1];
-
-                if (cas1[0] != cas2[0] && cas1[1] != cas2[1]) {
-                    String toSkeleton = NumberFormatter.forSkeleton(skeleton).toSkeleton();
-
-                    // Ensure both subtype are in the toSkeleton.
-                    String msg;
-                    msg = toSkeleton + " should contain '" + cas1[1] + "' when constructed from " +
-                          skeleton;
-                    assertTrue(msg, toSkeleton.indexOf(cas1[1]) >= 0);
-                    msg = toSkeleton + " should contain '" + cas2[1] + "' when constructed from " +
-                          skeleton;
-                    assertTrue(msg, toSkeleton.indexOf(cas2[1]) >= 0);
+        for (TestCase numeratorCase : cases) {
+            for (TestCase denominatorCase : cases) {
+                MeasureUnit denominatorUnit = MeasureUnit.forIdentifier(denominatorCase.subType);
+                
+                // If the units has a constant denominator, we skip the test because we could
+                // not have a per unit with a constant denominator.
+                if (denominatorUnit.getConstantDenominator() != 0) {
+                    continue;
                 }
+
+                String skeleton = "measure-unit/" + numeratorCase.type + "-" + numeratorCase.subType
+                        + " per-measure-unit/" +
+                        denominatorCase.type + "-" + denominatorCase.subType;
+                String toSkeleton = NumberFormatter.forSkeleton(skeleton).toSkeleton();
+
+
+                // Ensure both subtype (Units Cldr IDs) are in the toSkeleton.
+                String skeletonMsgNumString = toSkeleton + " should contain '" + numeratorCase.subType
+                        + "' when constructed from " +
+                        skeleton;
+                assertTrue(skeletonMsgNumString, toSkeleton.indexOf(numeratorCase.subType) >= 0);
+
+                String skeletonMsgDenString = toSkeleton + " should contain '" + denominatorCase.subType
+                        + "' when constructed from " +
+                        skeleton;
+                assertTrue(skeletonMsgDenString, toSkeleton.indexOf(denominatorCase.subType) >= 0);
             }
         }
     }

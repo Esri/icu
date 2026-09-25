@@ -5,22 +5,21 @@
 export MAVEN_ARGS='--no-transfer-progress'
 
 # Version update!
-export artifact_version='77.1'
-export github_rel_version='77_1'
-export api_report_version='77'
-export api_report_prev_version='76'
+export artifact_version='78.3'
+export github_rel_version='78.3'
+export api_report_version='78'
+export api_report_prev_version='77'
 export out_dir=target
 
-function checkThatJdk8IsDefault() {
+function checkThatJdk8IsNotDefault() {
   javac -version appPath 2>&1 | grep -E 'javac 1\.8\.' > /dev/null
   if [ $? -eq 0 ]; then
-    echo "The default JDK is JDK 8, all good!"
-    javac -version
-  else
-    echo "This step can only be executed with JDK 8!"
-    echo "Make sure that you have the PATH pointing to a JDK 8!"
+    echo "This step can only be executed with a JDK newer than 8!"
     javac -version
     exit
+  else
+    echo "The default JDK is newer than JDK 8, all good!"
+    javac -version
   fi
 
 }

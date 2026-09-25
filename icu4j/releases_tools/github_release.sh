@@ -24,8 +24,8 @@ function copyArtifactForGithubRelease() {
 # The start of the script proper
 
 release_folder=${out_dir}/github_release
-# We still need JDK 8 to generate the javadoc (because of the doclets)
-checkThatJdk8IsDefault
+# We can't use JDK 8 to generate the javadoc (because of the doclets)
+checkThatJdk8IsNotDefault
 
 # ====================================================================================
 # Build artifacts and copy them in the output folder
@@ -38,7 +38,6 @@ rm   -fr ${release_folder}
 mkdir -p ${release_folder}
 copyArtifactForGithubRelease icu4j
 copyArtifactForGithubRelease icu4j-charset
-copyArtifactForGithubRelease icu4j-localespi
 
 # ====================================================================================
 # Build complete javadoc and copy it in the output folder

@@ -275,7 +275,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
         for (int i = 0; i < INPUT_LOCALEIDS.length; i++) {
             String[] localeStrings = INPUT_LOCALEIDS[i];
             ArrayList<ULocale> locales = new ArrayList<>();
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int j = 0; j < localeStrings.length; j++) {
                 locales.add(new ULocale(localeStrings[j]));
                 if (j != 0) {
@@ -309,7 +309,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
         for (int i = 0; i < INPUT_LOCALEIDS.length; i++) {
             String[] localeStrings = INPUT_LOCALEIDS[i];
             ULocale[] localeArray = new ULocale[INPUT_LOCALEIDS[i].length];
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int j = 0; j < localeStrings.length; j++) {
                 localeArray[j] = new ULocale(localeStrings[j]);
                 if (j != 0) {
@@ -644,7 +644,7 @@ public class GlobalizationPreferencesTest extends TestFmwk {
 
         cal = gp.getCalendar();
         ULocale calLocale = cal.getLocale(ULocale.VALID_LOCALE);
-        if (!calLocale.equals(locales[2])) {
+        if (!calLocale.equals(locales[1])) {
             errln("FAIL: Calendar locale is " + calLocale.toString() + " - Expected: en_GB");
         }
 

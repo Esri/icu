@@ -22,12 +22,10 @@ jobs:
     steps:
 
     - name: Checkout and setup
-      uses: actions/checkout@v4
-      with:
-        lfs: true
+      uses: actions/checkout@v5
 
     - name: Set up JDK
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: '11'
         distribution: 'temurin'
@@ -46,13 +44,11 @@ jobs:
     - name: Checksums and sign
       run: |
         source icu4j/releases_tools/shared.sh
-        # Convert 76.1 to 76_1
-        underscore_version=$(echo $artifact_version | sed 's/\./_/g')
         pushd ${RELEASE_FOLDER}
         sha512sum -b icu4c*              > SHASUM512.txt
-        md5sum -b *.jar                  > icu4j-${artifact_version}.md5
-        md5sum -b icu4c-*-data-bin-*.zip > icu4c-${underscore_version}-binary.md5
-        md5sum -b icu4c-*-src.*          > icu4c-${underscore_version}-sources.md5
+        md5sum -b *.jar                  > icu4j-${github_rel_version}.md5
+        md5sum -b icu4c-*-data-bin-*.zip > icu4c-${github_rel_version}-binary.md5
+        md5sum -b icu4c-*-sources.*      > icu4c-${github_rel_version}-sources.md5
         find . -type f -name 'icu4c*' -exec gpg --no-tty --batch --pinentry-mode loopback --passphrase=$MAVEN_GPG_PASSPHRASE -a --output {}.asc --detach-sig {} \;
         gpg --no-tty --batch --pinentry-mode loopback --passphrase=$MAVEN_GPG_PASSPHRASE -a --output SHASUM512.txt.asc --detach-sig SHASUM512.txt
         popd

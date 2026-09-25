@@ -102,7 +102,7 @@ Use the GitHub GUI to create both the "release" and the "tag" at the same time:
 
 <https://github.com/unicode-org/icu/releases/new>
 
-1. Fill in the tag name, such as `release-63-rc` or `release-63-1`, and make the
+1. Fill in the tag name, such as `release-63-1rc` or `release-63-1`, and make the
 target the "maint/maint-xx" branch (such as `maint/maint-63`).
 1. Set the title to `ICU 63 RC` or `ICU 63.1`.
 1. Fill in the description using the
@@ -234,13 +234,13 @@ Look at previous releases for an example.
 
 **Post 76.1 see [Publish - Version 76.1](release.md)**
 
-Follow instructions here: [Building ICU4J Release Files](../release-build.md)
+Follow instructions here: [Building ICU4J Release Files](release.md)
 
 ### C source/binary:
 
 **Post 76.1 see [Publish - Version 76.1](release.md)**
 
-<span style="background:yellow">***WORK IN PROGRESS***</a>
+<span style="background:yellow">***WORK IN PROGRESS***</span>
 
 #### Source and Linux Binaries:
 
@@ -320,9 +320,9 @@ That new flow overlaps with _"Using the output from the build bots"_ below.
         *   Navigate into the folder with the same name.
         *   Check and verify the names of the zip file are appropriate:
             *   Ex: The x64 zip for version 76.1 should be named
-                "icu4c-76_1-Win64-MSVC2022.zip"
+                "icu4c-76.1-Win64-MSVC2022.zip"
             *   Ex: The x86 zip for version 76.1 should be named
-                "icu4c-76_1-Win32-MSVC2022.zip"
+                "icu4c-76.1-Win32-MSVC2022.zip"
         *   Note: For RC releases the name looked like this:
             "icu4c-76rc-Win64-MSVC2022"
 *   ~~AIX Bin:~~ (AIX is broken and ignored for now.)
@@ -338,7 +338,7 @@ That new flow overlaps with _"Using the output from the build bots"_ below.
     *   ~~That last step will create a directory in **/tmp/icu** - zip that up
         to make the release.~~
     *   ~~In case /tmp happens to be full, see the [mailing list
-        archive](https://sourceforge.net/p/icu/mailman/message/36275940/) for
+        archive](https://groups.google.com/a/unicode.org/g/icu-team/c/H1mHAC9YDtc/m/Bv_dZC2WAgAJ) for
         advice.~~
 
 #### Output of icuexportdata:
